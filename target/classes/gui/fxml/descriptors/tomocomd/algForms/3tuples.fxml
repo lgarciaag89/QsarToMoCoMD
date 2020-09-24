@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tomocomd.qsartomocomd.gui.descriptors.tomocomd.algForms.ThreetuplesController">
+   <children>
+      <JFXCheckBox fx:id="trCheck" text="Threelinear" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font>
+         <GridPane.margin>
+            <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+         </GridPane.margin>
+      </JFXCheckBox>
+      <JFXCheckBox fx:id="trqbCheck" text="Threelinear-Quadratic-Bilinear" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font>
+         <GridPane.margin>
+            <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+         </GridPane.margin>
+      </JFXCheckBox>
+      <JFXCheckBox fx:id="trfCheck" text="Threelinear-Linear" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+         <GridPane.margin>
+            <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+         </GridPane.margin></JFXCheckBox>
+      <JFXButton fx:id="ok3tuplasBut" buttonType="RAISED" onAction="#ok3tuplasAction" text="Ok" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+         <GridPane.margin>
+            <Insets bottom="10.0" top="10.0" />
+         </GridPane.margin>
+      </JFXButton>
+      <JFXButton fx:id="uta3tuplasBut" buttonType="RAISED" onAction="#uta3tuplasAction" text="Untick all" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+         <GridPane.margin>
+            <Insets bottom="10.0" top="10.0" />
+         </GridPane.margin>
+      </JFXButton>
+      <JFXButton fx:id="ta3tuplasBut" buttonType="RAISED" onAction="#ta3tuplasAction" text="Tick all" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+         <GridPane.margin>
+            <Insets bottom="10.0" top="10.0" />
+         </GridPane.margin>
+      </JFXButton>
+      <JFXCheckBox fx:id="trbCheck" text="Threelinear-Bilinear" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+         <GridPane.margin>
+            <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+         </GridPane.margin></JFXCheckBox>
+      <JFXCheckBox fx:id="trcCheck" text="Threelinear-Cubic" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+         <GridPane.margin>
+            <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+         </GridPane.margin>
+      </JFXCheckBox>
+   </children>
+   <columnConstraints>
+      <ColumnConstraints />
+      <ColumnConstraints />
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
+</GridPane>

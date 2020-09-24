@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tomocomd.qsartomocomd.gui.descriptors.tomocomd.algForms.FourtuplesController">
+   <children>
+      <JFXCheckBox fx:id="Quheck" text="Fourlinear" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font>
+         <GridPane.margin>
+            <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+         </GridPane.margin>
+      </JFXCheckBox>
+      <JFXCheckBox fx:id="quqdCheck" text="Fourlinear-quadruple" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font>
+         <GridPane.margin>
+            <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+         </GridPane.margin>
+      </JFXCheckBox>
+      <JFXCheckBox fx:id="qufCheck" text="Fourlinear-Linear" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+         <GridPane.margin>
+            <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+         </GridPane.margin>
+      </JFXCheckBox>
+      <JFXButton fx:id="ok4tuplasBut" buttonType="RAISED" onAction="#ok4tuplasAction" text="Ok" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+         <GridPane.margin>
+            <Insets bottom="10.0" top="10.0" />
+         </GridPane.margin>
+      </JFXButton>
+      <JFXButton fx:id="uta4tuplasBut" buttonType="RAISED" onAction="#uta4tuplasAction" text="Untick all" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+         <GridPane.margin>
+            <Insets bottom="10.0" top="10.0" />
+         </GridPane.margin>
+      </JFXButton>
+      <JFXButton fx:id="ta4tuplasBut" buttonType="RAISED" onAction="#ta4tuplasAction" text="Tick all" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+         <GridPane.margin>
+            <Insets bottom="10.0" top="10.0" />
+         </GridPane.margin>
+      </JFXButton>
+      <JFXCheckBox fx:id="qubCheck" text="Fourlinear-Bilinear" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+         <GridPane.margin>
+            <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+         </GridPane.margin></JFXCheckBox>
+      <JFXCheckBox fx:id="qutrCheck" text="Fourlinear-Threelinear" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+         <GridPane.margin>
+            <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+         </GridPane.margin>
+      </JFXCheckBox>
+      <JFXCheckBox fx:id="qucbCheck" text="Fourlinear-cubic-bilinear" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font>
+         <GridPane.margin>
+            <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+         </GridPane.margin>
+      </JFXCheckBox>
+      <JFXCheckBox fx:id="quqtrCheck" text="Fourlinear-quadratic-threelinear" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font>
+         <GridPane.margin>
+            <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+         </GridPane.margin>
+      </JFXCheckBox>
+   </children>
+   <columnConstraints>
+      <ColumnConstraints />
+      <ColumnConstraints />
+      <ColumnConstraints />
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
+</GridPane>

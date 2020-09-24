@@ -1,0 +1,43 @@
+
+.jfx-text-field, .jfx-combo-box{
+    -jfx-label-float: true;
+    -fx-font-size: 14px;
+    -fx-font-style: italic;
+}
+
+.jfx-check-box{
+    -jfx-checked-color: #00FF00;
+}
+
+.jfx-button{
+    -fx-font-size: 16px;
+    -fx-text-fill:white;
+    -fx-font-style: italic;
+    -fx-background-color: #207ce5;    
+}
+
+#cancelProjBut{
+    -fx-font-size: 20px;
+    -fx-background-color: #DC143C;    
+}
+
+#saveProjBut{
+    -fx-font-size: 20px;
+}
+
+#loadProjBut{
+    -fx-font-size: 20px;
+}
+
+#runProjBut{
+    -fx-font-size: 20px;
+    -fx-background-color: #00FF00;    
+}
+
+#masDiaHGrid, #formsGrid, #masBox, #boxMidas, #tuplesGrid,#diagGrid, .tab-pane, #reliefBox{
+    -fx-border-color: lightgray;
+}
+
+.jfx-combo-box{
+    -fx-pref-width: 150;
+}

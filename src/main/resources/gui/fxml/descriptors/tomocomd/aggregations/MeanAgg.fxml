@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tomocomd.qsartomocomd.gui.descriptors.tomocomd.aggregations.MeansAggController">
+   <children>
+      <GridPane layoutX="54.0" layoutY="21.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <JFXButton fx:id="okMeanMidasButton" buttonType="RAISED" onAction="#okMeanAction" text="Ok" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+               <GridPane.margin>
+                  <Insets bottom="10.0" top="10.0" />
+               </GridPane.margin>
+            </JFXButton>
+            <JFXCheckBox fx:id="gmAgreCheck" text="Geometric mean" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="15.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+            </JFXCheckBox>
+            <JFXCheckBox fx:id="amAgreCheck" text="Arithmetic mean(Alfa=1)" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="15.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+            </JFXCheckBox>
+            <JFXCheckBox fx:id="p2AgreCheck" text="Quadratic mean(alfa=2)" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="15.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+            </JFXCheckBox>
+            <JFXCheckBox fx:id="p3AgreCheck" text="Potencial mean(alfa=3)" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="15.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+            </JFXCheckBox>
+            <JFXCheckBox fx:id="hmAgreCheck" text="Harmonic mean(alfa=-1)" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="15.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+            </JFXCheckBox>
+            <HBox GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+               <children>
+                  <JFXButton fx:id="utaMeanBut" buttonType="RAISED" onAction="#unSelectMeanAction" text="Untick all" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="20.0" top="10.0" />
+                     </HBox.margin></JFXButton>
+                  <VBox HBox.hgrow="ALWAYS" />
+                  <JFXButton fx:id="taMeanBut" alignment="CENTER_RIGHT" buttonType="RAISED" contentDisplay="RIGHT" onAction="#selectMeanAction" text="Tick all" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                     </HBox.margin></JFXButton>
+               </children>
+            </HBox>
+         </children>
+         <columnConstraints>
+            <ColumnConstraints />
+            <ColumnConstraints />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+         </rowConstraints>
+      </GridPane>
+   </children>
+</AnchorPane>

@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="com.tomocomd.qsartomocomd.gui.descriptors.tomocomd.metrics.MeasuresController">
+   <children>
+      <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox style="-: gray;" VBox.vgrow="ALWAYS">
+               <children>
+                  <TabPane tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+                     <tabs>
+                        <Tab text="Geometrical">
+                           <content>
+                              <AnchorPane>
+                                 <children>
+                                    <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <GridPane>
+                                             <children>
+                                                <JFXCheckBox fx:id="perimeterCheck" text="Perimeter" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                   <font>
+                                                      <Font name="System Italic" size="12.0" />
+                                                   </font>
+                                                   <GridPane.margin>
+                                                      <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+                                                   </GridPane.margin>
+                                                </JFXCheckBox>
+                                                <JFXCheckBox fx:id="volumeCheck" text="Volume" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                   <font>
+                                                      <Font name="System Italic" size="12.0" />
+                                                   </font>
+                                                   <GridPane.margin>
+                                                      <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+                                                   </GridPane.margin>
+                                                </JFXCheckBox>
+                                                <JFXCheckBox fx:id="dihedralAngleCheck" text="Dihedral angle" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                   <font>
+                                                      <Font name="System Italic" size="12.0" />
+                                                   </font>
+                                                   <GridPane.margin>
+                                                      <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+                                                   </GridPane.margin>
+                                                </JFXCheckBox>
+                                                <JFXCheckBox fx:id="triangleAreaCheck" text="Triangle area" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                   <GridPane.margin>
+                                                      <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+                                                   </GridPane.margin>
+                                                </JFXCheckBox>
+                                                <JFXCheckBox fx:id="fullBondAngleCheck" text="Full bond angle" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                   <font>
+                                                      <Font name="System Italic" size="12.0" />
+                                                   </font>
+                                                   <GridPane.margin>
+                                                      <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+                                                   </GridPane.margin>
+                                                </JFXCheckBox>
+                                                <JFXCheckBox fx:id="fullPerimeterCheck" text="Full perimeter" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                   <font>
+                                                      <Font name="System Italic" size="12.0" />
+                                                   </font>
+                                                   <GridPane.margin>
+                                                      <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+                                                   </GridPane.margin>
+                                                </JFXCheckBox>
+                                                <JFXCheckBox fx:id="fullVolumeCheck" text="Full volume" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                   <font>
+                                                      <Font name="System Italic" size="12.0" />
+                                                   </font>
+                                                   <GridPane.margin>
+                                                      <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+                                                   </GridPane.margin>
+                                                </JFXCheckBox>
+                                                <JFXCheckBox fx:id="fullDihedralAngleCheck" text="Full dihedral angle" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                   <font>
+                                                      <Font name="System Italic" size="12.0" />
+                                                   </font>
+                                                   <GridPane.margin>
+                                                      <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+                                                   </GridPane.margin>
+                                                </JFXCheckBox>
+                                                <JFXCheckBox fx:id="fullTriangleAreaCheck" text="Full triangle area" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                   <font>
+                                                      <Font name="System Italic" size="12.0" />
+                                                   </font>
+                                                   <GridPane.margin>
+                                                      <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+                                                   </GridPane.margin>
+                                                </JFXCheckBox>
+                                                <JFXCheckBox fx:id="bondAngleCheck" text="Bond angle" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                   <font>
+                                                      <Font name="System Italic" size="12.0" />
+                                                   </font>
+                                                   <GridPane.margin>
+                                                      <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+                                                   </GridPane.margin>
+                                                </JFXCheckBox>
+                                             </children>
+                                             <columnConstraints>
+                                                <ColumnConstraints />
+                                                <ColumnConstraints />
+                                                <ColumnConstraints maxWidth="127.0" />
+                                                <ColumnConstraints maxWidth="149.0" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints />
+                                                <RowConstraints />
+                                                <RowConstraints />
+                                             </rowConstraints>
+                                          </GridPane>
+                                          <GridPane>
+                                             <children>
+                                                <JFXButton fx:id="taGeoMeaBut" buttonType="RAISED" onAction="#taGeoMeaAction" text="Tick all" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                   <GridPane.margin>
+                                                      <Insets bottom="10.0" top="10.0" />
+                                                   </GridPane.margin>
+                                                </JFXButton>
+                                                <JFXButton fx:id="utaGeoMeaBut" buttonType="RAISED" onAction="#utaGeoMeaAct" text="Untick all" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                   <GridPane.margin>
+                                                      <Insets bottom="10.0" top="10.0" />
+                                                   </GridPane.margin>
+                                                </JFXButton>
+                                             </children>
+                                             <columnConstraints>
+                                                <ColumnConstraints />
+                                                <ColumnConstraints />
+                                                <ColumnConstraints />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints />
+                                             </rowConstraints>
+                                             <VBox.margin>
+                                                <Insets bottom="20.0" />
+                                             </VBox.margin>
+                                          </GridPane>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </Tab>
+                        <Tab text="Cluster">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0">
+                                 <children>
+                                    <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <GridPane VBox.vgrow="ALWAYS">
+                                            <columnConstraints>
+                                                <ColumnConstraints />
+                                                <ColumnConstraints />
+                                              <ColumnConstraints />
+                                              <ColumnConstraints />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                              <RowConstraints />
+                                              <RowConstraints />
+                                            </rowConstraints>
+                                             <children>
+                                                <JFXCheckBox fx:id="minRuleCheck" text="Min rule" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                   <font>
+                                                      <Font name="System Italic" size="12.0" />
+                                                   </font>
+                                                   <GridPane.margin>
+                                                      <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+                                                   </GridPane.margin>
+                                                </JFXCheckBox>
+                                                <JFXCheckBox fx:id="fullMinRuleCheck" text="Full min rule" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                   <font>
+                                                      <Font name="System Italic" size="12.0" />
+                                                   </font>
+                                                   <GridPane.margin>
+                                                      <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+                                                   </GridPane.margin>
+                                                </JFXCheckBox>
+                                                <JFXCheckBox fx:id="maxRuleCheck" text="Max rule" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                   <font>
+                                                      <Font name="System Italic" size="12.0" />
+                                                   </font>
+                                                   <GridPane.margin>
+                                                      <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+                                                   </GridPane.margin>
+                                                </JFXCheckBox>
+                                                <JFXCheckBox fx:id="fullMaxRuleCheck" text="Full max rule" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                   <font>
+                                                      <Font name="System Italic" size="12.0" />
+                                                   </font>
+                                                   <GridPane.margin>
+                                                      <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+                                                   </GridPane.margin>
+                                                </JFXCheckBox>
+                                                <JFXCheckBox fx:id="aveRuleCheck" text="Ave rule" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                   <font>
+                                                      <Font name="System Italic" size="12.0" />
+                                                   </font>
+                                                   <GridPane.margin>
+                                                      <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+                                                   </GridPane.margin>
+                                                </JFXCheckBox>
+                                                <JFXCheckBox fx:id="fullAveRuleCheck" text="Full ave rule" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                   <font>
+                                                      <Font name="System Italic" size="12.0" />
+                                                   </font>
+                                                   <GridPane.margin>
+                                                      <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+                                                   </GridPane.margin>
+                                                </JFXCheckBox>
+                                                <JFXCheckBox fx:id="wardRuleCheck" text="Ward rule" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                   <font>
+                                                      <Font name="System Italic" size="12.0" />
+                                                   </font>
+                                                   <GridPane.margin>
+                                                      <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+                                                   </GridPane.margin>
+                                                </JFXCheckBox>
+                                                <JFXCheckBox fx:id="fullWardRuleCheck" text="Full ward rule" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                   <font>
+                                                      <Font name="System Italic" size="12.0" />
+                                                   </font>
+                                                   <GridPane.margin>
+                                                      <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+                                                   </GridPane.margin>
+                                                </JFXCheckBox>
+                                             </children>
+                                          </GridPane>
+                                          <GridPane VBox.vgrow="ALWAYS">
+                                             <children>
+                                                <JFXButton fx:id="taClusMeaBut" buttonType="RAISED" onAction="#taClusMeaAction" text="Tick all" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                   <GridPane.margin>
+                                                      <Insets bottom="10.0" top="10.0" />
+                                                   </GridPane.margin>
+                                                </JFXButton>
+                                                <JFXButton fx:id="utaClusMeaBut" buttonType="RAISED" onAction="#utaClusMeaAct" text="Untick all" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                   <GridPane.margin>
+                                                      <Insets bottom="10.0" top="10.0" />
+                                                   </GridPane.margin>
+                                                </JFXButton>
+                                             </children>
+                                             <columnConstraints>
+                                                <ColumnConstraints />
+                                                <ColumnConstraints />
+                                                <ColumnConstraints />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints />
+                                             </rowConstraints>
+                                          </GridPane>
+                                       </children>
+                                    </VBox>
+                                 </children></AnchorPane>
+                           </content>
+                        </Tab>
+                        <Tab text="Statistical">
+                           <content>
+                              <AnchorPane>
+                                 <children>
+                                    <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <GridPane VBox.vgrow="ALWAYS">
+                                             <children>
+                                                <JFXCheckBox fx:id="fullHarmonicCheck" text="Full harmonic mean" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                   <font>
+                                                      <Font name="System Italic" size="12.0" />
+                                                   </font>
+                                                   <GridPane.margin>
+                                                      <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+                                                   </GridPane.margin>
+                                                </JFXCheckBox>
+                                                <JFXCheckBox fx:id="varianceCheck" text="Variance" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                   <font>
+                                                      <Font name="System Italic" size="12.0" />
+                                                   </font>
+                                                   <GridPane.margin>
+                                                      <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+                                                   </GridPane.margin>
+                                                </JFXCheckBox>
+                                                <JFXCheckBox fx:id="fullVarCheck" text="Full variance" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                   <font>
+                                                      <Font name="System Italic" size="12.0" />
+                                                   </font>
+                                                   <GridPane.margin>
+                                                      <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+                                                   </GridPane.margin>
+                                                </JFXCheckBox>
+                                                <JFXCheckBox fx:id="skewnessCheck" text="Skewness" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                   <font>
+                                                      <Font name="System Italic" size="12.0" />
+                                                   </font>
+                                                   <GridPane.margin>
+                                                      <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+                                                   </GridPane.margin>
+                                                </JFXCheckBox>
+                                                <JFXCheckBox fx:id="fullSkewnessCheck" text="Full skewness" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                   <font>
+                                                      <Font name="System Italic" size="12.0" />
+                                                   </font>
+                                                   <GridPane.margin>
+                                                      <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+                                                   </GridPane.margin>
+                                                </JFXCheckBox>
+                                                <JFXCheckBox fx:id="varCoeCheck" text="Variation coefficient" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                   <font>
+                                                      <Font name="System Italic" size="12.0" />
+                                                   </font>
+                                                   <GridPane.margin>
+                                                      <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+                                                   </GridPane.margin>
+                                                </JFXCheckBox>
+                                                <JFXCheckBox fx:id="fullVarCoeCheck" text="Full variation coefficient" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                   <font>
+                                                      <Font name="System Italic" size="12.0" />
+                                                   </font>
+                                                   <GridPane.margin>
+                                                      <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+                                                   </GridPane.margin>
+                                                </JFXCheckBox>
+                                                <JFXCheckBox fx:id="harmonicCheck" text="Harmonic mean" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                   <font>
+                                                      <Font name="System Italic" size="12.0" />
+                                                   </font>
+                                                   <GridPane.margin>
+                                                      <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+                                                   </GridPane.margin>
+                                                </JFXCheckBox>
+                                             </children>
+                                             <columnConstraints>
+                                                <ColumnConstraints />
+                                                <ColumnConstraints />
+                                                <ColumnConstraints />
+                                                <ColumnConstraints />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints />
+                                                <RowConstraints />
+                                             </rowConstraints>
+                                          </GridPane>
+                                          <GridPane VBox.vgrow="ALWAYS">
+                                             <children>
+                                                <JFXButton fx:id="taStaMeaBut" buttonType="RAISED" onAction="#taStaMeaAct" text="Tick all" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                   <GridPane.margin>
+                                                      <Insets bottom="10.0" top="10.0" />
+                                                   </GridPane.margin>
+                                                </JFXButton>
+                                                <JFXButton fx:id="utaStaMeaBut" buttonType="RAISED" onAction="#utaStaMeaAction" text="Untick all" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                   <GridPane.margin>
+                                                      <Insets bottom="10.0" top="10.0" />
+                                                   </GridPane.margin>
+                                                </JFXButton>
+                                             </children>
+                                             <columnConstraints>
+                                                <ColumnConstraints />
+                                                <ColumnConstraints />
+                                                <ColumnConstraints />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints />
+                                             </rowConstraints>
+                                          </GridPane>
+                                       </children>
+                                    </VBox>
+                                 </children></AnchorPane>
+                           </content>
+                        </Tab>
+                     </tabs>
+                  </TabPane>
+               </children>
+               <VBox.margin>
+                  <Insets left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+            </VBox>
+            <GridPane VBox.vgrow="ALWAYS">
+               <children>
+                  <JFXButton fx:id="taMeasuresBut" buttonType="RAISED" onAction="#taMeasuresAction" style="-: green;" text="Tick all" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                     <GridPane.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                     </GridPane.margin>
+                  </JFXButton>
+                  <JFXButton fx:id="utaMeasuresBut" buttonType="RAISED" onAction="#utaMeasuresAction" style="-: green;" text="Untick all" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                     <GridPane.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                     </GridPane.margin>
+                  </JFXButton>
+                  <JFXButton fx:id="okMeasuresBut" buttonType="RAISED" onAction="#okMeasuresAction" style="-: ;" text="Ok" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                     <GridPane.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                     </GridPane.margin>
+                  </JFXButton>
+               </children>
+               <columnConstraints>
+                  <ColumnConstraints />
+                  <ColumnConstraints />
+                  <ColumnConstraints />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints />
+               </rowConstraints>
+            </GridPane>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

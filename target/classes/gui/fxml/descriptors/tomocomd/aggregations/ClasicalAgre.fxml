@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tomocomd.qsartomocomd.gui.descriptors.tomocomd.aggregations.ClasicalAggController">
+   <children>
+      <GridPane layoutX="51.0" layoutY="14.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <JFXCheckBox fx:id="acAgreCheck" text="Autocorrelation" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+            </JFXCheckBox>
+            <JFXCheckBox fx:id="tsAgreCheck" text="Total sum" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+            </JFXCheckBox>
+            <JFXCheckBox fx:id="gvAgreCheck" text="Gravitational" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+            </JFXCheckBox>
+            <JFXCheckBox fx:id="ibAgreCheck" text="Ivanciuc-Balaban" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+            </JFXCheckBox>
+            <JFXCheckBox fx:id="khAgreCheck" text="Kier-Hall Connectivity" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+            </JFXCheckBox>
+            <JFXCheckBox fx:id="esAgreCheck" text="Elctro topological state" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+            </JFXCheckBox>
+            <JFXCheckBox fx:id="ticAgreCheck" text="Total information content" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+            </JFXCheckBox>
+            <JFXCheckBox fx:id="micAgreCheck" text="Mean information content" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+            </JFXCheckBox>
+            <JFXCheckBox fx:id="sicAgreCheck" text="Standarized information content" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+            </JFXCheckBox>
+            <JFXButton fx:id="taClaBut" buttonType="RAISED" onAction="#selectClaAction" style="-fx-background-color: ;" text="Tick all" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+               <GridPane.margin>
+                  <Insets bottom="10.0" top="10.0" />
+               </GridPane.margin>
+            </JFXButton>
+            <JFXButton fx:id="utaClaBut" buttonType="RAISED" onAction="#unSelectClaAction" style="-fx-background-color: ;" text="Untick all" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+               <GridPane.margin>
+                  <Insets bottom="10.0" top="10.0" />
+               </GridPane.margin>
+            </JFXButton>
+            <JFXButton fx:id="okClaMidasButton" buttonType="RAISED" onAction="#okClaAction" text="Ok" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+               <GridPane.margin>
+                  <Insets bottom="10.0" top="10.0" />
+               </GridPane.margin>
+            </JFXButton>
+            <JFXCheckBox fx:id="noneAgreCheck" text="None" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="20.0" top="10.0" />
+               </GridPane.margin>
+            </JFXCheckBox>
+         </children>
+         <columnConstraints>
+            <ColumnConstraints />
+            <ColumnConstraints />
+            <ColumnConstraints />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" />
+            <RowConstraints />
+         </rowConstraints>
+      </GridPane>
+   </children>
+</AnchorPane>

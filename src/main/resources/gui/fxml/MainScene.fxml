@@ -1,0 +1,1391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.input.*?>
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tomocomd.qsartomocomd.gui.MainScene">
+    <children>
+        <MenuBar>
+            <menus>
+                <Menu mnemonicParsing="false" text="File">
+                    <items>
+                        <MenuItem fx:id="loadMenuItem" mnemonicParsing="false" onAction="#loadProjAction" text="Load">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="L" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                            </accelerator>
+                        </MenuItem>
+                        <MenuItem fx:id="saveMenuItem" mnemonicParsing="false" onAction="#saveProjAct" text="Save">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                            </accelerator>
+                        </MenuItem>
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem fx:id="exxitItem" mnemonicParsing="false" onAction="#exitApp" text="Quit">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="Q" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                            </accelerator>
+                        </MenuItem>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Execution">
+                    <items>
+                        <MenuItem fx:id="cancelExecutionItem" mnemonicParsing="false" onAction="#cancelProjAct" text="Cancel">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="C" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                            </accelerator>
+                        </MenuItem>
+                        <MenuItem fx:id="runExdecutionItem" mnemonicParsing="false" onAction="#runProjAction" text="Run">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="R" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                            </accelerator>
+                        </MenuItem>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Subsets">
+                    <items>
+                        <MenuItem fx:id="seGraphItem1" mnemonicParsing="false" onAction="#seGraphShowAction" text="SE graph">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="E" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                            </accelerator>
+                        </MenuItem>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="About QSARTomocomd" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <VBox>
+            <children>
+                <HBox>
+                    <children>
+                        <JFXTextField fx:id="sdfFileTextFiled" onMouseClicked="#findSDFFileOnActionMouse" promptText="SDF input file" HBox.hgrow="ALWAYS">
+                            <HBox.margin>
+                                <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
+                            </HBox.margin>
+                        </JFXTextField>
+                        <JFXComboBox fx:id="targetComboBox" prefHeight="25.0" prefWidth="170.0" promptText="Target">
+                            <HBox.margin>
+                                <Insets right="10.0" top="19.0" />
+                            </HBox.margin>
+                        </JFXComboBox>
+                    </children>
+                </HBox>
+                <JFXTextField fx:id="csvFileTextFiled" onMouseClicked="#saeCSVFileOnAction" promptText="CSV output file" VBox.vgrow="ALWAYS">
+                    <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </VBox.margin>
+                </JFXTextField>
+            </children>
+        </VBox>      
+      
+        <SplitPane dividerPositions="0.5489749430523918" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+            <items>
+                <AnchorPane>
+                    <children>
+                        <VBox prefHeight="439.0" prefWidth="217.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <children>
+                                <TabPane tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+                                    <tabs>
+                                        <Tab text="MIDAS descriptors">
+                                            <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                    <children>
+                                                        <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                            <columnConstraints>
+                                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                            </columnConstraints>
+                                                            <rowConstraints>
+                                                                <RowConstraints valignment="CENTER" />
+                                                                <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                                                            </rowConstraints>
+                                                            <children>
+                                                                <JFXCheckBox fx:id="midasSelectCheck" alignment="CENTER" onAction="#midasSelectAction" text="MIDAS Descriptors" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER">
+                                                                    <font>
+                                                                        <Font name="System Italic" size="24.0" />
+                                                                    </font>
+                                                                    <GridPane.margin>
+                                                                        <Insets bottom="10.0" top="20.0" />
+                                                                    </GridPane.margin>
+                                                                </JFXCheckBox>
+                                                                <VBox fx:id="boxMidas" prefHeight="200.0" prefWidth="100.0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                    <children>
+                                                                        <GridPane VBox.vgrow="ALWAYS">
+                                                                            <columnConstraints>
+                                                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                            </columnConstraints>
+                                                                            <rowConstraints>
+                                                                                <RowConstraints />
+                                                                                <RowConstraints vgrow="ALWAYS" />
+                                                                                <RowConstraints />
+                                                                            </rowConstraints>
+                                                                            <children>
+                                                                                <GridPane fx:id="tuplesGrid" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                                                                    <columnConstraints>
+                                                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                                    </columnConstraints>
+                                                                                    <rowConstraints>
+                                                                                        <RowConstraints />
+                                                                                    </rowConstraints>
+                                                                                    <children>
+                                                                                        <JFXButton fx:id="thrTuplasBut" onAction="#thrTuplasAct" text="3-tuples" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                            <GridPane.margin>
+                                                                                                <Insets bottom="20.0" top="20.0" />
+                                                                                            </GridPane.margin>
+                                                                                        </JFXButton>
+                                                                                        <JFXButton fx:id="quTuplasBut" onAction="#quTuplasAct" text="4-tuples" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                            <GridPane.margin>
+                                                                                                <Insets bottom="20.0" top="20.0" />
+                                                                                            </GridPane.margin>
+                                                                                        </JFXButton>
+                                                                                        <JFXButton fx:id="biTuplasBut" onAction="#biTuplasAct" text="2-tuples" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                            <GridPane.margin>
+                                                                                                <Insets bottom="20.0" top="20.0" />
+                                                                                            </GridPane.margin>
+                                                                                        </JFXButton>
+                                                                                    </children>
+                                                                                    <GridPane.margin>
+                                                                                        <Insets left="5.0" right="5.0" top="5.0" />
+                                                                                    </GridPane.margin>
+                                                                                </GridPane>
+                                                                                <GridPane fx:id="diagGrid" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                                                                                    <children>
+                                                                                        <JFXCheckBox fx:id="hAtomMidasCheck" onAction="#sethAtomMidasAction" text="On H-Atoms" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                            <font>
+                                                                                                <Font name="System Italic" size="12.0" />
+                                                                                            </font>
+                                                                                            <GridPane.margin>
+                                                                                                <Insets bottom="10.0" left="10.0" top="10.0" />
+                                                                                            </GridPane.margin>
+                                                                                        </JFXCheckBox>
+                                                                                        <JFXCheckBox fx:id="lPairMidasCheck" onAction="#setlPairMidasAction" text="Lone pair" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                            <font>
+                                                                                                <Font name="System Italic" size="12.0" />
+                                                                                            </font>
+                                                                                            <GridPane.margin>
+                                                                                                <Insets bottom="10.0" left="10.0" top="10.0" />
+                                                                                            </GridPane.margin>
+                                                                                        </JFXCheckBox>
+                                                                                        <JFXCheckBox fx:id="dCenterMidasCheck" onAction="#setdCenterMidasAction" text="Distance center" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                            <font>
+                                                                                                <Font name="System Italic" size="12.0" />
+                                                                                            </font>
+                                                                                            <GridPane.margin>
+                                                                                                <Insets bottom="10.0" left="10.0" top="10.0" />
+                                                                                            </GridPane.margin>
+                                                                                        </JFXCheckBox>
+                                                                                        <JFXCheckBox fx:id="offHAtomMidasCheck" onAction="#sethOffHAtomMidasAction" text="Off H-Atoms" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                            <font>
+                                                                                                <Font name="System Italic" size="12.0" />
+                                                                                            </font>
+                                                                                            <GridPane.margin>
+                                                                                                <Insets bottom="10.0" left="10.0" top="10.0" />
+                                                                                            </GridPane.margin>
+                                                                                        </JFXCheckBox>
+                                                                                        <JFXCheckBox fx:id="offDiagonalCheck" onAction="#offDiagonalAct" text="Off diagonal" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                            <font>
+                                                                                                <Font name="System Italic" size="12.0" />
+                                                                                            </font>
+                                                                                            <GridPane.margin>
+                                                                                                <Insets bottom="10.0" left="10.0" top="10.0" />
+                                                                                            </GridPane.margin>
+                                                                                        </JFXCheckBox>
+                                                                                    </children>
+                                                                                    <columnConstraints>
+                                                                                        <ColumnConstraints />
+                                                                                        <ColumnConstraints />
+                                                                                        <ColumnConstraints />
+                                                                                    </columnConstraints>
+                                                                                    <rowConstraints>
+                                                                                        <RowConstraints />
+                                                                                        <RowConstraints />
+                                                                                    </rowConstraints>
+                                                                                    <GridPane.margin>
+                                                                                        <Insets bottom="5.0" left="5.0" right="5.0" />
+                                                                                    </GridPane.margin>
+                                                                                </GridPane>
+                                                                                <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                    <GridPane.margin>
+                                                                                        <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                                                                                    </GridPane.margin>
+                                                                                    <tabs>
+                                                                                        <Tab text="Matrix form">
+                                                                                            <content>
+                                                                                                <AnchorPane minHeight="0.0" minWidth="0.0">
+                                                                                                    <children>
+                                                                                                        <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                                                            <children>
+                                                                                                                <JFXCheckBox fx:id="NSCheckM" onAction="#setNSCheckMAction" text="Non stochastic" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                                                    <font>
+                                                                                                                        <Font name="System Italic" size="12.0" />
+                                                                                                                    </font>
+                                                                                                                    <GridPane.margin>
+                                                                                                                        <Insets left="20.0" />
+                                                                                                                    </GridPane.margin>
+                                                                                                                </JFXCheckBox>
+                                                                                                                <JFXCheckBox fx:id="SSCheckM" onAction="#setSSCheckMAction" text="Simple stochastic" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                                                    <font>
+                                                                                                                        <Font name="System Italic" size="12.0" />
+                                                                                                                    </font>
+                                                                                                                    <GridPane.margin>
+                                                                                                                        <Insets left="20.0" />
+                                                                                                                    </GridPane.margin>
+                                                                                                                </JFXCheckBox>
+                                                                                                                <JFXCheckBox fx:id="MPCheckM" onAction="#setMPCheckMAction" text="Mutual probability" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                                                    <font>
+                                                                                                                        <Font name="System Italic" size="12.0" />
+                                                                                                                    </font>
+                                                                                                                    <GridPane.margin>
+                                                                                                                        <Insets left="20.0" />
+                                                                                                                    </GridPane.margin>
+                                                                                                                </JFXCheckBox>
+                                                                                                                <JFXComboBox fx:id="orderMidMatForm" labelFloat="true" onAction="#setorderMidMatFormAction" promptText="Max order" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                                                    <GridPane.margin>
+                                                                                                                        <Insets left="20.0" />
+                                                                                                                    </GridPane.margin>
+                                                                                                                </JFXComboBox>
+                                                                                                            </children>
+                                                                                                            <columnConstraints>
+                                                                                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                                                            </columnConstraints>
+                                                                                                            <rowConstraints>
+                                                                                                                <RowConstraints vgrow="ALWAYS" />
+                                                                                                                <RowConstraints vgrow="ALWAYS" />
+                                                                                                            </rowConstraints>
+                                                                                                        </GridPane>
+                                                                                                    </children>
+                                                                                                </AnchorPane>
+                                                                                            </content>
+                                                                                        </Tab>
+                                                                                        <Tab text="Metrics">
+                                                                                            <content>
+                                                                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                                                                    <children>
+                                                                                                        <GridPane layoutX="126.0" layoutY="14.0" prefHeight="85.0" prefWidth="396.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                                                            <children>
+                                                                                                                <JFXButton fx:id="minkMetricButton" buttonType="RAISED" onAction="#schowMinkMetricAction" text="Minkowski metrics" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
+                                                                                                                <JFXButton fx:id="otherMetricButton" buttonType="RAISED" onAction="#schowOtherMetricAction" text="Other metrics" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" />
+                                                                                                                <JFXButton fx:id="measuresBut" buttonType="RAISED" onAction="#measuresButAct" text="Measures" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" />
+                                                                                                            </children>
+                                                                                                            <columnConstraints>
+                                                                                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                                                            </columnConstraints>
+                                                                                                            <rowConstraints>
+                                                                                                                <RowConstraints vgrow="ALWAYS" />
+                                                                                                            </rowConstraints>
+                                                                                                        </GridPane>
+                                                                                                    </children>
+                                                                                                </AnchorPane>
+                                                                                            </content>
+                                                                                        </Tab>
+                                                                                        <Tab text="Groups">
+                                                                                            <content>
+                                                                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                                                                    <children>
+                                                                                                        <GridPane prefHeight="101.0" prefWidth="377.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                                                            <children>
+                                                                                                                <JFXCheckBox fx:id="tGroupCheck" onAction="#tGroupAction" text="Total" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                                                    <font>
+                                                                                                                        <Font name="System Italic" size="12.0" />
+                                                                                                                    </font>
+                                                                                                                </JFXCheckBox>
+                                                                                                                <JFXCheckBox fx:id="groupsMidasCheck" onAction="#actGroupMidasAction" text="Groups" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                                                    <font>
+                                                                                                                        <Font name="System Italic" size="12.0" />
+                                                                                                                    </font>
+                                                                                                                </JFXCheckBox>
+                                                                                                                <JFXButton fx:id="groupsButton" buttonType="RAISED" onAction="#showMidasGroupsAction" text="groups" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
+                                                                                                            </children>
+                                                                                                            <columnConstraints>
+                                                                                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="194.0" minWidth="10.0" prefWidth="130.0" />
+                                                                                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="149.0" minWidth="10.0" prefWidth="112.0" />
+                                                                                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="109.0" minWidth="10.0" prefWidth="109.0" />
+                                                                                                            </columnConstraints>
+                                                                                                            <rowConstraints>
+                                                                                                                <RowConstraints vgrow="NEVER" />
+                                                                                                            </rowConstraints>
+                                                                                                        </GridPane>
+                                                                                                    </children>
+                                                                                                </AnchorPane>
+                                                                                            </content>
+                                                                                        </Tab>
+                                                                                        <Tab text="Constrains">
+                                                                                            <content>
+                                                                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                                                                    <children>
+                                                                                                        <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                                                            <children>
+                                                                                                                <JFXCheckBox fx:id="nCiMidasCheck" onAction="#nCiMidasAction" text="Non chiral" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                                                    <font>
+                                                                                                                        <Font size="12.0" />
+                                                                                                                    </font>
+                                                                                                                    <GridPane.margin>
+                                                                                                                        <Insets left="20.0" />
+                                                                                                                    </GridPane.margin>
+                                                                                                                </JFXCheckBox>
+                                                                                                                <JFXCheckBox fx:id="CiMidasCheck" onAction="#CiMidasAction" text="Chiral" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                                                    <font>
+                                                                                                                        <Font name="System Italic" size="12.0" />
+                                                                                                                    </font>
+                                                                                                                    <GridPane.margin>
+                                                                                                                        <Insets left="20.0" />
+                                                                                                                    </GridPane.margin>
+                                                                                                                </JFXCheckBox>
+                                                                                                            </children>
+                                                                                                            <columnConstraints>
+                                                                                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                                                            </columnConstraints>
+                                                                                                            <rowConstraints>
+                                                                                                                <RowConstraints />
+                                                                                                            </rowConstraints>
+                                                                                                        </GridPane>
+                                                                                                    </children>
+                                                                                                </AnchorPane>
+                                                                                            </content>
+                                                                                        </Tab>
+                                                                                        <Tab text="Cuttof">
+                                                                                            <content>
+                                                                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                                                                            </content>
+                                                                                        </Tab>
+                                                                                        <Tab text="Properties">
+                                                                                            <content>
+                                                                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                                                                    <children>
+                                                                                                        <GridPane layoutX="69.0" layoutY="-2.0" prefHeight="85.0" prefWidth="396.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                                                            <children>
+                                                                                                                <JFXButton fx:id="phyChePropMidasButton" buttonType="RAISED" onAction="#showPhyChePropMidasAction" text="Physico-chemical" textFill="#250200" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
+                                                                                                                <JFXButton fx:id="verDegPropMidasButton" buttonType="RAISED" onAction="#showVerDegPropMidasAction" text="Vertex degree" textFill="#250200" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
+                                                                                                            </children>
+                                                                                                            <columnConstraints>
+                                                                                                                <ColumnConstraints />
+                                                                                                                <ColumnConstraints />
+                                                                                                            </columnConstraints>
+                                                                                                            <rowConstraints>
+                                                                                                                <RowConstraints />
+                                                                                                            </rowConstraints>
+                                                                                                        </GridPane>
+                                                                                                    </children>
+                                                                                                </AnchorPane>
+                                                                                            </content>
+                                                                                        </Tab>
+                                                                                        <Tab text="Aggregation">
+                                                                                            <content>
+                                                                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                                                                    <children>
+                                                                                                        <GridPane layoutX="41.0" layoutY="-11.0" prefHeight="85.0" prefWidth="396.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                                                            <children>
+                                                                                                                <JFXButton fx:id="normsAggMidasButton" buttonType="RAISED" onAction="#showNorAgreMidasAction" text="Norms" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                                                    <GridPane.margin>
+                                                                                                                        <Insets />
+                                                                                                                    </GridPane.margin>
+                                                                                                                </JFXButton>
+                                                                                                                <JFXButton fx:id="meansAggMidasButton" buttonType="RAISED" onAction="#showMeansAgreMidasAction" text="Means" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                                                    <GridPane.margin>
+                                                                                                                        <Insets />
+                                                                                                                    </GridPane.margin>
+                                                                                                                </JFXButton>
+                                                                                                                <JFXButton fx:id="staAggMidasButton" buttonType="RAISED" onAction="#showStaAgreMidasAction" text="Statistics" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                                                    <GridPane.margin>
+                                                                                                                        <Insets />
+                                                                                                                    </GridPane.margin>
+                                                                                                                </JFXButton>
+                                                                                                                <JFXButton fx:id="choAggMidasButton" buttonType="RAISED" onAction="#showShoAgreMidasAction" text="Choquet" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                                                    <GridPane.margin>
+                                                                                                                        <Insets />
+                                                                                                                    </GridPane.margin>
+                                                                                                                </JFXButton>
+                                                                                                                <JFXButton fx:id="claAggMidasButton" buttonType="RAISED" onAction="#showClaAgreMidasAction" text="Classics" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                                                    <GridPane.margin>
+                                                                                                                        <Insets />
+                                                                                                                    </GridPane.margin>
+                                                                                                                </JFXButton>
+                                                                                                                <JFXButton fx:id="gowAggMidasButton" buttonType="RAISED" onAction="#showGowAgreMidasAction" text="GOWAWA" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                                                    <GridPane.margin>
+                                                                                                                        <Insets />
+                                                                                                                    </GridPane.margin>
+                                                                                                                </JFXButton>
+                                                                                                            </children>
+                                                                                                            <columnConstraints>
+                                                                                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                                                            </columnConstraints>
+                                                                                                            <rowConstraints>
+                                                                                                                <RowConstraints />
+                                                                                                                <RowConstraints />
+                                                                                                            </rowConstraints>
+                                                                                                        </GridPane>
+                                                                                                    </children>
+                                                                                                </AnchorPane>
+                                                                                            </content>
+                                                                                        </Tab>
+                                                                                    </tabs>
+                                                                                </TabPane>
+                                                                            </children>
+                                                                        </GridPane>
+                                                                    </children>
+                                                                    <GridPane.margin>
+                                                                        <Insets bottom="20.0" />
+                                                                    </GridPane.margin>
+                                                                </VBox>
+                                                            </children>
+                                                        </GridPane>
+                                                    </children>
+                                                </AnchorPane>
+                                            </content>
+                                        </Tab>
+                                        <Tab text="MAS Descriptors">
+                                            <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                    <children>
+                                                        <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                            <columnConstraints>
+                                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                            </columnConstraints>
+                                                            <rowConstraints>
+                                                                <RowConstraints valignment="CENTER" />
+                                                                <RowConstraints vgrow="ALWAYS" />
+                                                            </rowConstraints>
+                                                            <children>
+                                                                <JFXCheckBox fx:id="masSelectCheck" alignment="CENTER" onAction="#masSelectAction" text="MAS Descriptors" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER">
+                                                                    <font>
+                                                                        <Font name="System Italic" size="24.0" />
+                                                                    </font>
+                                                                    <GridPane.margin>
+                                                                        <Insets bottom="10.0" top="20.0" />
+                                                                    </GridPane.margin>
+                                                                </JFXCheckBox>
+                                                                <VBox fx:id="masBox" prefHeight="200.0" prefWidth="100.0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                    <children>
+                                                                        <GridPane VBox.vgrow="ALWAYS">
+                                                                            <columnConstraints>
+                                                                                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                                                            </columnConstraints>
+                                                                            <rowConstraints>
+                                                                                <RowConstraints />
+                                                                                <RowConstraints valignment="CENTER" />
+                                                                                <RowConstraints />
+                                                                            </rowConstraints>
+                                                                            <children>
+                                                                                <TabPane prefHeight="186.0" prefWidth="352.0" tabClosingPolicy="UNAVAILABLE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                    <tabs>
+                                                                                        <Tab text="Matrix form">
+                                                                                            <content>
+                                                                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                                                                    <children>
+                                                                                                        <GridPane prefHeight="157.0" prefWidth="523.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                                                            <children>
+                                                                                                                <JFXCheckBox fx:id="NSMasCheckM" onAction="#setNSMasCheckMAction" text="Non stochastic" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                                                    <font>
+                                                                                                                        <Font name="System Italic" size="12.0" />
+                                                                                                                    </font>
+                                                                                                                    <GridPane.margin>
+                                                                                                                        <Insets left="20.0" />
+                                                                                                                    </GridPane.margin>
+                                                                                                                </JFXCheckBox>
+                                                                                                                <JFXCheckBox fx:id="SSMasCheckM" onAction="#setSSMasCheckMAction" text="Simple stochastic" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                                                    <font>
+                                                                                                                        <Font name="System Italic" size="12.0" />
+                                                                                                                    </font>
+                                                                                                                    <GridPane.margin>
+                                                                                                                        <Insets left="20.0" />
+                                                                                                                    </GridPane.margin>
+                                                                                                                </JFXCheckBox>
+                                                                                                                <JFXCheckBox fx:id="MPMasCheckM" onAction="#setMPMasCheckMAction" text="Mutual probability" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                                                    <font>
+                                                                                                                        <Font name="System Italic" size="12.0" />
+                                                                                                                    </font>
+                                                                                                                    <GridPane.margin>
+                                                                                                                        <Insets left="20.0" />
+                                                                                                                    </GridPane.margin>
+                                                                                                                </JFXCheckBox>
+                                                                                                                <JFXComboBox fx:id="orderMasMaxForm" labelFloat="true" onAction="#setorderMasMaxFormAction" promptText="Max order" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                                                    <GridPane.margin>
+                                                                                                                        <Insets left="20.0" />
+                                                                                                                    </GridPane.margin>
+                                                                                                                </JFXComboBox>
+                                                                                                            </children>
+                                                                                                            <columnConstraints>
+                                                                                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                                                            </columnConstraints>
+                                                                                                            <rowConstraints>
+                                                                                                                <RowConstraints />
+                                                                                                                <RowConstraints />
+                                                                                                            </rowConstraints>
+                                                                                                        </GridPane>
+                                                                                                    </children>
+                                                                                                </AnchorPane>
+                                                                                            </content>
+                                                                                        </Tab>
+                                                                                        <Tab text="Groups">
+                                                                                            <content>
+                                                                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                                                                    <children>
+                                                                                                        <GridPane prefHeight="101.0" prefWidth="377.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                                                            <children>
+                                                                                                                <JFXCheckBox fx:id="tGroupMasCheck" onAction="#tGroupMasAction" text="Total" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                                                    <font>
+                                                                                                                        <Font name="System Italic" size="12.0" />
+                                                                                                                    </font>
+                                                                                                                </JFXCheckBox>
+                                                                                                                <JFXCheckBox fx:id="groupsMasCheck" onAction="#actGroupMasAction" text="Groups" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                                                    <font>
+                                                                                                                        <Font name="System Italic" size="12.0" />
+                                                                                                                    </font>
+                                                                                                                </JFXCheckBox>
+                                                                                                                <JFXButton fx:id="groupsMasButton" buttonType="RAISED" onAction="#showMasGroupsAction" text="groups" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                                                    <font>
+                                                                                                                        <Font name="System Italic" size="13.0" />
+                                                                                                                    </font>
+                                                                                                                </JFXButton>
+                                                                                                            </children>
+                                                                                                            <columnConstraints>
+                                                                                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="194.0" minWidth="10.0" prefWidth="127.0" />
+                                                                                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="152.0" minWidth="10.0" prefWidth="112.0" />
+                                                                                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="112.0" minWidth="10.0" prefWidth="112.0" />
+                                                                                                            </columnConstraints>
+                                                                                                            <rowConstraints>
+                                                                                                                <RowConstraints />
+                                                                                                            </rowConstraints>
+                                                                                                        </GridPane>
+                                                                                                    </children>
+                                                                                                </AnchorPane>
+                                                                                            </content>
+                                                                                        </Tab>
+                                                                                        <Tab text="Constrains">
+                                                                                            <content>
+                                                                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                                                                    <children>
+                                                                                                        <GridPane prefHeight="157.0" prefWidth="523.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                                                            <children>
+                                                                                                                <JFXCheckBox fx:id="atomBaseMasCheck" onAction="#setAtomBaseMasAction" text="Atom base" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                                                    <font>
+                                                                                                                        <Font name="System Italic" size="12.0" />
+                                                                                                                    </font>
+                                                                                                                    <GridPane.margin>
+                                                                                                                        <Insets left="20.0" />
+                                                                                                                    </GridPane.margin>
+                                                                                                                </JFXCheckBox>
+                                                                                                                <JFXCheckBox fx:id="bondBaseMasCheck" onAction="#setbondBaseMasAction" text="Bond base " GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                                                    <font>
+                                                                                                                        <Font name="System Italic" size="12.0" />
+                                                                                                                    </font>
+                                                                                                                    <GridPane.margin>
+                                                                                                                        <Insets left="20.0" />
+                                                                                                                    </GridPane.margin>
+                                                                                                                </JFXCheckBox>
+                                                                                                                <JFXCheckBox fx:id="nCiMasCheck" onAction="#nCiMasAction" text="Non chiral" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                                                    <font>
+                                                                                                                        <Font name="System Italic" size="12.0" />
+                                                                                                                    </font>
+                                                                                                                    <GridPane.margin>
+                                                                                                                        <Insets left="20.0" />
+                                                                                                                    </GridPane.margin>
+                                                                                                                </JFXCheckBox>
+                                                                                                                <JFXCheckBox fx:id="CiMasCheck" onAction="#CiMasAction" text="Chiral" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                                                    <font>
+                                                                                                                        <Font name="System Italic" size="12.0" />
+                                                                                                                    </font>
+                                                                                                                    <GridPane.margin>
+                                                                                                                        <Insets left="20.0" />
+                                                                                                                    </GridPane.margin>
+                                                                                                                </JFXCheckBox>
+                                                                                                            </children>
+                                                                                                            <columnConstraints>
+                                                                                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                                                            </columnConstraints>
+                                                                                                            <rowConstraints>
+                                                                                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                                                            </rowConstraints>
+                                                                                                        </GridPane>
+                                                                                                    </children>
+                                                                                                </AnchorPane>
+                                                                                            </content>
+                                                                                        </Tab>
+                                                                                        <Tab text="Cuttof">
+                                                                                            <content>
+                                                                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                                                                    <children>
+                                                                                                        <GridPane prefHeight="157.0" prefWidth="523.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                                                            <children>
+                                                                                                                <JFXCheckBox fx:id="kaMAScheckBox" onAction="#kaMASAction" text="Keep all" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                                                    <font>
+                                                                                                                        <Font name="System Italic" size="12.0" />
+                                                                                                                    </font>
+                                                                                                                    <GridPane.margin>
+                                                                                                                        <Insets left="20.0" />
+                                                                                                                    </GridPane.margin>
+                                                                                                                </JFXCheckBox>
+                                                                                                                <JFXCheckBox fx:id="srwMASCheckBox" onAction="#srwMASCheckBox" text="Self-returning walk" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                                                    <font>
+                                                                                                                        <Font name="System Italic" size="12.0" />
+                                                                                                                    </font>
+                                                                                                                    <GridPane.margin>
+                                                                                                                        <Insets left="20.0" />
+                                                                                                                    </GridPane.margin>
+                                                                                                                </JFXCheckBox>
+                                                                                                                <JFXCheckBox fx:id="lpMASCheckBox" onAction="#lpMASCheckBox" text="Lag P" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                                                    <font>
+                                                                                                                        <Font name="System Italic" size="12.0" />
+                                                                                                                    </font>
+                                                                                                                    <GridPane.margin>
+                                                                                                                        <Insets left="20.0" />
+                                                                                                                    </GridPane.margin>
+                                                                                                                </JFXCheckBox>
+                                                                                                                <JFXCheckBox fx:id="nosrwMASCheckBox" onAction="#nosrwMASAction" text="Non relf-returning walk" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                                                    <font>
+                                                                                                                        <Font name="System Italic" size="12.0" />
+                                                                                                                    </font>
+                                                                                                                    <GridPane.margin>
+                                                                                                                        <Insets left="20.0" />
+                                                                                                                    </GridPane.margin>
+                                                                                                                </JFXCheckBox>
+                                                                                                            </children>
+                                                                                                            <columnConstraints>
+                                                                                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                                                            </columnConstraints>
+                                                                                                            <rowConstraints>
+                                                                                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                                                            </rowConstraints>
+                                                                                                        </GridPane>
+                                                                                                    </children>
+                                                                                                </AnchorPane>
+                                                                                            </content>
+                                                                                        </Tab>
+                                                                                        <Tab text="Properties">
+                                                                                            <content>
+                                                                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                                                                    <children>
+                                                                                                        <GridPane layoutX="69.0" layoutY="-2.0" prefHeight="85.0" prefWidth="396.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                                                            <children>
+                                                                                                                <JFXButton fx:id="phyChePropMasButton" buttonType="RAISED" onAction="#showPhyChePropMasAction" text="Physico-chemical" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
+                                                                                                                <JFXButton fx:id="verDegPropMasButton" buttonType="RAISED" onAction="#showVerDegPropMasAction" text="Vertex degree" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
+                                                                                                            </children>
+                                                                                                            <columnConstraints>
+                                                                                                                <ColumnConstraints />
+                                                                                                                <ColumnConstraints />
+                                                                                                            </columnConstraints>
+                                                                                                            <rowConstraints>
+                                                                                                                <RowConstraints />
+                                                                                                            </rowConstraints>
+                                                                                                        </GridPane>
+                                                                                                    </children>
+                                                                                                </AnchorPane>
+                                                                                            </content>
+                                                                                        </Tab>
+                                                                                        <Tab text="Aggregation">
+                                                                                            <content>
+                                                                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                                                                    <children>
+                                                                                                        <GridPane layoutX="41.0" layoutY="-11.0" prefHeight="85.0" prefWidth="396.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                                                            <children>
+                                                                                                                <JFXButton fx:id="normsAggMasButton" buttonType="RAISED" onAction="#showNorAgreMasAction" text="Norms" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                                                    <GridPane.margin>
+                                                                                                                        <Insets />
+                                                                                                                    </GridPane.margin>
+                                                                                                                </JFXButton>
+                                                                                                                <JFXButton fx:id="meansAggMasButton" buttonType="RAISED" onAction="#showMeansAgreMasAction" text="Means" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                                                    <GridPane.margin>
+                                                                                                                        <Insets />
+                                                                                                                    </GridPane.margin>
+                                                                                                                </JFXButton>
+                                                                                                                <JFXButton fx:id="staAggMasButton" buttonType="RAISED" onAction="#showStaAgreMasAction" text="Statistics" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                                                    <GridPane.margin>
+                                                                                                                        <Insets />
+                                                                                                                    </GridPane.margin>
+                                                                                                                </JFXButton>
+                                                                                                                <JFXButton fx:id="choAggMasButton" buttonType="RAISED" onAction="#showShoAgreMasAction" text="Choquet" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                                                    <GridPane.margin>
+                                                                                                                        <Insets />
+                                                                                                                    </GridPane.margin>
+                                                                                                                </JFXButton>
+                                                                                                                <JFXButton fx:id="claAggMasButton" buttonType="RAISED" onAction="#showClaAgreMasAction" text="Classics" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                                                    <GridPane.margin>
+                                                                                                                        <Insets />
+                                                                                                                    </GridPane.margin>
+                                                                                                                </JFXButton>
+                                                                                                                <JFXButton fx:id="gowAggMasButton" buttonType="RAISED" onAction="#showGowAgreMasAction" text="GOWAWA" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                                                    <GridPane.margin>
+                                                                                                                        <Insets />
+                                                                                                                    </GridPane.margin>
+                                                                                                                </JFXButton>
+                                                                                                            </children>
+                                                                                                            <columnConstraints>
+                                                                                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                                                            </columnConstraints>
+                                                                                                            <rowConstraints>
+                                                                                                                <RowConstraints />
+                                                                                                                <RowConstraints />
+                                                                                                            </rowConstraints>
+                                                                                                        </GridPane>
+                                                                                                    </children>
+                                                                                                </AnchorPane>
+                                                                                            </content>
+                                                                                        </Tab>
+                                                                                    </tabs>
+                                                                                    <GridPane.margin>
+                                                                                        <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                                                                                    </GridPane.margin>
+                                                                                </TabPane>
+                                                                                <GridPane fx:id="masDiaHGrid" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                    <children>
+                                                                                        <JFXCheckBox fx:id="hAtomMasCheck" onAction="#sethAtomMasAction" text="H-Atoms" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                            <font>
+                                                                                                <Font name="System Italic" size="12.0" />
+                                                                                            </font>
+                                                                                            <GridPane.margin>
+                                                                                                <Insets bottom="10.0" left="20.0" top="10.0" />
+                                                                                            </GridPane.margin>
+                                                                                        </JFXCheckBox>
+                                                                                        <JFXCheckBox fx:id="lPairMasCheck" onAction="#setlPairMasAction" text="Lone pair" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                            <font>
+                                                                                                <Font name="System Italic" size="12.0" />
+                                                                                            </font>
+                                                                                            <GridPane.margin>
+                                                                                                <Insets bottom="10.0" left="20.0" top="10.0" />
+                                                                                            </GridPane.margin>
+                                                                                        </JFXCheckBox>
+                                                                                        <JFXCheckBox fx:id="offhAtomMasCheck" onAction="#offSethAtomMasAction" text="Off H-Atoms" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                            <font>
+                                                                                                <Font name="System Italic" size="12.0" />
+                                                                                            </font>
+                                                                                            <GridPane.margin>
+                                                                                                <Insets bottom="10.0" left="20.0" top="10.0" />
+                                                                                            </GridPane.margin>
+                                                                                        </JFXCheckBox>
+                                                                                        <JFXCheckBox fx:id="offLPairMasCheck" onAction="#offSetlPairMasAction" text="Off Lone pair" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                            <font>
+                                                                                                <Font name="System Italic" size="12.0" />
+                                                                                            </font>
+                                                                                            <GridPane.margin>
+                                                                                                <Insets bottom="10.0" left="20.0" top="10.0" />
+                                                                                            </GridPane.margin>
+                                                                                        </JFXCheckBox>
+                                                                                    </children>
+                                                                                    <columnConstraints>
+                                                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                                    </columnConstraints>
+                                                                                    <rowConstraints>
+                                                                                        <RowConstraints />
+                                                                                        <RowConstraints />
+                                                                                    </rowConstraints>
+                                                                                    <GridPane.margin>
+                                                                                        <Insets bottom="5.0" left="5.0" right="5.0" />
+                                                                                    </GridPane.margin>
+                                                                                </GridPane>
+                                                                                <GridPane fx:id="formsGrid" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                                                                    <columnConstraints>
+                                                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                                    </columnConstraints>
+                                                                                    <rowConstraints>
+                                                                                        <RowConstraints />
+                                                                                    </rowConstraints>
+                                                                                    <children>
+                                                                                        <JFXCheckBox fx:id="linearMasAlgebraicCheck" onAction="#setlinearMasAlgebraicAction" text="Linear" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                            <font>
+                                                                                                <Font name="System Italic" size="12.0" />
+                                                                                            </font>
+                                                                                            <GridPane.margin>
+                                                                                                <Insets bottom="25.0" top="25.0" />
+                                                                                            </GridPane.margin>
+                                                                                        </JFXCheckBox>
+                                                                                        <JFXCheckBox fx:id="BilinearMasAlgebraicCheck" onAction="#setBilinearMasAlgebraicAction" text="Billinear" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                            <font>
+                                                                                                <Font name="System Italic" size="12.0" />
+                                                                                            </font>
+                                                                                            <GridPane.margin>
+                                                                                                <Insets bottom="25.0" top="25.0" />
+                                                                                            </GridPane.margin>
+                                                                                        </JFXCheckBox>
+                                                                                        <JFXCheckBox fx:id="QuadraticMasAlgebraicCheck" onAction="#setQuadraticMasAlgebraicAction" text="Quadratic" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                            <font>
+                                                                                                <Font name="System Italic" size="12.0" />
+                                                                                            </font>
+                                                                                            <GridPane.margin>
+                                                                                                <Insets bottom="25.0" top="25.0" />
+                                                                                            </GridPane.margin>
+                                                                                        </JFXCheckBox>
+                                                                                    </children>
+                                                                                    <GridPane.margin>
+                                                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                                                    </GridPane.margin>
+                                                                                </GridPane>
+                                                                            </children>
+                                                                        </GridPane>
+                                                                    </children>
+                                                                    <GridPane.margin>
+                                                                        <Insets bottom="20.0" />
+                                                                    </GridPane.margin>
+                                                                </VBox>
+                                                            </children>
+                                                        </GridPane>
+                                                    </children>
+                                                </AnchorPane>
+                                            </content>
+                                        </Tab>
+                                        <Tab text="Search strategy">
+                                            <content>
+                                                <AnchorPane>
+                                                    <children>
+                                                        <TabPane rotateGraphic="true" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                            <tabs>
+                                                                <Tab text="Genetic Algotithm">
+                                                                    <content>
+                                                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="260.0" prefWidth="422.0">
+                                                                            <children>
+                                                                                <GridPane layoutX="25.0" layoutY="44.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                                    <columnConstraints>
+                                                                                        <ColumnConstraints />
+                                                                                        <ColumnConstraints />
+                                                                                        <ColumnConstraints />
+                                                                                    </columnConstraints>
+                                                                                    <rowConstraints>
+                                                                                        <RowConstraints />
+                                                                                        <RowConstraints />
+                                                                                        <RowConstraints />
+                                                                                        <RowConstraints />
+                                                                                        <RowConstraints />
+                                                                                        <RowConstraints />
+                                                                                    </rowConstraints>
+                                                                                    <children>
+                                                                                        <JFXTextField fx:id="numDescSubPobTextField" alignment="CENTER" labelFloat="true" promptText="MD number" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                            <font>
+                                                                                                <Font name="System Italic" size="14.0" />
+                                                                                            </font>
+                                                                                            <GridPane.margin>
+                                                                                                <Insets left="10.0" right="5.0" />
+                                                                                            </GridPane.margin>
+                                                                                        </JFXTextField>
+                                                                                        <JFXTextField fx:id="numIterBox" alignment="CENTER" labelFloat="true" promptText="Number of iterations" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                            <font>
+                                                                                                <Font name="System Italic" size="14.0" />
+                                                                                            </font>
+                                                                                            <GridPane.margin>
+                                                                                                <Insets left="5.0" right="10.0" />
+                                                                                            </GridPane.margin>
+                                                                                        </JFXTextField>
+                                                                                        <JFXTextField fx:id="numIterSubPobTextField" alignment="CENTER" labelFloat="true" promptText="Subpopulations Number of iterations" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                            <font>
+                                                                                                <Font name="System Italic" size="14.0" />
+                                                                                            </font>
+                                                                                            <GridPane.margin>
+                                                                                                <Insets left="5.0" right="10.0" />
+                                                                                            </GridPane.margin>
+                                                                                        </JFXTextField>
+                                                                                        <JFXComboBox fx:id="seleOpeBox" labelFloat="true" onAction="#opeSelOnAction" promptText="Selection operator" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                            <GridPane.margin>
+                                                                                                <Insets left="10.0" right="5.0" />
+                                                                                            </GridPane.margin>
+                                                                                        </JFXComboBox>
+                                                                                        <JFXComboBox fx:id="crossBox" labelFloat="true" promptText="CrossOver operator" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                            <GridPane.margin>
+                                                                                                <Insets left="10.0" right="5.0" />
+                                                                                            </GridPane.margin>
+                                                                                        </JFXComboBox>
+                                                                                        <JFXComboBox fx:id="mutBox" labelFloat="true" promptText="Mutation operator" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                            <GridPane.margin>
+                                                                                                <Insets left="10.0" right="5.0" />
+                                                                                            </GridPane.margin>
+                                                                                        </JFXComboBox>
+                                                                                        <JFXComboBox fx:id="repSubPobComBox" labelFloat="true" promptText="Replacement subpopulation" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                            <GridPane.margin>
+                                                                                                <Insets left="10.0" right="5.0" />
+                                                                                            </GridPane.margin>
+                                                                                        </JFXComboBox>
+                                                                                        <JFXTextField fx:id="numSelTextField" alignment="CENTER" labelFloat="true" promptText="Number of parents" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                            <font>
+                                                                                                <Font name="System Italic" size="14.0" />
+                                                                                            </font>
+                                                                                            <GridPane.margin>
+                                                                                                <Insets left="5.0" right="5.0" />
+                                                                                            </GridPane.margin>
+                                                                                        </JFXTextField>
+                                                                                        <JFXTextField fx:id="tourSizeTextField" alignment="CENTER" labelFloat="true" promptText="Tournament  size" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                            <font>
+                                                                                                <Font name="System Italic" size="14.0" />
+                                                                                            </font>
+                                                                                            <GridPane.margin>
+                                                                                                <Insets left="5.0" right="10.0" />
+                                                                                            </GridPane.margin>
+                                                                                        </JFXTextField>
+                                                                                        <JFXTextField fx:id="coPTextField" alignment="CENTER" labelFloat="true" promptText="CrossOver probability" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                            <font>
+                                                                                                <Font name="System Italic" size="14.0" />
+                                                                                            </font>
+                                                                                            <GridPane.margin>
+                                                                                                <Insets left="5.0" right="5.0" />
+                                                                                            </GridPane.margin>
+                                                                                        </JFXTextField>
+                                                                                        <JFXCheckBox fx:id="incestCheck" onAction="#incestAction" text="Prevent incest" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                            <font>
+                                                                                                <Font name="System Italic" size="12.0" />
+                                                                                            </font>
+                                                                                            <GridPane.margin>
+                                                                                                <Insets left="5.0" right="10.0" />
+                                                                                            </GridPane.margin>
+                                                                                        </JFXCheckBox>
+                                                                                        <JFXComboBox fx:id="repBox" labelFloat="true" onAction="#opeRepPobOnAction" promptText="Replacement operation" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                            <GridPane.margin>
+                                                                                                <Insets left="5.0" right="5.0" />
+                                                                                            </GridPane.margin>
+                                                                                        </JFXComboBox>
+                                                                                        <JFXTextField fx:id="muPTextField" alignment="CENTER" labelFloat="true" promptText="Mutation probability" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4">
+                                                                                            <font>
+                                                                                                <Font name="System Italic" size="14.0" />
+                                                                                            </font>
+                                                                                        </JFXTextField>
+                                                                                        <JFXTextField fx:id="repNumIterTextField" alignment="CENTER" labelFloat="true" promptText="Number of iterations" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                            <font>
+                                                                                                <Font name="System Italic" size="14.0" />
+                                                                                            </font>
+                                                                                        </JFXTextField>
+                                                                                    </children>
+                                                                                </GridPane>
+                                                                            </children>
+                                                                        </AnchorPane>
+                                                                    </content>
+                                                                </Tab>
+                                                                <Tab text="Quality Function">
+                                                                    <content>
+                                                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="306.0" prefWidth="456.0">
+                                                                            <children>
+                                                                                <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                                    <children>
+                                                                                        <HBox alignment="TOP_CENTER" prefHeight="359.0" prefWidth="460.0">
+                                                                                            <children>
+                                                                                                <TitledPane animated="false" collapsible="false" prefHeight="354.0" prefWidth="209.0" text="Attribute function quality" HBox.hgrow="ALWAYS">
+                                                                                                    <content>
+                                                                                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="274.0" prefWidth="207.0">
+                                                                                                            <children>
+                                                                                                                <VBox layoutX="5.0" layoutY="11.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                                                                    <children>
+                                                                                                                        <JFXComboBox fx:id="attBox" labelFloat="true" onAction="#attBoxOnChange" promptText="Attribute function function" VBox.vgrow="ALWAYS">
+                                                                                                                            <VBox.margin>
+                                                                                                                                <Insets left="10.0" top="10.0" />
+                                                                                                                            </VBox.margin>
+                                                                                                                        </JFXComboBox>
+                                                                                                                        <VBox fx:id="reliefBox" prefHeight="158.0" prefWidth="182.0">
+                                                                                                                            <children>
+                                                                                                                                <JFXTextField fx:id="insTextField" alignment="TOP_CENTER" labelFloat="true" promptText="instances">
+                                                                                                                                    <font>
+                                                                                                                                        <Font name="System Italic" size="14.0" />
+                                                                                                                                    </font>
+                                                                                                                                    <VBox.margin>
+                                                                                                                                        <Insets left="10.0" right="10.0" top="15.0" />
+                                                                                                                                    </VBox.margin>
+                                                                                                                                </JFXTextField>
+                                                                                                                                <JFXTextField fx:id="neiTextField" alignment="TOP_CENTER" labelFloat="true" layoutX="10.0" layoutY="25.0" promptText="Neighbours">
+                                                                                                                                    <font>
+                                                                                                                                        <Font name="System Italic" size="14.0" />
+                                                                                                                                    </font>
+                                                                                                                                    <VBox.margin>
+                                                                                                                                        <Insets left="10.0" right="10.0" top="15.0" />
+                                                                                                                                    </VBox.margin>
+                                                                                                                                </JFXTextField>
+                                                                                                                                <JFXTextField fx:id="sigmaTextField" alignment="TOP_CENTER" labelFloat="true" layoutX="10.0" layoutY="25.0" promptText="Sigma">
+                                                                                                                                    <font>
+                                                                                                                                        <Font name="System Italic" size="14.0" />
+                                                                                                                                    </font>
+                                                                                                                                    <VBox.margin>
+                                                                                                                                        <Insets left="10.0" right="10.0" top="15.0" />
+                                                                                                                                    </VBox.margin>
+                                                                                                                                </JFXTextField>
+                                                                                                                            </children>
+                                                                                                                            <VBox.margin>
+                                                                                                                                <Insets left="10.0" right="10.0" top="10.0" />
+                                                                                                                            </VBox.margin>
+                                                                                                                        </VBox>
+                                                                                                                    </children>
+                                                                                                                </VBox>
+                                                                                                            </children>
+                                                                                                        </AnchorPane>
+                                                                                                    </content>
+                                                                                                    <font>
+                                                                                                        <Font name="System Italic" size="14.0" />
+                                                                                                    </font>
+                                                                                                    <HBox.margin>
+                                                                                                        <Insets bottom="5.0" left="5.0" top="5.0" />
+                                                                                                    </HBox.margin>
+                                                                                                </TitledPane>
+                                                                                                <TitledPane animated="false" collapsible="false" layoutX="15.0" layoutY="15.0" prefHeight="350.0" prefWidth="231.0" text="Fitness function" HBox.hgrow="ALWAYS">
+                                                                                                    <content>
+                                                                                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="306.0" prefWidth="229.0">
+                                                                                                            <children>
+                                                                                                                <VBox fx:id="bBoxFitnnesFnc" layoutX="10.0" layoutY="12.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                                                                    <children>
+                                                                                                                        <JFXComboBox fx:id="fitnessBox" labelFloat="true" onAction="#changePanelChildren" promptText="Fitness function" VBox.vgrow="ALWAYS">
+                                                                                                                            <VBox.margin>
+                                                                                                                                <Insets left="10.0" top="10.0" />
+                                                                                                                            </VBox.margin>
+                                                                                                                        </JFXComboBox>
+                                                                                                                        <JFXComboBox fx:id="vRetBox" labelFloat="true" promptText="Value to return" VBox.vgrow="ALWAYS">
+                                                                                                                            <VBox.margin>
+                                                                                                                                <Insets left="10.0" top="15.0" />
+                                                                                                                            </VBox.margin>
+                                                                                                                        </JFXComboBox>
+                                                                                                                        <VBox fx:id="fitBox" alignment="TOP_CENTER">
+                                                                                                                            <VBox.margin>
+                                                                                                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                                                                                            </VBox.margin>
+                                                                                                                        </VBox>
+                                                                                                                    </children>
+                                                                                                                </VBox>
+                                                                                                            </children>
+                                                                                                        </AnchorPane>
+                                                                                                    </content>
+                                                                                                    <font>
+                                                                                                        <Font name="System Italic" size="14.0" />
+                                                                                                    </font>
+                                                                                                    <HBox.margin>
+                                                                                                        <Insets bottom="5.0" left="5.0" right="10.0" top="5.0" />
+                                                                                                    </HBox.margin>
+                                                                                                </TitledPane>
+                                                                                            </children>
+                                                                                        </HBox>
+                                                                                    </children>
+                                                                                </VBox>
+                                                                            </children>
+                                                                        </AnchorPane>
+                                                                    </content>
+                                                                </Tab>
+                                                                <Tab text="Filters functions">
+                                                                    <content>
+                                                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="399.0" prefWidth="456.0">
+                                                                            <children>
+                                                                                <HBox prefHeight="461.0" prefWidth="566.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                                    <children>
+                                                                                        <TitledPane animated="false" collapsible="false" prefHeight="273.0" prefWidth="262.0" text="Filters subpopulations process" HBox.hgrow="ALWAYS">
+                                                                                            <content>
+                                                                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                                                                    <children>
+                                                                                                        <HBox prefHeight="229.0" prefWidth="544.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                                                            <children>
+                                                                                                                <GridPane HBox.hgrow="ALWAYS">
+                                                                                                                    <children>
+                                                                                                                        <JFXCheckBox fx:id="nanFilterSubPobCheck" checkedColor="#4059a9" text="NaNFilter" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                                                            <font>
+                                                                                                                                <Font name="System Italic" size="14.0" />
+                                                                                                                            </font>
+                                                                                                                            <GridPane.margin>
+                                                                                                                                <Insets top="20.0" />
+                                                                                                                            </GridPane.margin>
+                                                                                                                        </JFXCheckBox>
+                                                                                                                        <JFXCheckBox fx:id="seFilterSubPobCheck" alignment="TOP_CENTER" checkedColor="#4059a9" onAction="#seSubPobAction" text="SEFilter" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                                                            <font>
+                                                                                                                                <Font name="System Italic" size="14.0" />
+                                                                                                                            </font>
+                                                                                                                            <GridPane.margin>
+                                                                                                                                <Insets top="20.0" />
+                                                                                                                            </GridPane.margin>
+                                                                                                                        </JFXCheckBox>
+                                                                                                                        <JFXTextField fx:id="seSubPobTextField" alignment="CENTER" labelFloat="true" promptText="Threshold" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                                                            <font>
+                                                                                                                                <Font name="System Italic" size="14.0" />
+                                                                                                                            </font>
+                                                                                                                            <GridPane.margin>
+                                                                                                                                <Insets top="20.0" />
+                                                                                                                            </GridPane.margin>
+                                                                                                                        </JFXTextField>
+                                                                                                                        <JFXCheckBox fx:id="r2FilterSubPobCheck" alignment="TOP_CENTER" checkedColor="#4059a9" onAction="#r2SubPobAction" text="R2Filter" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                                                            <font>
+                                                                                                                                <Font name="System Italic" size="14.0" />
+                                                                                                                            </font>
+                                                                                                                            <GridPane.margin>
+                                                                                                                                <Insets top="20.0" />
+                                                                                                                            </GridPane.margin>
+                                                                                                                        </JFXCheckBox>
+                                                                                                                        <JFXTextField fx:id="r2SubpobTextField" alignment="CENTER" labelFloat="true" promptText="Threshold" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                                                            <font>
+                                                                                                                                <Font name="System Italic" size="14.0" />
+                                                                                                                            </font>
+                                                                                                                            <GridPane.margin>
+                                                                                                                                <Insets top="20.0" />
+                                                                                                                            </GridPane.margin>
+                                                                                                                        </JFXTextField>
+                                                                                                                        <JFXCheckBox fx:id="corFilterSubPobCheck" alignment="TOP_CENTER" checkedColor="#4059a9" onAction="#corSubPobAct" text="Correlation Filter" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                                                            <font>
+                                                                                                                                <Font name="System Italic" size="14.0" />
+                                                                                                                            </font>
+                                                                                                                            <GridPane.margin>
+                                                                                                                                <Insets top="20.0" />
+                                                                                                                            </GridPane.margin>
+                                                                                                                        </JFXCheckBox>
+                                                                                                                        <JFXTextField fx:id="corSubPobTextField" alignment="CENTER" labelFloat="true" promptText="Threshold" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                                                            <font>
+                                                                                                                                <Font name="System Italic" size="14.0" />
+                                                                                                                            </font>
+                                                                                                                            <GridPane.margin>
+                                                                                                                                <Insets top="20.0" />
+                                                                                                                            </GridPane.margin>
+                                                                                                                        </JFXTextField>
+                                                                                                                        <JFXCheckBox fx:id="kurSubPobCheck" checkedColor="#4059a9" onAction="#kurSubPobOnAct" text="Kurtosis filter" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                                                            <font>
+                                                                                                                                <Font size="14.0" />
+                                                                                                                            </font>
+                                                                                                                            <GridPane.margin>
+                                                                                                                                <Insets top="20.0" />
+                                                                                                                            </GridPane.margin>
+                                                                                                                        </JFXCheckBox>
+                                                                                                                        <JFXTextField fx:id="kurSubPobTextField" alignment="CENTER" labelFloat="true" promptText="Theshold" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                                                            <font>
+                                                                                                                                <Font name="System Italic" size="14.0" />
+                                                                                                                            </font>
+                                                                                                                            <GridPane.margin>
+                                                                                                                                <Insets top="20.0" />
+                                                                                                                            </GridPane.margin>
+                                                                                                                        </JFXTextField>
+                                                                                                                    </children>
+                                                                                                                    <columnConstraints>
+                                                                                                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="149.0" minWidth="10.0" prefWidth="149.0" />
+                                                                                                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="136.0" minWidth="10.0" prefWidth="136.0" />
+                                                                                                                    </columnConstraints>
+                                                                                                                    <rowConstraints>
+                                                                                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                                                                    </rowConstraints>
+                                                                                                                    <HBox.margin>
+                                                                                                                        <Insets right="5.0" />
+                                                                                                                    </HBox.margin>
+                                                                                                                </GridPane>
+                                                                                                            </children>
+                                                                                                        </HBox>
+                                                                                                    </children>
+                                                                                                </AnchorPane>
+                                                                                            </content>
+                                                                                            <font>
+                                                                                                <Font name="System Italic" size="14.0" />
+                                                                                            </font>
+                                                                                            <HBox.margin>
+                                                                                                <Insets left="10.0" right="5.0" top="10.0" />
+                                                                                            </HBox.margin>
+                                                                                        </TitledPane>
+                                                                                        <TitledPane animated="false" collapsible="false" prefHeight="273.0" prefWidth="263.0" text="Filters population process " HBox.hgrow="ALWAYS">
+                                                                                            <content>
+                                                                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                                                                    <children>
+                                                                                                        <GridPane layoutX="-1.0" layoutY="-153.0" prefHeight="180.0" prefWidth="281.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                                                            <children>
+                                                                                                                <JFXCheckBox fx:id="nanFilterPobCheck" checkedColor="#4059a9" text="NaNFilter" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                                                    <font>
+                                                                                                                        <Font name="System Italic" size="14.0" />
+                                                                                                                    </font>
+                                                                                                                    <GridPane.margin>
+                                                                                                                        <Insets top="20.0" />
+                                                                                                                    </GridPane.margin>
+                                                                                                                </JFXCheckBox>
+                                                                                                                <JFXCheckBox fx:id="seFilterPobCheck" alignment="TOP_CENTER" checkedColor="#4059a9" onAction="#sePobAction" text="SEFilter" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                                                    <font>
+                                                                                                                        <Font name="System Italic" size="14.0" />
+                                                                                                                    </font>
+                                                                                                                    <GridPane.margin>
+                                                                                                                        <Insets top="20.0" />
+                                                                                                                    </GridPane.margin>
+                                                                                                                </JFXCheckBox>
+                                                                                                                <JFXTextField fx:id="sePobTextField" alignment="CENTER" labelFloat="true" promptText="Threshold" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                                                    <font>
+                                                                                                                        <Font name="System Italic" size="14.0" />
+                                                                                                                    </font>
+                                                                                                                    <GridPane.margin>
+                                                                                                                        <Insets top="20.0" />
+                                                                                                                    </GridPane.margin>
+                                                                                                                </JFXTextField>
+                                                                                                                <JFXCheckBox fx:id="r2FilterPobCheck" alignment="TOP_CENTER" checkedColor="#4059a9" onAction="#r2PobAction" text="R2Filter" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                                                    <font>
+                                                                                                                        <Font name="System Italic" size="14.0" />
+                                                                                                                    </font>
+                                                                                                                    <GridPane.margin>
+                                                                                                                        <Insets top="20.0" />
+                                                                                                                    </GridPane.margin>
+                                                                                                                </JFXCheckBox>
+                                                                                                                <JFXTextField fx:id="r2pobTextField" alignment="CENTER" labelFloat="true" promptText="Threshold" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                                                    <font>
+                                                                                                                        <Font name="System Italic" size="14.0" />
+                                                                                                                    </font>
+                                                                                                                    <GridPane.margin>
+                                                                                                                        <Insets top="20.0" />
+                                                                                                                    </GridPane.margin>
+                                                                                                                </JFXTextField>
+                                                                                                                <JFXCheckBox fx:id="corFilterPobCheck" alignment="TOP_CENTER" checkedColor="#4059a9" onAction="#corPobAct" text="Correlation Filter" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                                                    <font>
+                                                                                                                        <Font name="System Italic" size="14.0" />
+                                                                                                                    </font>
+                                                                                                                    <GridPane.margin>
+                                                                                                                        <Insets top="20.0" />
+                                                                                                                    </GridPane.margin>
+                                                                                                                </JFXCheckBox>
+                                                                                                                <JFXTextField fx:id="corpobTextField" alignment="CENTER" labelFloat="true" promptText="Threshold" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                                                    <font>
+                                                                                                                        <Font name="System Italic" size="14.0" />
+                                                                                                                    </font>
+                                                                                                                    <GridPane.margin>
+                                                                                                                        <Insets top="20.0" />
+                                                                                                                    </GridPane.margin>
+                                                                                                                </JFXTextField>
+                                                                                                                <JFXCheckBox fx:id="kurPobCheck" checkedColor="#4059a9" onAction="#kurPobOnAct" text="Kurtosis filter" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                                                    <font>
+                                                                                                                        <Font size="14.0" />
+                                                                                                                    </font>
+                                                                                                                    <GridPane.margin>
+                                                                                                                        <Insets top="20.0" />
+                                                                                                                    </GridPane.margin>
+                                                                                                                </JFXCheckBox>
+                                                                                                                <JFXTextField fx:id="kurpobTextField" alignment="CENTER" labelFloat="true" promptText="Theshold" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                                                    <font>
+                                                                                                                        <Font name="System Italic" size="14.0" />
+                                                                                                                    </font>
+                                                                                                                    <GridPane.margin>
+                                                                                                                        <Insets top="20.0" />
+                                                                                                                    </GridPane.margin>
+                                                                                                                </JFXTextField>
+                                                                                                            </children>
+                                                                                                            <columnConstraints>
+                                                                                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="149.0" minWidth="10.0" prefWidth="149.0" />
+                                                                                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="136.0" minWidth="10.0" prefWidth="136.0" />
+                                                                                                            </columnConstraints>
+                                                                                                            <rowConstraints>
+                                                                                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                                                            </rowConstraints>
+                                                                                                        </GridPane>
+                                                                                                    </children>
+                                                                                                </AnchorPane>
+                                                                                            </content>
+                                                                                            <font>
+                                                                                                <Font name="System Italic" size="14.0" />
+                                                                                            </font>
+                                                                                            <HBox.margin>
+                                                                                                <Insets right="10.0" top="10.0" />
+                                                                                            </HBox.margin>
+                                                                                        </TitledPane>
+                                                                                    </children>
+                                                                                </HBox>
+                                                                            </children>
+                                                                        </AnchorPane>
+                                                                    </content>
+                                                                </Tab>
+                                                            </tabs>
+                                                        </TabPane>
+                                                    </children>
+                                                </AnchorPane>
+                                            </content>
+                                        </Tab>
+                                    </tabs>
+                                    <padding>
+                                        <Insets left="5.0" right="5.0" />
+                                    </padding>
+                                    <VBox.margin>
+                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                    </VBox.margin>
+                                </TabPane>
+                                <HBox>
+                                    <children>
+                                        <JFXComboBox fx:id="parSchComboBox" onAction="#parSchAction" promptText="Parallel scheme" HBox.hgrow="ALWAYS">
+                                            <HBox.margin>
+                                                <Insets left="5.0" top="10.0" />
+                                            </HBox.margin>
+                                        </JFXComboBox>
+                                        <HBox HBox.hgrow="ALWAYS" />
+                                        <JFXButton fx:id="loadProjBut" onAction="#loadProjAction" text="Load" HBox.hgrow="ALWAYS">
+                                            <HBox.margin>
+                                                <Insets bottom="15.0" left="10.0" />
+                                            </HBox.margin>
+                                        </JFXButton>
+                                        <JFXButton fx:id="saveProjBut" onAction="#saveProjAct" text="Save" HBox.hgrow="ALWAYS">
+                                            <HBox.margin>
+                                                <Insets bottom="15.0" left="10.0" />
+                                            </HBox.margin>
+                                        </JFXButton>
+                                        <JFXButton fx:id="cancelProjBut" onAction="#cancelProjAct" text="Cancel" HBox.hgrow="ALWAYS">
+                                            <HBox.margin>
+                                                <Insets bottom="15.0" left="10.0" />
+                                            </HBox.margin>
+                                        </JFXButton>
+                                        <JFXButton fx:id="runProjBut" onAction="#runProjAction" text="Run" HBox.hgrow="ALWAYS">
+                                            <HBox.margin>
+                                                <Insets bottom="15.0" left="10.0" right="10.0" />
+                                            </HBox.margin>
+                                        </JFXButton>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
+                    </children>
+                </AnchorPane>
+                <AnchorPane>
+                    <children>
+                        <HBox prefHeight="439.0" prefWidth="655.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <children>
+                                <TreeTableView fx:id="treeTableExecution" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                                    <columns>
+                                        <TreeTableColumn fx:id="nameTreeColumn" prefWidth="75.0" text="Name" />
+                                        <TreeTableColumn fx:id="numDescTreeColumn" prefWidth="75.0" text="Number of descriptors" />
+                                        <TreeTableColumn fx:id="evaTreeColumn" prefWidth="75.0" text="Evaluation" />
+                                    </columns>
+                                    <contextMenu>
+                                        <ContextMenu fx:id="tableCM">
+                                            <items>
+                                                <MenuItem fx:id="seGraphItem" mnemonicParsing="false" onAction="#seGraphShowAction" text="SE graph" />
+                                            </items>
+                                        </ContextMenu>
+                                    </contextMenu>
+                                </TreeTableView>
+                            </children>
+                        </HBox>
+                    </children>
+                </AnchorPane>
+            </items>
+            <VBox.margin>
+                <Insets left="10.0" right="10.0" />
+            </VBox.margin>
+        </SplitPane>
+        <HBox id="HBox" fx:id="boxIndicator" alignment="CENTER_LEFT" spacing="5.0">
+         <children>
+            <ProgressBar fx:id="executingProgress" progress="0.0" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </HBox.margin>
+               <padding>
+                  <Insets bottom="5.0" top="5.0" />
+               </padding>
+            </ProgressBar>
+            <Label fx:id="indTimeLabel" text=" " HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets bottom="10.0" right="10.0" top="10.0" />
+               </HBox.margin>
+            </Label>
+         </children></HBox> 
+    </children>  
+</VBox>
