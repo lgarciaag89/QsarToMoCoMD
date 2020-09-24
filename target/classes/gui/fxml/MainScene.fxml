@@ -883,15 +883,7 @@
                                                                                                 <Insets left="10.0" right="5.0" />
                                                                                             </GridPane.margin>
                                                                                         </JFXTextField>
-                                                                                        <JFXTextField fx:id="numIterBox" alignment="CENTER" labelFloat="true" promptText="Number of iterations" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                                                                                            <font>
-                                                                                                <Font name="System Italic" size="14.0" />
-                                                                                            </font>
-                                                                                            <GridPane.margin>
-                                                                                                <Insets left="5.0" right="10.0" />
-                                                                                            </GridPane.margin>
-                                                                                        </JFXTextField>
-                                                                                        <JFXTextField fx:id="numIterSubPobTextField" alignment="CENTER" labelFloat="true" promptText="Subpopulations Number of iterations" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                        <JFXTextField fx:id="numIterBox" alignment="CENTER" labelFloat="true" promptText="Number of iterations" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowSpan="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                                                                                             <font>
                                                                                                 <Font name="System Italic" size="14.0" />
                                                                                             </font>
@@ -914,7 +906,7 @@
                                                                                                 <Insets left="10.0" right="5.0" />
                                                                                             </GridPane.margin>
                                                                                         </JFXComboBox>
-                                                                                        <JFXComboBox fx:id="repSubPobComBox" labelFloat="true" promptText="Replacement subpopulation" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                        <JFXComboBox fx:id="repSubPobComBox" labelFloat="true" promptText="Change children for" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                                                                                             <GridPane.margin>
                                                                                                 <Insets left="10.0" right="5.0" />
                                                                                             </GridPane.margin>

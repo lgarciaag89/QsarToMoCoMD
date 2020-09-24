@@ -305,8 +305,6 @@ public class MainScene implements Initializable {
     @FXML
     private JFXTextField numIterBox;
     @FXML
-    private JFXTextField numIterSubPobTextField;
-    @FXML
     private JFXComboBox<GASelectionType> seleOpeBox;
     @FXML
     private JFXTextField numSelTextField;
@@ -515,7 +513,6 @@ public class MainScene implements Initializable {
         // number of descriptors
         numDescSubPobTextField.setTextFormatter(new TextFormatter<>(filter));
         numIterBox.setTextFormatter(new TextFormatter<>(filter));
-        numIterSubPobTextField.setTextFormatter(new TextFormatter<>(filter));
 
         // quality fnc attributes        
         ObservableList<AttributeQualityType> attData = FXCollections.observableArrayList();
@@ -670,9 +667,6 @@ public class MainScene implements Initializable {
 
         // number of iterations for the general scheme
         numIterBox.setText(Integer.toString(((GAConf) conf.getSearch()).getNumIter()));
-
-        // number of iterations for subpoblations 
-        numIterSubPobTextField.setText(Integer.toString(((GAConf) conf.getSearch()).getFamConf().getNumIter()));
 
         // quality fnc attributes
         attBox.setValue(((GAConf) conf.getSearch()).getFamConf().getAttConf().getType());
@@ -1096,9 +1090,6 @@ public class MainScene implements Initializable {
 
         // number of iterations for general search
         ((GAConf) conf.getSearch()).setNumIter(Integer.parseInt(numIterBox.getText()));
-
-        // number of iterations for sub population search
-        ((GAConf) conf.getSearch()).getFamConf().setNumIter(Integer.parseInt(numIterSubPobTextField.getText()));
 
         // selection
         ((GAConf) conf.getSearch()).getFamConf().setSelConf(getSelectionConfig());
