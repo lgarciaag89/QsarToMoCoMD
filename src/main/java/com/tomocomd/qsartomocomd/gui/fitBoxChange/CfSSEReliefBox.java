@@ -6,7 +6,7 @@
 package com.tomocomd.qsartomocomd.gui.fitBoxChange;
 
 import com.jfoenix.controls.JFXComboBox;
-import com.tomocomd.qsartomocomdlib.evaluation.fitnessfunction.ElectionMethod;
+import com.tomocomd.qsartomocomdlib.evaluation.subsetfitnessfunction.ElectionMethod;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;

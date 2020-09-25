@@ -29,7 +29,7 @@ public class SeReliefBox implements IFitBoxChields{
     @Override
     public String getOptions() {
         String rOptLine = relief.getOptions();
-        return String.format("%s %s %s %s", AttributeQualityType.SE.toString(), "", AttributeQualityType.Relief.toString(),rOptLine);
+        return String.format("%s %s %s %s", AttributeQualityType.SE.toString(), "", AttributeQualityType.ReliefF.toString(),rOptLine);
     }
 
 

@@ -783,7 +783,7 @@ public class MainScene implements Initializable {
 
     private void setQualityAttBox(boolean flag) {
         AttributeQualityType type = attBox.getValue();
-        if (type == AttributeQualityType.Relief) {
+        if ( type == AttributeQualityType.ReliefF || type == AttributeQualityType.SE_ReliefF ) {
             reliefBox.setDisable(false);
             // relieff attribute fnc options
             // options to relief function  
@@ -1030,8 +1030,12 @@ public class MainScene implements Initializable {
         AttributeQualityType attType = attBox.getValue();
         String[] optAtt = new String[]{};
         switch (attType) {
-            case Relief:
+            case ReliefF:
                 optAtt = new String[]{"-M", insTextField.getText(), "-K", neiTextField.getText(), "-A", sigmaTextField.getText()};
+                break;
+            case SE_ReliefF:
+                optAtt = new String[]{"-M", insTextField.getText(), "-K", neiTextField.getText(), "-A", sigmaTextField.getText()};
+                break;
         }
         AttributeQualityConf attConf = new AttributeQualityConf(attBox.getValue(), optAtt);
         return attConf;
@@ -1066,7 +1070,7 @@ public class MainScene implements Initializable {
         String opts;
         switch (typeFit) {
             case SE_SUM_Relief:
-                opts = String.format("%s %s %s %s", AttributeQualityType.SE.toString(), "", AttributeQualityType.Relief.toString(), "temp");
+                opts = String.format("%s %s %s %s", AttributeQualityType.SE.toString(), "", AttributeQualityType.ReliefF.toString(), "temp");
                 options = opts.split(" ");
                 options[options.length - 1] = fitOptValues.getOptions();
                 break;
