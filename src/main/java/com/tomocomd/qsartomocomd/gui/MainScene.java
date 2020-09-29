@@ -47,6 +47,8 @@ import com.tomocomd.qsartomocomdlib.configuration.evaluation.fitnessfunction.Eva
 import com.tomocomd.qsartomocomdlib.configuration.evaluation.subsetqualityfunction.SubSetQualityType;
 import com.tomocomd.qsartomocomdlib.configuration.filters.FilterConfig;
 import com.tomocomd.qsartomocomdlib.configuration.filters.FilterType;
+import com.tomocomd.qsartomocomdlib.configuration.filters.ImputationMissingValuesType;
+import com.tomocomd.qsartomocomdlib.configuration.filters.ImputationReplaceValue;
 import com.tomocomd.qsartomocomdlib.configuration.search.geneticalgorithm.GAConf;
 import com.tomocomd.qsartomocomdlib.configuration.search.geneticalgorithm.operators.GACrossoverConf;
 import com.tomocomd.qsartomocomdlib.configuration.search.geneticalgorithm.operators.GACrossoverType;
@@ -74,7 +76,6 @@ import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.function.UnaryOperator;
-import java.util.logging.Level;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -91,8 +92,8 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
@@ -103,8 +104,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -337,33 +336,13 @@ public class MainScene implements Initializable {
     @FXML
     private JFXTextField sigmaTextField;
     @FXML
-    private VBox bBoxFitnnesFnc;
-    @FXML
     private JFXComboBox<EvaluationFunctionType> fitnessBox;
     @FXML
     private JFXComboBox<SubSetQualityType> vRetBox;
     @FXML
     private VBox fitBox;
     @FXML
-    private JFXCheckBox nanFilterSubPobCheck;
-    @FXML
-    private JFXCheckBox seFilterSubPobCheck;
-    @FXML
-    private JFXTextField seSubPobTextField;
-    @FXML
-    private JFXCheckBox r2FilterSubPobCheck;
-    @FXML
-    private JFXTextField r2SubpobTextField;
-    @FXML
-    private JFXCheckBox corFilterSubPobCheck;
-    @FXML
-    private JFXTextField corSubPobTextField;
-    @FXML
-    private JFXCheckBox kurSubPobCheck;
-    @FXML
-    private JFXTextField kurSubPobTextField;
-    @FXML
-    private JFXCheckBox nanFilterPobCheck;
+    private JFXCheckBox nanFilterSubPobCheck;    
     @FXML
     private JFXCheckBox seFilterPobCheck;
     @FXML
@@ -386,6 +365,14 @@ public class MainScene implements Initializable {
     private HBox boxIndicator;
     @FXML
     private Label indTimeLabel;
+    @FXML
+    private TabPane tabPanelGASearch;
+    @FXML
+    private JFXTextField numIterSubPobTextField;
+    @FXML
+    private JFXComboBox<ImputationMissingValuesType> impTypeSub;
+    @FXML
+    private JFXComboBox<ImputationReplaceValue> impValueSub;
 
     /**
      * Initializes the controller class.
@@ -513,6 +500,7 @@ public class MainScene implements Initializable {
         // number of descriptors
         numDescSubPobTextField.setTextFormatter(new TextFormatter<>(filter));
         numIterBox.setTextFormatter(new TextFormatter<>(filter));
+        numIterSubPobTextField.setTextFormatter(new TextFormatter<>(filter));
 
         // quality fnc attributes        
         ObservableList<AttributeQualityType> attData = FXCollections.observableArrayList();
@@ -531,6 +519,15 @@ public class MainScene implements Initializable {
         ObservableList<SubSetQualityType> subsetEvaData = FXCollections.observableArrayList();
         subsetEvaData.addAll(Arrays.asList(SubSetQualityType.values()));
         vRetBox.setItems(subsetEvaData);
+
+        // nan filters
+        ObservableList<ImputationMissingValuesType> impTypesData = FXCollections.observableArrayList();
+        impTypesData.addAll(Arrays.asList(ImputationMissingValuesType.values()));
+        impTypeSub.setItems(impTypesData);
+
+        ObservableList<ImputationReplaceValue> impValuesData = FXCollections.observableArrayList();
+        impValuesData.addAll(Arrays.asList(ImputationReplaceValue.values()));
+        impValueSub.setItems(impValuesData);
     }
 
     private void loadFromConf() throws Exception {
@@ -668,6 +665,9 @@ public class MainScene implements Initializable {
         // number of iterations for the general scheme
         numIterBox.setText(Integer.toString(((GAConf) conf.getSearch()).getNumIter()));
 
+        // number of iterations for subpoblations 
+        numIterSubPobTextField.setText(Integer.toString(((GAConf) conf.getSearch()).getFamConf().getNumIter()));
+
         // quality fnc attributes
         attBox.setValue(((GAConf) conf.getSearch()).getFamConf().getAttConf().getType());
         setQualityAttBox(true);
@@ -683,16 +683,7 @@ public class MainScene implements Initializable {
     private void initFilters() {
         // set general filters
         nanFilterSubPobCheck.setSelected(false);
-        seFilterSubPobCheck.setSelected(false);
-        r2FilterSubPobCheck.setSelected(false);
-        corFilterSubPobCheck.setSelected(false);
-        kurSubPobCheck.setSelected(false);
-        seSubPobTextField.setDisable(true);
-        r2SubpobTextField.setDisable(true);
-        corSubPobTextField.setDisable(true);
-        kurSubPobTextField.setDisable(true);
 
-        nanFilterPobCheck.setSelected(false);
         seFilterPobCheck.setSelected(false);
         r2FilterPobCheck.setSelected(false);
         corFilterPobCheck.setSelected(false);
@@ -715,9 +706,6 @@ public class MainScene implements Initializable {
                     kurpobTextField.setDisable(false);
                     kurpobTextField.setText(fConf.getOptions()[1]);
                     break;
-                case NaN:
-                    nanFilterPobCheck.setSelected(true);
-                    break;
                 case R2:
                     r2FilterPobCheck.setSelected(true);
                     r2pobTextField.setDisable(false);
@@ -735,28 +723,14 @@ public class MainScene implements Initializable {
 
         for (FilterConfig fConf : filters) {
             switch (fConf.getType()) {
-                case Corr:
-                    corFilterSubPobCheck.setSelected(true);
-                    corSubPobTextField.setDisable(false);
-                    corSubPobTextField.setText(fConf.getOptions()[1]);
-                    break;
-                case Kur:
-                    kurSubPobCheck.setSelected(true);
-                    kurSubPobTextField.setDisable(false);
-                    kurSubPobTextField.setText(fConf.getOptions()[1]);
-                    break;
                 case NaN:
                     nanFilterSubPobCheck.setSelected(true);
-                    break;
-                case R2:
-                    r2FilterSubPobCheck.setSelected(true);
-                    r2SubpobTextField.setDisable(false);
-                    r2SubpobTextField.setText(fConf.getOptions()[1]);
-                    break;
-                case SE:
-                    seFilterSubPobCheck.setSelected(true);
-                    seSubPobTextField.setDisable(false);
-                    seSubPobTextField.setText(fConf.getOptions()[1]);
+
+                    impTypeSub.setDisable(false);
+                    impTypeSub.setValue(ImputationMissingValuesType.valueOf(fConf.getOptions()[1]));
+                    if (impTypeSub.getValue() == ImputationMissingValuesType.Imputation) {
+                        impValueSub.setValue(ImputationReplaceValue.valueOf(fConf.getOptions()[3]));
+                    }
                     break;
             }
         }
@@ -783,7 +757,7 @@ public class MainScene implements Initializable {
 
     private void setQualityAttBox(boolean flag) {
         AttributeQualityType type = attBox.getValue();
-        if ( type == AttributeQualityType.ReliefF || type == AttributeQualityType.SE_ReliefF ) {
+        if (type == AttributeQualityType.ReliefF || type == AttributeQualityType.SE_ReliefF) {
             reliefBox.setDisable(false);
             // relieff attribute fnc options
             // options to relief function  
@@ -983,31 +957,19 @@ public class MainScene implements Initializable {
     private List<FilterConfig> getFiltersSubConfig() {
         List<FilterConfig> filters = new LinkedList<>();
         if (nanFilterSubPobCheck.isSelected()) {
-            filters.add(new FilterConfig(FilterType.NaN, new String[]{}));
-        }
-        if (seFilterSubPobCheck.isSelected()) {
-            filters.add(new FilterConfig(FilterType.SE, new String[]{"-t", seSubPobTextField.getText()}));
-        }
-
-        if (r2FilterSubPobCheck.isSelected()) {
-            filters.add(new FilterConfig(FilterType.R2, new String[]{"-t", r2SubpobTextField.getText()}));
-        }
-
-        if (corFilterSubPobCheck.isSelected()) {
-            filters.add(new FilterConfig(FilterType.Corr, new String[]{"-t", corSubPobTextField.getText()}));
-        }
-
-        if (kurSubPobCheck.isSelected()) {
-            filters.add(new FilterConfig(FilterType.Kur, new String[]{"-t", kurSubPobTextField.getText()}));
+            if (impTypeSub.getValue() == ImputationMissingValuesType.Delete) {
+                filters.add(new FilterConfig(FilterType.NaN, new String[]{"-t",ImputationMissingValuesType.Delete.toString()}));
+            }else{
+                filters.add(new FilterConfig(FilterType.NaN, new String[]{"-t",ImputationMissingValuesType.Imputation.toString(),
+                                                                          "-v",impValueSub.getValue().toString()}));
+            }
         }
         return filters;
     }
 
     private List<FilterConfig> getFiltersConfig() {
         List<FilterConfig> filters = new LinkedList<>();
-        if (nanFilterPobCheck.isSelected()) {
-            filters.add(new FilterConfig(FilterType.NaN, new String[]{}));
-        }
+        
         if (seFilterPobCheck.isSelected()) {
             filters.add(new FilterConfig(FilterType.SE, new String[]{"-t", sePobTextField.getText()}));
         }
@@ -1073,13 +1035,13 @@ public class MainScene implements Initializable {
                 opts = String.format("%s %s %s %s", AttributeQualityType.SE.toString(), "", AttributeQualityType.ReliefF.toString(), "temp");
                 options = opts.split(" ");
                 options[options.length - 1] = fitOptValues.getOptions();
-                break;
-            case CfsSubsetReliefSE:
-                opts = fitOptValues.getOptions();
-                String reOpts = opts.substring(opts.indexOf("-M"));
-                options = opts.substring(0, opts.indexOf("-M") + 1).split(" ");
-                options[3] = reOpts;
-                break;
+//                break;
+//            case CfsSubsetReliefSE:
+//                opts = fitOptValues.getOptions();
+//                String reOpts = opts.substring(opts.indexOf("-M"));
+//                options = opts.substring(0, opts.indexOf("-M") + 1).split(" ");
+//                options[3] = reOpts;
+//                break;
             case ReliefRankMean:
                 opts = fitOptValues.getOptions();
                 options = opts.split(" ");
@@ -1094,6 +1056,9 @@ public class MainScene implements Initializable {
 
         // number of iterations for general search
         ((GAConf) conf.getSearch()).setNumIter(Integer.parseInt(numIterBox.getText()));
+
+        // number of iterations for sub population search
+        ((GAConf) conf.getSearch()).getFamConf().setNumIter(Integer.parseInt(numIterSubPobTextField.getText()));
 
         // selection
         ((GAConf) conf.getSearch()).getFamConf().setSelConf(getSelectionConfig());
@@ -2209,42 +2174,6 @@ public class MainScene implements Initializable {
     }
 
     @FXML
-    private void r2SubPobAction(ActionEvent event) {
-        if (r2FilterSubPobCheck.isSelected()) {
-            r2SubpobTextField.setDisable(false);
-        } else {
-            r2SubpobTextField.setDisable(true);
-        }
-    }
-
-    @FXML
-    private void seSubPobAction(ActionEvent event) {
-        if (seFilterSubPobCheck.isSelected()) {
-            seSubPobTextField.setDisable(false);
-        } else {
-            seSubPobTextField.setDisable(true);
-        }
-    }
-
-    @FXML
-    private void corSubPobAct(ActionEvent event) {
-        if (corFilterSubPobCheck.isSelected()) {
-            corSubPobTextField.setDisable(false);
-        } else {
-            corSubPobTextField.setDisable(true);
-        }
-    }
-
-    @FXML
-    private void kurSubPobOnAct(ActionEvent event) {
-        if (kurSubPobCheck.isSelected()) {
-            kurSubPobTextField.setDisable(false);
-        } else {
-            kurSubPobTextField.setDisable(true);
-        }
-    }
-
-    @FXML
     private void r2PobAction(ActionEvent event) {
         if (r2FilterPobCheck.isSelected()) {
             r2pobTextField.setDisable(false);
@@ -2277,6 +2206,28 @@ public class MainScene implements Initializable {
             kurpobTextField.setDisable(false);
         } else {
             kurpobTextField.setDisable(true);
+        }
+    }
+
+    @FXML
+    private void impTypeSubAct(ActionEvent event) {
+        if (impTypeSub.getValue() == ImputationMissingValuesType.Imputation) {
+            impValueSub.setDisable(false);
+        } else {
+            impValueSub.setDisable(true);
+        }
+
+    }
+
+    @FXML
+    private void nanSubPobAction(ActionEvent event) {
+        if (nanFilterSubPobCheck.isSelected()) {
+            impTypeSub.setDisable(false);
+            impTypeSub.setValue(ImputationMissingValuesType.Delete);
+            impValueSub.setDisable(true);
+        } else {
+            impTypeSub.setDisable(true);
+            impValueSub.setDisable(true);
         }
     }
 }

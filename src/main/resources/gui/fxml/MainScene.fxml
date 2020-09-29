@@ -11,7 +11,7 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tomocomd.qsartomocomd.gui.MainScene">
+<VBox prefHeight="775.0" prefWidth="1098.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tomocomd.qsartomocomd.gui.MainScene">
     <children>
         <MenuBar>
             <menus>
@@ -251,7 +251,7 @@
                                                                                                                         <Insets left="20.0" />
                                                                                                                     </GridPane.margin>
                                                                                                                 </JFXCheckBox>
-                                                                                                                <JFXComboBox fx:id="orderMidMatForm" labelFloat="true" onAction="#setorderMidMatFormAction" promptText="Max order" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                                                <JFXComboBox fx:id="orderMidMatForm" labelFloat="true" maxWidth="1.7976931348623157E308" onAction="#setorderMidMatFormAction" promptText="Max order" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                                                                                                                     <GridPane.margin>
                                                                                                                         <Insets left="20.0" />
                                                                                                                     </GridPane.margin>
@@ -854,7 +854,7 @@
                                             <content>
                                                 <AnchorPane>
                                                     <children>
-                                                        <TabPane rotateGraphic="true" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                        <TabPane fx:id="tabPanelGASearch" rotateGraphic="true" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                             <tabs>
                                                                 <Tab text="Genetic Algotithm">
                                                                     <content>
@@ -875,7 +875,7 @@
                                                                                         <RowConstraints />
                                                                                     </rowConstraints>
                                                                                     <children>
-                                                                                        <JFXTextField fx:id="numDescSubPobTextField" alignment="CENTER" labelFloat="true" promptText="MD number" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                        <JFXTextField fx:id="numDescSubPobTextField" alignment="CENTER" labelFloat="true" promptText="MDs number for family" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                                                                                             <font>
                                                                                                 <Font name="System Italic" size="14.0" />
                                                                                             </font>
@@ -883,7 +883,7 @@
                                                                                                 <Insets left="10.0" right="5.0" />
                                                                                             </GridPane.margin>
                                                                                         </JFXTextField>
-                                                                                        <JFXTextField fx:id="numIterBox" alignment="CENTER" labelFloat="true" promptText="Number of iterations" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowSpan="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                        <JFXTextField fx:id="numIterBox" alignment="CENTER" labelFloat="true" promptText="Number of iterations" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowSpan="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                                                                                             <font>
                                                                                                 <Font name="System Italic" size="14.0" />
                                                                                             </font>
@@ -891,22 +891,22 @@
                                                                                                 <Insets left="5.0" right="10.0" />
                                                                                             </GridPane.margin>
                                                                                         </JFXTextField>
-                                                                                        <JFXComboBox fx:id="seleOpeBox" labelFloat="true" onAction="#opeSelOnAction" promptText="Selection operator" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                        <JFXComboBox fx:id="seleOpeBox" labelFloat="true" maxWidth="1.7976931348623157E308" onAction="#opeSelOnAction" promptText="Selection operator" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                                                                                             <GridPane.margin>
                                                                                                 <Insets left="10.0" right="5.0" />
                                                                                             </GridPane.margin>
                                                                                         </JFXComboBox>
-                                                                                        <JFXComboBox fx:id="crossBox" labelFloat="true" promptText="CrossOver operator" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                        <JFXComboBox fx:id="crossBox" labelFloat="true" maxWidth="1.7976931348623157E308" promptText="CrossOver operator" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                                                                                             <GridPane.margin>
                                                                                                 <Insets left="10.0" right="5.0" />
                                                                                             </GridPane.margin>
                                                                                         </JFXComboBox>
-                                                                                        <JFXComboBox fx:id="mutBox" labelFloat="true" promptText="Mutation operator" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                        <JFXComboBox fx:id="mutBox" labelFloat="true" maxWidth="1.7976931348623157E308" promptText="Mutation operator" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                                                                                             <GridPane.margin>
                                                                                                 <Insets left="10.0" right="5.0" />
                                                                                             </GridPane.margin>
                                                                                         </JFXComboBox>
-                                                                                        <JFXComboBox fx:id="repSubPobComBox" labelFloat="true" promptText="Change children for" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                        <JFXComboBox fx:id="repSubPobComBox" labelFloat="true" maxWidth="1.7976931348623157E308" promptText="Change children for" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                                                                                             <GridPane.margin>
                                                                                                 <Insets left="10.0" right="5.0" />
                                                                                             </GridPane.margin>
@@ -943,7 +943,7 @@
                                                                                                 <Insets left="5.0" right="10.0" />
                                                                                             </GridPane.margin>
                                                                                         </JFXCheckBox>
-                                                                                        <JFXComboBox fx:id="repBox" labelFloat="true" onAction="#opeRepPobOnAction" promptText="Replacement operation" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                        <JFXComboBox fx:id="repBox" labelFloat="true" maxWidth="1.7976931348623157E308" onAction="#opeRepPobOnAction" promptText="Replacement operation" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                                                                                             <GridPane.margin>
                                                                                                 <Insets left="5.0" right="5.0" />
                                                                                             </GridPane.margin>
@@ -958,6 +958,14 @@
                                                                                                 <Font name="System Italic" size="14.0" />
                                                                                             </font>
                                                                                         </JFXTextField>
+                                                                  <JFXTextField fx:id="numIterSubPobTextField" alignment="CENTER" labelFloat="true" prefHeight="30.0" prefWidth="206.0" promptText="Subpopulations Number of iterations" GridPane.columnIndex="2">
+                                                                     <font>
+                                                                        <Font name="System Italic" size="14.0" />
+                                                                     </font>
+                                                                     <padding>
+                                                                        <Insets bottom="5.0" top="5.0" />
+                                                                     </padding>
+                                                                  </JFXTextField>
                                                                                     </children>
                                                                                 </GridPane>
                                                                             </children>
@@ -966,103 +974,95 @@
                                                                 </Tab>
                                                                 <Tab text="Quality Function">
                                                                     <content>
-                                                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="306.0" prefWidth="456.0">
+                                                                        <AnchorPane minHeight="0.0" minWidth="0.0">
                                                                             <children>
-                                                                                <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                                                    <children>
-                                                                                        <HBox alignment="TOP_CENTER" prefHeight="359.0" prefWidth="460.0">
-                                                                                            <children>
-                                                                                                <TitledPane animated="false" collapsible="false" prefHeight="354.0" prefWidth="209.0" text="Attribute function quality" HBox.hgrow="ALWAYS">
-                                                                                                    <content>
-                                                                                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="274.0" prefWidth="207.0">
-                                                                                                            <children>
-                                                                                                                <VBox layoutX="5.0" layoutY="11.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                                                                                    <children>
-                                                                                                                        <JFXComboBox fx:id="attBox" labelFloat="true" onAction="#attBoxOnChange" promptText="Attribute function function" VBox.vgrow="ALWAYS">
-                                                                                                                            <VBox.margin>
-                                                                                                                                <Insets left="10.0" top="10.0" />
-                                                                                                                            </VBox.margin>
-                                                                                                                        </JFXComboBox>
-                                                                                                                        <VBox fx:id="reliefBox" prefHeight="158.0" prefWidth="182.0">
-                                                                                                                            <children>
-                                                                                                                                <JFXTextField fx:id="insTextField" alignment="TOP_CENTER" labelFloat="true" promptText="instances">
-                                                                                                                                    <font>
-                                                                                                                                        <Font name="System Italic" size="14.0" />
-                                                                                                                                    </font>
-                                                                                                                                    <VBox.margin>
-                                                                                                                                        <Insets left="10.0" right="10.0" top="15.0" />
-                                                                                                                                    </VBox.margin>
-                                                                                                                                </JFXTextField>
-                                                                                                                                <JFXTextField fx:id="neiTextField" alignment="TOP_CENTER" labelFloat="true" layoutX="10.0" layoutY="25.0" promptText="Neighbours">
-                                                                                                                                    <font>
-                                                                                                                                        <Font name="System Italic" size="14.0" />
-                                                                                                                                    </font>
-                                                                                                                                    <VBox.margin>
-                                                                                                                                        <Insets left="10.0" right="10.0" top="15.0" />
-                                                                                                                                    </VBox.margin>
-                                                                                                                                </JFXTextField>
-                                                                                                                                <JFXTextField fx:id="sigmaTextField" alignment="TOP_CENTER" labelFloat="true" layoutX="10.0" layoutY="25.0" promptText="Sigma">
-                                                                                                                                    <font>
-                                                                                                                                        <Font name="System Italic" size="14.0" />
-                                                                                                                                    </font>
-                                                                                                                                    <VBox.margin>
-                                                                                                                                        <Insets left="10.0" right="10.0" top="15.0" />
-                                                                                                                                    </VBox.margin>
-                                                                                                                                </JFXTextField>
-                                                                                                                            </children>
-                                                                                                                            <VBox.margin>
-                                                                                                                                <Insets left="10.0" right="10.0" top="10.0" />
-                                                                                                                            </VBox.margin>
-                                                                                                                        </VBox>
-                                                                                                                    </children>
-                                                                                                                </VBox>
-                                                                                                            </children>
-                                                                                                        </AnchorPane>
-                                                                                                    </content>
-                                                                                                    <font>
-                                                                                                        <Font name="System Italic" size="14.0" />
-                                                                                                    </font>
-                                                                                                    <HBox.margin>
-                                                                                                        <Insets bottom="5.0" left="5.0" top="5.0" />
-                                                                                                    </HBox.margin>
-                                                                                                </TitledPane>
-                                                                                                <TitledPane animated="false" collapsible="false" layoutX="15.0" layoutY="15.0" prefHeight="350.0" prefWidth="231.0" text="Fitness function" HBox.hgrow="ALWAYS">
-                                                                                                    <content>
-                                                                                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="306.0" prefWidth="229.0">
-                                                                                                            <children>
-                                                                                                                <VBox fx:id="bBoxFitnnesFnc" layoutX="10.0" layoutY="12.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                                                                                    <children>
-                                                                                                                        <JFXComboBox fx:id="fitnessBox" labelFloat="true" onAction="#changePanelChildren" promptText="Fitness function" VBox.vgrow="ALWAYS">
-                                                                                                                            <VBox.margin>
-                                                                                                                                <Insets left="10.0" top="10.0" />
-                                                                                                                            </VBox.margin>
-                                                                                                                        </JFXComboBox>
-                                                                                                                        <JFXComboBox fx:id="vRetBox" labelFloat="true" promptText="Value to return" VBox.vgrow="ALWAYS">
-                                                                                                                            <VBox.margin>
-                                                                                                                                <Insets left="10.0" top="15.0" />
-                                                                                                                            </VBox.margin>
-                                                                                                                        </JFXComboBox>
-                                                                                                                        <VBox fx:id="fitBox" alignment="TOP_CENTER">
-                                                                                                                            <VBox.margin>
-                                                                                                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                                                                                                            </VBox.margin>
-                                                                                                                        </VBox>
-                                                                                                                    </children>
-                                                                                                                </VBox>
-                                                                                                            </children>
-                                                                                                        </AnchorPane>
-                                                                                                    </content>
-                                                                                                    <font>
-                                                                                                        <Font name="System Italic" size="14.0" />
-                                                                                                    </font>
-                                                                                                    <HBox.margin>
-                                                                                                        <Insets bottom="5.0" left="5.0" right="10.0" top="5.0" />
-                                                                                                    </HBox.margin>
-                                                                                                </TitledPane>
-                                                                                            </children>
-                                                                                        </HBox>
-                                                                                    </children>
-                                                                                </VBox>
+                                                            <HBox prefHeight="293.0" prefWidth="448.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                               <children>
+                                                                                          <TitledPane animated="false" collapsible="false" text="Attribute function quality" HBox.hgrow="ALWAYS">
+                                                                                              <content>
+                                                                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="274.0" prefWidth="207.0">
+                                                                                                      <children>
+                                                                              <GridPane prefHeight="249.0" prefWidth="207.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                                <columnConstraints>
+                                                                                  <ColumnConstraints />
+                                                                                </columnConstraints>
+                                                                                <rowConstraints>
+                                                                                  <RowConstraints />
+                                                                                  <RowConstraints />
+                                                                                </rowConstraints>
+                                                                                 <children>
+                                                                                                                  <JFXComboBox fx:id="attBox" labelFloat="true" maxWidth="1.7976931348623157E308" onAction="#attBoxOnChange" promptText="Attribute quality function" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
+                                                                                                                  <VBox fx:id="reliefBox" prefHeight="158.0" prefWidth="182.0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                                                      <children>
+                                                                                                                          <JFXTextField fx:id="insTextField" alignment="TOP_CENTER" labelFloat="true" promptText="instances">
+                                                                                                                              <font>
+                                                                                                                                  <Font name="System Italic" size="14.0" />
+                                                                                                                              </font>
+                                                                                                                              <VBox.margin>
+                                                                                                                                  <Insets left="10.0" right="10.0" top="15.0" />
+                                                                                                                              </VBox.margin>
+                                                                                                                          </JFXTextField>
+                                                                                                                          <JFXTextField fx:id="neiTextField" alignment="TOP_CENTER" labelFloat="true" layoutX="10.0" layoutY="25.0" promptText="Neighbours">
+                                                                                                                              <font>
+                                                                                                                                  <Font name="System Italic" size="14.0" />
+                                                                                                                              </font>
+                                                                                                                              <VBox.margin>
+                                                                                                                                  <Insets left="10.0" right="10.0" top="15.0" />
+                                                                                                                              </VBox.margin>
+                                                                                                                          </JFXTextField>
+                                                                                                                          <JFXTextField fx:id="sigmaTextField" alignment="TOP_CENTER" labelFloat="true" layoutX="10.0" layoutY="25.0" promptText="Sigma">
+                                                                                                                              <font>
+                                                                                                                                  <Font name="System Italic" size="14.0" />
+                                                                                                                              </font>
+                                                                                                                              <VBox.margin>
+                                                                                                                                  <Insets left="10.0" right="10.0" top="15.0" />
+                                                                                                                              </VBox.margin>
+                                                                                                                          </JFXTextField>
+                                                                                                                      </children>
+                                                                                                                  </VBox>
+                                                                                 </children>
+                                                                              </GridPane>
+                                                                                                      </children>
+                                                                                                  </AnchorPane>
+                                                                                              </content>
+                                                                                              <font>
+                                                                                                  <Font name="System Italic" size="14.0" />
+                                                                                              </font>
+                                                                     <HBox.margin>
+                                                                        <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+                                                                     </HBox.margin>
+                                                                                          </TitledPane>
+                                                                                          <TitledPane animated="false" collapsible="false" text="Fitness function" HBox.hgrow="ALWAYS">
+                                                                                              <content>
+                                                                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="306.0" prefWidth="229.0">
+                                                                                                      <children>
+                                                                              <GridPane prefHeight="249.0" prefWidth="229.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                                <columnConstraints>
+                                                                                  <ColumnConstraints />
+                                                                                </columnConstraints>
+                                                                                <rowConstraints>
+                                                                                  <RowConstraints />
+                                                                                  <RowConstraints />
+                                                                                  <RowConstraints />
+                                                                                </rowConstraints>
+                                                                                 <children>
+                                                                                                                  <JFXComboBox fx:id="fitnessBox" labelFloat="true" maxWidth="1.7976931348623157E308" onAction="#changePanelChildren" promptText="Subset fitness function" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
+                                                                                                                  <JFXComboBox fx:id="vRetBox" labelFloat="true" maxWidth="1.7976931348623157E308" promptText="Subset merit function" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
+                                                                                                                  <VBox fx:id="fitBox" alignment="TOP_CENTER" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
+                                                                                 </children>
+                                                                              </GridPane>
+                                                                                                      </children>
+                                                                                                  </AnchorPane>
+                                                                                              </content>
+                                                                                              <font>
+                                                                                                  <Font name="System Italic" size="14.0" />
+                                                                                              </font>
+                                                                     <HBox.margin>
+                                                                        <Insets bottom="5.0" left="5.0" right="10.0" top="5.0" />
+                                                                     </HBox.margin>
+                                                                                          </TitledPane>
+                                                               </children>
+                                                            </HBox>
                                                                             </children>
                                                                         </AnchorPane>
                                                                     </content>
@@ -1071,205 +1071,108 @@
                                                                     <content>
                                                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="399.0" prefWidth="456.0">
                                                                             <children>
-                                                                                <HBox prefHeight="461.0" prefWidth="566.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                                                    <children>
-                                                                                        <TitledPane animated="false" collapsible="false" prefHeight="273.0" prefWidth="262.0" text="Filters subpopulations process" HBox.hgrow="ALWAYS">
+                                                            <VBox prefHeight="293.0" prefWidth="438.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                               <children>
+                                                                                        <TitledPane animated="false" collapsible="false" text="Filters subpopulations process">
                                                                                             <content>
-                                                                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                                                                                    <children>
-                                                                                                        <HBox prefHeight="229.0" prefWidth="544.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                                                                            <children>
-                                                                                                                <GridPane HBox.hgrow="ALWAYS">
-                                                                                                                    <children>
-                                                                                                                        <JFXCheckBox fx:id="nanFilterSubPobCheck" checkedColor="#4059a9" text="NaNFilter" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                                                                                                                            <font>
-                                                                                                                                <Font name="System Italic" size="14.0" />
-                                                                                                                            </font>
-                                                                                                                            <GridPane.margin>
-                                                                                                                                <Insets top="20.0" />
-                                                                                                                            </GridPane.margin>
-                                                                                                                        </JFXCheckBox>
-                                                                                                                        <JFXCheckBox fx:id="seFilterSubPobCheck" alignment="TOP_CENTER" checkedColor="#4059a9" onAction="#seSubPobAction" text="SEFilter" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                                                                                                                            <font>
-                                                                                                                                <Font name="System Italic" size="14.0" />
-                                                                                                                            </font>
-                                                                                                                            <GridPane.margin>
-                                                                                                                                <Insets top="20.0" />
-                                                                                                                            </GridPane.margin>
-                                                                                                                        </JFXCheckBox>
-                                                                                                                        <JFXTextField fx:id="seSubPobTextField" alignment="CENTER" labelFloat="true" promptText="Threshold" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                                                                                                                            <font>
-                                                                                                                                <Font name="System Italic" size="14.0" />
-                                                                                                                            </font>
-                                                                                                                            <GridPane.margin>
-                                                                                                                                <Insets top="20.0" />
-                                                                                                                            </GridPane.margin>
-                                                                                                                        </JFXTextField>
-                                                                                                                        <JFXCheckBox fx:id="r2FilterSubPobCheck" alignment="TOP_CENTER" checkedColor="#4059a9" onAction="#r2SubPobAction" text="R2Filter" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                                                                                                                            <font>
-                                                                                                                                <Font name="System Italic" size="14.0" />
-                                                                                                                            </font>
-                                                                                                                            <GridPane.margin>
-                                                                                                                                <Insets top="20.0" />
-                                                                                                                            </GridPane.margin>
-                                                                                                                        </JFXCheckBox>
-                                                                                                                        <JFXTextField fx:id="r2SubpobTextField" alignment="CENTER" labelFloat="true" promptText="Threshold" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                                                                                                                            <font>
-                                                                                                                                <Font name="System Italic" size="14.0" />
-                                                                                                                            </font>
-                                                                                                                            <GridPane.margin>
-                                                                                                                                <Insets top="20.0" />
-                                                                                                                            </GridPane.margin>
-                                                                                                                        </JFXTextField>
-                                                                                                                        <JFXCheckBox fx:id="corFilterSubPobCheck" alignment="TOP_CENTER" checkedColor="#4059a9" onAction="#corSubPobAct" text="Correlation Filter" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                                                                                                                            <font>
-                                                                                                                                <Font name="System Italic" size="14.0" />
-                                                                                                                            </font>
-                                                                                                                            <GridPane.margin>
-                                                                                                                                <Insets top="20.0" />
-                                                                                                                            </GridPane.margin>
-                                                                                                                        </JFXCheckBox>
-                                                                                                                        <JFXTextField fx:id="corSubPobTextField" alignment="CENTER" labelFloat="true" promptText="Threshold" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                                                                                                                            <font>
-                                                                                                                                <Font name="System Italic" size="14.0" />
-                                                                                                                            </font>
-                                                                                                                            <GridPane.margin>
-                                                                                                                                <Insets top="20.0" />
-                                                                                                                            </GridPane.margin>
-                                                                                                                        </JFXTextField>
-                                                                                                                        <JFXCheckBox fx:id="kurSubPobCheck" checkedColor="#4059a9" onAction="#kurSubPobOnAct" text="Kurtosis filter" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                                                                                                                            <font>
-                                                                                                                                <Font size="14.0" />
-                                                                                                                            </font>
-                                                                                                                            <GridPane.margin>
-                                                                                                                                <Insets top="20.0" />
-                                                                                                                            </GridPane.margin>
-                                                                                                                        </JFXCheckBox>
-                                                                                                                        <JFXTextField fx:id="kurSubPobTextField" alignment="CENTER" labelFloat="true" promptText="Theshold" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                                                                                                                            <font>
-                                                                                                                                <Font name="System Italic" size="14.0" />
-                                                                                                                            </font>
-                                                                                                                            <GridPane.margin>
-                                                                                                                                <Insets top="20.0" />
-                                                                                                                            </GridPane.margin>
-                                                                                                                        </JFXTextField>
-                                                                                                                    </children>
-                                                                                                                    <columnConstraints>
-                                                                                                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="149.0" minWidth="10.0" prefWidth="149.0" />
-                                                                                                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="136.0" minWidth="10.0" prefWidth="136.0" />
-                                                                                                                    </columnConstraints>
-                                                                                                                    <rowConstraints>
-                                                                                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                                                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                                                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                                                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                                                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                                                                                    </rowConstraints>
-                                                                                                                    <HBox.margin>
-                                                                                                                        <Insets right="5.0" />
-                                                                                                                    </HBox.margin>
-                                                                                                                </GridPane>
-                                                                                                            </children>
-                                                                                                        </HBox>
-                                                                                                    </children>
-                                                                                                </AnchorPane>
+                                                                                                <AnchorPane>
+                                                                           <children>
+                                                                                                          <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                                                              <children>
+                                                                                                                  <JFXCheckBox fx:id="nanFilterSubPobCheck" checkedColor="#4059a9" onAction="#nanSubPobAction" text="Missing values" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                                                      <GridPane.margin>
+                                                                                                                          <Insets right="5.0" top="10.0" />
+                                                                                                                      </GridPane.margin>
+                                                                                                                  </JFXCheckBox>
+                                                                                    <JFXComboBox fx:id="impTypeSub" labelFloat="true" maxWidth="1.7976931348623157E308" onAction="#impTypeSubAct" promptText="Imputation type" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                       <GridPane.margin>
+                                                                                          <Insets top="10.0" />
+                                                                                       </GridPane.margin>
+                                                                                    </JFXComboBox>
+                                                                                    <JFXComboBox fx:id="impValueSub" labelFloat="true" maxWidth="1.7976931348623157E308" promptText="Imputation value" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                       <GridPane.margin>
+                                                                                          <Insets left="5.0" top="10.0" />
+                                                                                       </GridPane.margin>
+                                                                                    </JFXComboBox>
+                                                                                                              </children>
+                                                                                                              <columnConstraints>
+                                                                                                                  <ColumnConstraints />
+                                                                                    <ColumnConstraints />
+                                                                                                                  <ColumnConstraints />
+                                                                                                              </columnConstraints>
+                                                                                                              <rowConstraints>
+                                                                                                                  <RowConstraints />
+                                                                                                              </rowConstraints>
+                                                                                                          </GridPane>
+                                                                           </children></AnchorPane>
                                                                                             </content>
                                                                                             <font>
                                                                                                 <Font name="System Italic" size="14.0" />
                                                                                             </font>
-                                                                                            <HBox.margin>
-                                                                                                <Insets left="10.0" right="5.0" top="10.0" />
-                                                                                            </HBox.margin>
+                                                                     <VBox.margin>
+                                                                        <Insets />
+                                                                     </VBox.margin>
+                                                                     <padding>
+                                                                        <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
+                                                                     </padding>
                                                                                         </TitledPane>
-                                                                                        <TitledPane animated="false" collapsible="false" prefHeight="273.0" prefWidth="263.0" text="Filters population process " HBox.hgrow="ALWAYS">
+                                                                                        <TitledPane animated="false" collapsible="false" text="Filters population process " VBox.vgrow="ALWAYS">
                                                                                             <content>
-                                                                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                                                                <AnchorPane minHeight="0.0" minWidth="0.0">
                                                                                                     <children>
-                                                                                                        <GridPane layoutX="-1.0" layoutY="-153.0" prefHeight="180.0" prefWidth="281.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                                                        <GridPane layoutX="-1.0" layoutY="-153.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                                                                             <children>
-                                                                                                                <JFXCheckBox fx:id="nanFilterPobCheck" checkedColor="#4059a9" text="NaNFilter" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                                                                                                                    <font>
-                                                                                                                        <Font name="System Italic" size="14.0" />
-                                                                                                                    </font>
+                                                                                                                <JFXCheckBox fx:id="seFilterPobCheck" alignment="TOP_CENTER" checkedColor="#4059a9" onAction="#sePobAction" text="SEFilter" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                                                                                                                     <GridPane.margin>
                                                                                                                         <Insets top="20.0" />
                                                                                                                     </GridPane.margin>
                                                                                                                 </JFXCheckBox>
-                                                                                                                <JFXCheckBox fx:id="seFilterPobCheck" alignment="TOP_CENTER" checkedColor="#4059a9" onAction="#sePobAction" text="SEFilter" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                                                                                                                    <font>
-                                                                                                                        <Font name="System Italic" size="14.0" />
-                                                                                                                    </font>
-                                                                                                                    <GridPane.margin>
-                                                                                                                        <Insets top="20.0" />
-                                                                                                                    </GridPane.margin>
-                                                                                                                </JFXCheckBox>
-                                                                                                                <JFXTextField fx:id="sePobTextField" alignment="CENTER" labelFloat="true" promptText="Threshold" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                                                                                                                    <font>
-                                                                                                                        <Font name="System Italic" size="14.0" />
-                                                                                                                    </font>
+                                                                                                                <JFXTextField fx:id="sePobTextField" alignment="CENTER" labelFloat="true" maxWidth="1.7976931348623157E308" promptText="Threshold" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                                                                                                                     <GridPane.margin>
                                                                                                                         <Insets top="20.0" />
                                                                                                                     </GridPane.margin>
                                                                                                                 </JFXTextField>
-                                                                                                                <JFXCheckBox fx:id="r2FilterPobCheck" alignment="TOP_CENTER" checkedColor="#4059a9" onAction="#r2PobAction" text="R2Filter" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                                                                                                                    <font>
-                                                                                                                        <Font name="System Italic" size="14.0" />
-                                                                                                                    </font>
+                                                                                                                <JFXCheckBox fx:id="r2FilterPobCheck" alignment="TOP_CENTER" checkedColor="#4059a9" onAction="#r2PobAction" text="R2Filter" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                                                                                                                     <GridPane.margin>
                                                                                                                         <Insets top="20.0" />
                                                                                                                     </GridPane.margin>
                                                                                                                 </JFXCheckBox>
-                                                                                                                <JFXTextField fx:id="r2pobTextField" alignment="CENTER" labelFloat="true" promptText="Threshold" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                                                                                                                    <font>
-                                                                                                                        <Font name="System Italic" size="14.0" />
-                                                                                                                    </font>
+                                                                                                                <JFXTextField fx:id="r2pobTextField" alignment="CENTER" labelFloat="true" maxWidth="1.7976931348623157E308" promptText="Threshold" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                                                                                                                     <GridPane.margin>
                                                                                                                         <Insets top="20.0" />
                                                                                                                     </GridPane.margin>
                                                                                                                 </JFXTextField>
-                                                                                                                <JFXCheckBox fx:id="corFilterPobCheck" alignment="TOP_CENTER" checkedColor="#4059a9" onAction="#corPobAct" text="Correlation Filter" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                                                                                                                    <font>
-                                                                                                                        <Font name="System Italic" size="14.0" />
-                                                                                                                    </font>
+                                                                                                                <JFXCheckBox fx:id="corFilterPobCheck" alignment="TOP_CENTER" checkedColor="#4059a9" onAction="#corPobAct" text="Correlation Filter" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                                                                                                                     <GridPane.margin>
                                                                                                                         <Insets top="20.0" />
                                                                                                                     </GridPane.margin>
                                                                                                                 </JFXCheckBox>
-                                                                                                                <JFXTextField fx:id="corpobTextField" alignment="CENTER" labelFloat="true" promptText="Threshold" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                                                                                                                    <font>
-                                                                                                                        <Font name="System Italic" size="14.0" />
-                                                                                                                    </font>
+                                                                                                                <JFXTextField fx:id="corpobTextField" alignment="CENTER" labelFloat="true" maxWidth="1.7976931348623157E308" promptText="Threshold" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                                                                                                                     <GridPane.margin>
                                                                                                                         <Insets top="20.0" />
                                                                                                                     </GridPane.margin>
                                                                                                                 </JFXTextField>
-                                                                                                                <JFXCheckBox fx:id="kurPobCheck" checkedColor="#4059a9" onAction="#kurPobOnAct" text="Kurtosis filter" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                                                                                                                    <font>
-                                                                                                                        <Font size="14.0" />
-                                                                                                                    </font>
+                                                                                                                <JFXCheckBox fx:id="kurPobCheck" checkedColor="#4059a9" onAction="#kurPobOnAct" text="Kurtosis filter" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                                                                                                                     <GridPane.margin>
                                                                                                                         <Insets top="20.0" />
                                                                                                                     </GridPane.margin>
                                                                                                                 </JFXCheckBox>
-                                                                                                                <JFXTextField fx:id="kurpobTextField" alignment="CENTER" labelFloat="true" promptText="Theshold" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                                                                                                                    <font>
-                                                                                                                        <Font name="System Italic" size="14.0" />
-                                                                                                                    </font>
+                                                                                                                <JFXTextField fx:id="kurpobTextField" alignment="CENTER" labelFloat="true" maxWidth="1.7976931348623157E308" promptText="Theshold" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                                                                                                                     <GridPane.margin>
                                                                                                                         <Insets top="20.0" />
                                                                                                                     </GridPane.margin>
                                                                                                                 </JFXTextField>
                                                                                                             </children>
                                                                                                             <columnConstraints>
-                                                                                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="149.0" minWidth="10.0" prefWidth="149.0" />
-                                                                                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="136.0" minWidth="10.0" prefWidth="136.0" />
+                                                                                                                <ColumnConstraints />
+                                                                                                                <ColumnConstraints />
+                                                                                    <ColumnConstraints />
                                                                                                             </columnConstraints>
                                                                                                             <rowConstraints>
-                                                                                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                                                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                                                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                                                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                                                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                                                                <RowConstraints />
+                                                                                                                <RowConstraints />
+                                                                                                                <RowConstraints />
+                                                                                                                <RowConstraints />
                                                                                                             </rowConstraints>
                                                                                                         </GridPane>
                                                                                                     </children>
@@ -1278,17 +1181,20 @@
                                                                                             <font>
                                                                                                 <Font name="System Italic" size="14.0" />
                                                                                             </font>
-                                                                                            <HBox.margin>
-                                                                                                <Insets right="10.0" top="10.0" />
-                                                                                            </HBox.margin>
+                                                                     <VBox.margin>
+                                                                        <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
+                                                                     </VBox.margin>
                                                                                         </TitledPane>
-                                                                                    </children>
-                                                                                </HBox>
+                                                               </children>
+                                                            </VBox>
                                                                             </children>
                                                                         </AnchorPane>
                                                                     </content>
                                                                 </Tab>
                                                             </tabs>
+                                             <padding>
+                                                <Insets left="5.0" right="5.0" top="5.0" />
+                                             </padding>
                                                         </TabPane>
                                                     </children>
                                                 </AnchorPane>
