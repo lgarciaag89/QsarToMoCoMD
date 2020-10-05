@@ -15,10 +15,10 @@ import javafx.scene.Node;
  */
 public class SeReliefBox implements IFitBoxChields{
 
-    private ReliefBox relief;
+    private ReliefSubsetBox relief;
 
     public SeReliefBox() {
-        relief = new ReliefBox();
+        relief = new ReliefSubsetBox();
     }   
     
      @Override

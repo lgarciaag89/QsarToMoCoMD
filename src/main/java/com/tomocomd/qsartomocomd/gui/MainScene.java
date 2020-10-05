@@ -10,6 +10,8 @@ import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import com.tomocomd.qsartomocomd.gui.alerts.ShowAlerts;
+import com.tomocomd.qsartomocomd.gui.attributeFitBox.AttFitBoxFactory;
+import com.tomocomd.qsartomocomd.gui.attributeFitBox.IAttFitBoxChields;
 import com.tomocomd.qsartomocomd.gui.charts.SEChartController;
 import com.tomocomd.qsartomocomd.gui.descriptors.tomocomd.GroupsController;
 import com.tomocomd.qsartomocomd.gui.descriptors.tomocomd.aggregations.ClasicalAggController;
@@ -44,6 +46,7 @@ import com.tomocomd.qsartomocomdlib.configuration.evaluation.attributeevaluation
 import com.tomocomd.qsartomocomdlib.configuration.evaluation.attributeevaluation.AttributeQualityType;
 import com.tomocomd.qsartomocomdlib.configuration.evaluation.fitnessfunction.EvaluationFunctionConf;
 import com.tomocomd.qsartomocomdlib.configuration.evaluation.fitnessfunction.EvaluationFunctionType;
+import com.tomocomd.qsartomocomdlib.configuration.evaluation.subsetqualityfunction.SubSetQualityConf;
 import com.tomocomd.qsartomocomdlib.configuration.evaluation.subsetqualityfunction.SubSetQualityType;
 import com.tomocomd.qsartomocomdlib.configuration.filters.FilterConfig;
 import com.tomocomd.qsartomocomdlib.configuration.filters.FilterType;
@@ -125,6 +128,7 @@ public class MainScene implements Initializable {
     GAJFXTask ga;
 
     private IFitBoxChields fitOptValues;
+    private IAttFitBoxChields AttFitOptValues;
     private Stage stage;
 
     @FXML
@@ -330,19 +334,13 @@ public class MainScene implements Initializable {
     @FXML
     private VBox reliefBox;
     @FXML
-    private JFXTextField insTextField;
-    @FXML
-    private JFXTextField neiTextField;
-    @FXML
-    private JFXTextField sigmaTextField;
-    @FXML
     private JFXComboBox<EvaluationFunctionType> fitnessBox;
     @FXML
     private JFXComboBox<SubSetQualityType> vRetBox;
     @FXML
     private VBox fitBox;
     @FXML
-    private JFXCheckBox nanFilterSubPobCheck;    
+    private JFXCheckBox nanFilterSubPobCheck;
     @FXML
     private JFXCheckBox seFilterPobCheck;
     @FXML
@@ -373,6 +371,8 @@ public class MainScene implements Initializable {
     private JFXComboBox<ImputationMissingValuesType> impTypeSub;
     @FXML
     private JFXComboBox<ImputationReplaceValue> impValueSub;
+    @FXML
+    private JFXCheckBox comSubSetCheckBox;
 
     /**
      * Initializes the controller class.
@@ -506,11 +506,6 @@ public class MainScene implements Initializable {
         ObservableList<AttributeQualityType> attData = FXCollections.observableArrayList();
         attData.addAll(Arrays.asList(AttributeQualityType.values()));
         attBox.setItems(attData);
-
-        // relief 
-        insTextField.setTextFormatter(new TextFormatter<>(filter));
-        neiTextField.setTextFormatter(new TextFormatter<>(filter));
-        sigmaTextField.setTextFormatter(new TextFormatter<>(filter));
 
         // quality subset
         ObservableList<EvaluationFunctionType> evaData = FXCollections.observableArrayList();
@@ -671,10 +666,11 @@ public class MainScene implements Initializable {
         // quality fnc attributes
         attBox.setValue(((GAConf) conf.getSearch()).getFamConf().getAttConf().getType());
         setQualityAttBox(true);
+        comSubSetCheckBox.setSelected(((GAConf) conf.getSearch()).getFamConf().isCompareSubset());
 
         // quality subset
         fitnessBox.setValue(((GAConf) conf.getSearch()).getSubsetEva().getType());
-        vRetBox.setValue(((GAConf) conf.getSearch()).getSubsetEva().getMethod());
+        vRetBox.setValue(((GAConf) conf.getSearch()).getSubsetEva().getMethod().getType());
         setFitBox(true);
 
         initFilters();
@@ -757,28 +753,17 @@ public class MainScene implements Initializable {
 
     private void setQualityAttBox(boolean flag) {
         AttributeQualityType type = attBox.getValue();
-        if (type == AttributeQualityType.ReliefF || type == AttributeQualityType.SE_ReliefF) {
-            reliefBox.setDisable(false);
-            // relieff attribute fnc options
-            // options to relief function  
+        AttFitOptValues = AttFitBoxFactory.getChield(type, stage);
+        reliefBox.getChildren().clear();
+        
+        if(AttFitOptValues !=null){
             String[] opts = ((GAConf) conf.getSearch()).getFamConf().getAttConf().getOption();
-            if (((GAConf) conf.getSearch()).getSubsetEva().getOptions() != null && flag) {
-                if (((GAConf) conf.getSearch()).getSubsetEva().getOptions().length > 0) {
-                    insTextField.setText(opts[1]);
-                    neiTextField.setText(opts[3]);
-                    sigmaTextField.setText(opts[5]);
-                } else {
-                    insTextField.setText("10");
-                    neiTextField.setText("10");
-                    sigmaTextField.setText("2");
-                }
-            } else {
-                insTextField.setText("10");
-                neiTextField.setText("10");
-                sigmaTextField.setText("2");
+            if (opts != null && flag) {
+                AttFitOptValues.setOptions(opts);
             }
-        } else {
-            reliefBox.setDisable(true);
+            reliefBox.getChildren().addAll(AttFitOptValues.getChilds());
+        }else{
+            reliefBox.setStyle("");
         }
     }
 
@@ -958,10 +943,10 @@ public class MainScene implements Initializable {
         List<FilterConfig> filters = new LinkedList<>();
         if (nanFilterSubPobCheck.isSelected()) {
             if (impTypeSub.getValue() == ImputationMissingValuesType.Delete) {
-                filters.add(new FilterConfig(FilterType.NaN, new String[]{"-t",ImputationMissingValuesType.Delete.toString()}));
-            }else{
-                filters.add(new FilterConfig(FilterType.NaN, new String[]{"-t",ImputationMissingValuesType.Imputation.toString(),
-                                                                          "-v",impValueSub.getValue().toString()}));
+                filters.add(new FilterConfig(FilterType.NaN, new String[]{"-t", ImputationMissingValuesType.Delete.toString()}));
+            } else {
+                filters.add(new FilterConfig(FilterType.NaN, new String[]{"-t", ImputationMissingValuesType.Imputation.toString(),
+                    "-v", impValueSub.getValue().toString()}));
             }
         }
         return filters;
@@ -969,7 +954,7 @@ public class MainScene implements Initializable {
 
     private List<FilterConfig> getFiltersConfig() {
         List<FilterConfig> filters = new LinkedList<>();
-        
+
         if (seFilterPobCheck.isSelected()) {
             filters.add(new FilterConfig(FilterType.SE, new String[]{"-t", sePobTextField.getText()}));
         }
@@ -993,10 +978,13 @@ public class MainScene implements Initializable {
         String[] optAtt = new String[]{};
         switch (attType) {
             case ReliefF:
-                optAtt = new String[]{"-M", insTextField.getText(), "-K", neiTextField.getText(), "-A", sigmaTextField.getText()};
+                optAtt = AttFitOptValues.getOptions().split(" ");
                 break;
             case SE_ReliefF:
-                optAtt = new String[]{"-M", insTextField.getText(), "-K", neiTextField.getText(), "-A", sigmaTextField.getText()};
+                optAtt = AttFitOptValues.getOptions().split(" ");
+                break;
+            case Choquet:
+                optAtt = AttFitOptValues.getOptions().split(" ");
                 break;
         }
         AttributeQualityConf attConf = new AttributeQualityConf(attBox.getValue(), optAtt);
@@ -1046,7 +1034,7 @@ public class MainScene implements Initializable {
                 opts = fitOptValues.getOptions();
                 options = opts.split(" ");
         }
-        return new EvaluationFunctionConf(typeFit, options, vRetBox.getValue());
+        return new EvaluationFunctionConf(typeFit, options, new SubSetQualityConf(vRetBox.getValue()));
 
     }
 
@@ -2229,5 +2217,10 @@ public class MainScene implements Initializable {
             impTypeSub.setDisable(true);
             impValueSub.setDisable(true);
         }
+    }
+
+    @FXML
+    private void comSubSetAction(ActionEvent event) {
+        ((GAConf) conf.getSearch()).getFamConf().setCompareSubset(comSubSetCheckBox.isSelected());
     }
 }

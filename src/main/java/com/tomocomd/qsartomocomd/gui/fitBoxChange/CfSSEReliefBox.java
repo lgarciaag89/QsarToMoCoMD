@@ -22,11 +22,11 @@ import javafx.scene.Node;
  */
 public class CfSSEReliefBox implements IFitBoxChields {
 
-    private ReliefBox relief;
+    private ReliefSubsetBox relief;
     JFXComboBox<ElectionMethod> election;
 
     public CfSSEReliefBox() {
-        relief = new ReliefBox();
+        relief = new ReliefSubsetBox();
         election = new JFXComboBox<>();
         election = new JFXComboBox<>();
         // list of selection operatios 

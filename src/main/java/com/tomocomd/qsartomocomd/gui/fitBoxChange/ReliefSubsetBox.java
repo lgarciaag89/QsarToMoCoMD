@@ -19,7 +19,7 @@ import javafx.scene.text.Font;
  *
  * @author Potter
  */
-public class ReliefBox implements IFitBoxChields {
+public class ReliefSubsetBox implements IFitBoxChields {
 
     private final String idInst = "instTextFieldFitValue";
     private final String neiInst = "neiTextFieldFitValue";
@@ -27,7 +27,7 @@ public class ReliefBox implements IFitBoxChields {
 
     private JFXTextField instTextFild, neiTextFild, sigTextFild;
 
-    public ReliefBox() {
+    public ReliefSubsetBox() {
         instTextFild = new JFXTextField();
         neiTextFild = new JFXTextField();
         sigTextFild = new JFXTextField();

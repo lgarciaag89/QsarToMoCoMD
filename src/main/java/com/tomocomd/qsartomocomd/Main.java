@@ -12,8 +12,10 @@ import com.tomocomd.qsartomocomdlib.search.geneticalgorithm.GAFactory;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.util.Arrays;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -24,6 +26,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 import org.apache.logging.log4j.core.config.ConfigurationSource;
 import org.apache.logging.log4j.core.config.Configurator;
+import weka.classifiers.trees.RandomForest;
+import weka.core.Instances;
 
 /**
  *
@@ -48,17 +52,7 @@ public class Main {
         validateFolders();
 
         parseOptions(args);
-        /*       ProjectConf conf = new ProjectConf();
-        conf.setOutFileFile("salida.csv");
-        conf.setSdfFile("/media/DATA/Doctorado/WORKSPACE/QsarToMoCoMDProj/Data/BRD3_01_TCA_recortada_pIC50-BRD3.sdf");
-        conf.setTarget("pIC50-BRD3");
-
-        AbstractGeneticAlgorithm ga = new MultiCoreGA((GAConf) conf.getSearch(), conf.getMasConf(), conf.getMidConf(), conf.getOutFileFile(),
-                conf.getTarget(), conf.getSdfFile());
-
-        ga.compute();
-
-        System.out.println(String.format("Luis %s", conf.getArch()));*/
+//        tests();
     }
 
     private static void validateFolders() {
@@ -151,4 +145,20 @@ public class Main {
         long time = System.currentTimeMillis() - timeinit;
         LOGGER.info(String.format("Execution completed with execution time=%d", time));
     }
+
+    public static void tests() throws Exception {
+        RandomForest rf = new RandomForest();
+        rf.setComputeAttributeImportance(true);
+
+        Instances iris = new Instances(new FileReader("../Data/iris.arff"));
+        iris.setClassIndex(iris.numAttributes() - 1);
+        rf.buildClassifier(iris);
+
+        double []imp = rf.computeAverageImpurityDecreasePerAttribute(null);
+        
+        for(int i = 0 ; i < iris.numAttributes() ; i++){
+            System.out.println(String.format("%s,%.4f",iris.attribute(i).name(),imp[i]));
+        }
+    }
+
 }
