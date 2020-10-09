@@ -994,7 +994,7 @@
                                                                                  <children>
                                                                                                                   <JFXComboBox fx:id="attBox" labelFloat="true" maxWidth="1.7976931348623157E308" onAction="#attBoxOnChange" promptText="Attribute quality function" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                                                                                        <GridPane.margin>
-                                                                                          <Insets bottom="10.0" top="20.0" />
+                                                                                          <Insets bottom="10.0" top="25.0" />
                                                                                        </GridPane.margin></JFXComboBox>
                                                                                                                   <VBox fx:id="reliefBox" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
                                                                                     <JFXCheckBox fx:id="comSubSetCheckBox" onAction="#comSubSetAction" text="Compare subsets" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">

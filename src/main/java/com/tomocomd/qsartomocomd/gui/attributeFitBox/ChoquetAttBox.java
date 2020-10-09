@@ -18,20 +18,22 @@ import javafx.scene.control.TextFormatter;
  *
  * @author potter
  */
-public class ChoquetAttBox implements IAttFitBoxChields{
+public class ChoquetAttBox implements IAttFitBoxChields {
+
     private final String idRF = "rfTextFieldFitValue";
     private final String idRE = "reTextFieldFitValue";
     private final String idSE = "segTextFieldFitValue";
     private final String idCo = "cogTextFieldFitValue";
-    
+    private final String idLa = "laTextFieldFitValue";
 
-    private JFXTextField rfTextFild, reTextFild, seTextFild,coTextFild;
+    private JFXTextField rfTextFild, reTextFild, seTextFild, coTextFild, laTextFild;
 
     public ChoquetAttBox() {
         rfTextFild = new JFXTextField();
         reTextFild = new JFXTextField();
         seTextFild = new JFXTextField();
         coTextFild = new JFXTextField();
+        laTextFild = new JFXTextField();
 
         UnaryOperator<TextFormatter.Change> filter = c -> {
             if (c.isContentChange()) {
@@ -80,7 +82,7 @@ public class ChoquetAttBox implements IAttFitBoxChields{
         seTextFild.setId(idSE);
         seTextFild.setText("0.5");
         seTextFild.setAlignment(Pos.CENTER);
-        
+
         coTextFild = new JFXTextField();
         coTextFild.setTextFormatter(new TextFormatter<>(filter));
         coTextFild.setLabelFloat(true);
@@ -89,6 +91,15 @@ public class ChoquetAttBox implements IAttFitBoxChields{
         coTextFild.setId(idCo);
         coTextFild.setText("0.3");
         coTextFild.setAlignment(Pos.CENTER);
+
+        laTextFild = new JFXTextField();
+        laTextFild.setTextFormatter(new TextFormatter<>(filter));
+        laTextFild.setLabelFloat(true);
+        laTextFild.setPromptText("Lambda value");
+        laTextFild.setPadding(new Insets(20, 10, 10, 10));
+        laTextFild.setId(idLa);
+        laTextFild.setText("0.5");
+        laTextFild.setAlignment(Pos.CENTER);
     }
 
     @Override
@@ -99,14 +110,15 @@ public class ChoquetAttBox implements IAttFitBoxChields{
         chields.add(reTextFild);
         chields.add(seTextFild);
         chields.add(coTextFild);
+        chields.add(laTextFild);
         return chields;
     }
 
     @Override
     public String getOptions() {
-        return String.format("-rf %s -re %s -se %s -co %s",
-                rfTextFild.getText(),reTextFild.getText(), 
-                seTextFild.getText(),coTextFild.getText());
+        return String.format("-rf %s -re %s -se %s -co %s -l %s",
+                rfTextFild.getText(), reTextFild.getText(),
+                seTextFild.getText(), coTextFild.getText(), laTextFild.getText());
     }
 
     @Override
@@ -115,5 +127,6 @@ public class ChoquetAttBox implements IAttFitBoxChields{
         reTextFild.setText(opts[3]);
         seTextFild.setText(opts[5]);
         coTextFild.setText(opts[7]);
+        laTextFild.setText(opts[9]);
     }
 }

@@ -6,6 +6,7 @@
 package com.tomocomd.qsartomocomd.gui.fitBoxChange;
 
 import com.tomocomd.qsartomocomdlib.configuration.evaluation.attributeevaluation.AttributeQualityType;
+import java.util.Arrays;
 import java.util.List;
 import javafx.scene.Node;
 
@@ -35,7 +36,7 @@ public class SeReliefBox implements IFitBoxChields{
 
     @Override
     public void setOptions(String[] opts) {
-        String []reliefOpts = opts[3].split(" ");
+        String []reliefOpts = Arrays.copyOfRange(opts, 4, opts.length);
         relief.setOptions(reliefOpts);
     }
     

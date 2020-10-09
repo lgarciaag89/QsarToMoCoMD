@@ -205,7 +205,8 @@ public class SEChartController implements Initializable {
             for (int i = 0; i < values.size(); i++) {
                 SE.getData().add(new XYChart.Data<>(i + 1, values.get(i)));
             }
-            String name = new File(path).getName().split("_")[1];
+            String []namesS = new File(path).getName().split("_");
+            String name = namesS[namesS.length-2]+"_"+namesS[namesS.length-1];
             SE.setName(name);
             dataComplete.add(SE);
         }
