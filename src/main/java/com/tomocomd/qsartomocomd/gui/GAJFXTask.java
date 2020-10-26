@@ -39,7 +39,7 @@ public class GAJFXTask extends Task<Boolean> {
 
     @Override
     public Boolean call() throws Exception {
-        TomocomdInstances tomInst;
+        
         TreeItem execNew = new TreeItem<ExecutionInfo>(new ExecutionInfo(path,"", ""));
         treeTable.getRoot().getChildren().add(execNew);
         for (int i = 0; i < numIter; i++) {
@@ -47,8 +47,8 @@ public class GAJFXTask extends Task<Boolean> {
                 System.out.println("Canceling...");
                 return false;
             }
-            tomInst = ga.executeIter();
-            String name = ga.upateBestSubset(tomInst,i+1);
+            ga.executeIter();
+            String name = ga.updateBestSubset(i+1);
             if (name.length() > 0) {                
                 execNew.getChildren().add(new TreeItem<>(new ExecutionInfo(name, Integer.toString(ga.getBestSubset().numAttributes()), 
                         Double.toString(ga.getBestSubset().getEvaSub()))));

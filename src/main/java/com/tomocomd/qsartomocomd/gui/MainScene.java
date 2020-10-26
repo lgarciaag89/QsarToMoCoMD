@@ -373,6 +373,8 @@ public class MainScene implements Initializable {
     private JFXComboBox<ImputationReplaceValue> impValueSub;
     @FXML
     private JFXCheckBox comSubSetCheckBox;
+    @FXML
+    private JFXCheckBox coopCheck;
 
     /**
      * Initializes the controller class.
@@ -631,7 +633,10 @@ public class MainScene implements Initializable {
     }
 
     private void setGAForm() {
-        //set architecture 
+        
+        //cooperative mode
+        coopCheck.setSelected(((GAConf) conf.getSearch()).isCoop());
+        //set architecture         
         parSchComboBox.setValue(conf.getArch());
 
         // replace subpopulation
@@ -1176,7 +1181,7 @@ public class MainScene implements Initializable {
             ga.setOnFailed(evt -> {
                 Throwable exception = evt.getSource().getException();
                 if (exception != null) {
-                    LOGGER.error(exception.toString());
+                    LOGGER.error(exception.toString(),exception);
                     new ShowAlerts().showError(exception.toString());
                 }
                 if (!ga.isDone()) {
@@ -1192,7 +1197,7 @@ public class MainScene implements Initializable {
             }
             service.shutdown();
             new ShowAlerts().showError(ex.getMessage());
-            LOGGER.error(ex.toString());
+            LOGGER.error(ex.toString(),ex);
             ended();
         }
     }
@@ -2222,5 +2227,10 @@ public class MainScene implements Initializable {
     @FXML
     private void comSubSetAction(ActionEvent event) {
         ((GAConf) conf.getSearch()).getFamConf().setCompareSubset(comSubSetCheckBox.isSelected());
+    }
+
+    @FXML
+    private void coopAction(ActionEvent event) {
+        ((GAConf) conf.getSearch()).setCoop(coopCheck.isSelected());
     }
 }

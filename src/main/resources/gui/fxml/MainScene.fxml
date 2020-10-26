@@ -1202,6 +1202,11 @@
                                                 <Insets left="5.0" top="10.0" />
                                             </HBox.margin>
                                         </JFXComboBox>
+                              <JFXCheckBox fx:id="coopCheck" onAction="#coopAction" text="Cooperative scheme" HBox.hgrow="ALWAYS">
+                                 <HBox.margin>
+                                    <Insets left="20.0" top="15.0" />
+                                 </HBox.margin>
+                              </JFXCheckBox>
                                         <HBox HBox.hgrow="ALWAYS" />
                                         <JFXButton fx:id="loadProjBut" onAction="#loadProjAction" text="Load" HBox.hgrow="ALWAYS">
                                             <HBox.margin>

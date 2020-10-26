@@ -156,16 +156,17 @@ public class Main {
             v += 0.05;
         }
 
-        for(int i1 = 0 ; i1 < values.size() ; i1++){
-            for(int i2 = i1+1 ; i2 < values.size() ; i2++){
-                for(int i3 = i2+1 ; i3 < values.size() ; i3++){
+        for (int i1 = 0; i1 < values.size(); i1++) {
+            for (int i2 = i1 + 1; i2 < values.size(); i2++) {
+                for (int i3 = i2 + 1; i3 < values.size(); i3++) {
 //                    for(int i4 = i3+1 ; i4 < values.size() ; i4++){
-                        double []pesos = new double[]{
-                            values.get(i1),values.get(i2),values.get(i3),values.get(i3)};
-                        SugenoLambdaMeasure lambda = new SugenoLambdaMeasure();
-                        lambda.buildMeasure(pesos);
-                        if( lambda.getLambdaValues() > 0.5 && lambda.getLambdaValues() < 1)
-                            System.out.println(Arrays.toString(pesos)+" "+ lambda.getLambdaValues());
+                    double[] pesos = new double[]{
+                        values.get(i1), values.get(i2), values.get(i3), values.get(i3)};
+                    SugenoLambdaMeasure lambda = new SugenoLambdaMeasure();
+                    lambda.buildMeasure(pesos);
+                    if (lambda.getLambdaValues() > 0.5 && lambda.getLambdaValues() < 1) {
+                        System.out.println(Arrays.toString(pesos) + " " + lambda.getLambdaValues());
+                    }
 //                    }
                 }
             }
