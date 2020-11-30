@@ -7,7 +7,6 @@ package com.tomocomd.qsartomocomd;
 
 import com.tomocomd.qsartomocomd.gui.GuiApp;
 import com.tomocomd.qsartomocomdlib.configuration.ProjectConf;
-import com.tomocomd.qsartomocomdlib.fuzzylogic.fuzzymeasures.SugenoLambdaMeasure;
 import com.tomocomd.qsartomocomdlib.search.geneticalgorithm.AbstractGeneticAlgorithm;
 import com.tomocomd.qsartomocomdlib.search.geneticalgorithm.GAFactory;
 import java.io.BufferedInputStream;
@@ -15,9 +14,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -52,7 +48,7 @@ public class Main {
         validateFolders();
 
         parseOptions(args);
-//        tests();
+     
     }
 
     private static void validateFolders() {
@@ -145,32 +141,4 @@ public class Main {
         long time = System.currentTimeMillis() - timeinit;
         LOGGER.info(String.format("Execution completed with execution time=%d", time));
     }
-
-    public static void tests() throws Exception {
-
-        List<Double> values = new LinkedList<>();
-
-        double v = 0.05;
-        while (v < 1) {
-            values.add(v);
-            v += 0.05;
-        }
-
-        for (int i1 = 0; i1 < values.size(); i1++) {
-            for (int i2 = i1 + 1; i2 < values.size(); i2++) {
-                for (int i3 = i2 + 1; i3 < values.size(); i3++) {
-//                    for(int i4 = i3+1 ; i4 < values.size() ; i4++){
-                    double[] pesos = new double[]{
-                        values.get(i1), values.get(i2), values.get(i3), values.get(i3)};
-                    SugenoLambdaMeasure lambda = new SugenoLambdaMeasure();
-                    lambda.buildMeasure(pesos);
-                    if (lambda.getLambdaValues() > 0.5 && lambda.getLambdaValues() < 1) {
-                        System.out.println(Arrays.toString(pesos) + " " + lambda.getLambdaValues());
-                    }
-//                    }
-                }
-            }
-        }
-    }
-
 }

@@ -976,80 +976,116 @@
                                                                     <content>
                                                                         <AnchorPane minHeight="0.0" minWidth="0.0">
                                                                             <children>
-                                                            <HBox prefHeight="293.0" prefWidth="448.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                            <VBox prefHeight="468.0" prefWidth="547.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                                <children>
-                                                                                          <TitledPane animated="false" collapsible="false" text="Attribute function quality" HBox.hgrow="ALWAYS">
-                                                                                              <content>
-                                                                                                  <AnchorPane>
-                                                                                                      <children>
+                                                                  <TitledPane animated="false" text="Local analysis over aggregation operators" VBox.vgrow="ALWAYS">
+                                                                    <content>
+                                                                      <AnchorPane>
+                                                                           <children>
                                                                               <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                                                 <columnConstraints>
                                                                                   <ColumnConstraints />
                                                                                 </columnConstraints>
                                                                                 <rowConstraints>
                                                                                   <RowConstraints />
-                                                                                  <RowConstraints />
-                                                                                    <RowConstraints />
                                                                                 </rowConstraints>
                                                                                  <children>
-                                                                                                                  <JFXComboBox fx:id="attBox" labelFloat="true" maxWidth="1.7976931348623157E308" onAction="#attBoxOnChange" promptText="Attribute quality function" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                    <JFXComboBox fx:id="aggSearchCombo" labelFloat="true" maxWidth="1.7976931348623157E308" onAction="#aggSearchAction" promptText="Aggreagation operator analysis" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                                                                                        <GridPane.margin>
-                                                                                          <Insets bottom="10.0" top="25.0" />
+                                                                                          <Insets top="15.0" />
                                                                                        </GridPane.margin></JFXComboBox>
-                                                                                                                  <VBox fx:id="reliefBox" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
-                                                                                    <JFXCheckBox fx:id="comSubSetCheckBox" onAction="#comSubSetAction" text="Compare subsets" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                                                                                       <GridPane.margin>
-                                                                                          <Insets bottom="10.0" top="10.0" />
-                                                                                       </GridPane.margin></JFXCheckBox>
                                                                                  </children>
                                                                               </GridPane>
-                                                                                                      </children>
-                                                                                                  </AnchorPane>
-                                                                                              </content>
-                                                                                              <font>
-                                                                                                  <Font name="System Italic" size="14.0" />
-                                                                                              </font>
-                                                                     <HBox.margin>
-                                                                        <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
-                                                                     </HBox.margin>
-                                                                                          </TitledPane>
-                                                                                          <TitledPane animated="false" collapsible="false" text="Fitness function" HBox.hgrow="ALWAYS">
-                                                                                              <content>
-                                                                                                  <AnchorPane>
-                                                                                                      <children>
-                                                                              <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                                                <columnConstraints>
-                                                                                  <ColumnConstraints />
-                                                                                </columnConstraints>
-                                                                                <rowConstraints>
-                                                                                  <RowConstraints />
-                                                                                  <RowConstraints />
-                                                                                  <RowConstraints />
-                                                                                </rowConstraints>
-                                                                                 <children>
-                                                                                                                  <JFXComboBox fx:id="fitnessBox" labelFloat="true" maxWidth="1.7976931348623157E308" onAction="#changePanelChildren" promptText="Subset fitness function" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                                                                                       <GridPane.margin>
-                                                                                          <Insets bottom="10.0" top="20.0" />
-                                                                                       </GridPane.margin></JFXComboBox>
-                                                                                                                  <JFXComboBox fx:id="vRetBox" labelFloat="true" maxWidth="1.7976931348623157E308" promptText="Subset merit function" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                                                                                       <GridPane.margin>
-                                                                                          <Insets bottom="10.0" top="20.0" />
-                                                                                       </GridPane.margin></JFXComboBox>
-                                                                                                                  <VBox fx:id="fitBox" alignment="TOP_CENTER" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
-                                                                                 </children>
-                                                                              </GridPane>
-                                                                                                      </children>
-                                                                                                  </AnchorPane>
-                                                                                              </content>
-                                                                                              <font>
-                                                                                                  <Font name="System Italic" size="14.0" />
-                                                                                              </font>
-                                                                     <HBox.margin>
-                                                                        <Insets bottom="5.0" left="5.0" right="10.0" top="5.0" />
-                                                                     </HBox.margin>
-                                                                                          </TitledPane>
+                                                                           </children>
+                                                                        </AnchorPane>
+                                                                    </content>
+                                                                     <VBox.margin>
+                                                                        <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                                                                     </VBox.margin>
+                                                                     <font>
+                                                                        <Font name="System Italic" size="14.0" />
+                                                                     </font>
+                                                                  </TitledPane>
+                                                                  <HBox prefHeight="293.0" prefWidth="448.0">
+                                                                     <children>
+                                                                                                <TitledPane animated="false" collapsible="false" text="Attribute function quality" HBox.hgrow="ALWAYS">
+                                                                                                    <content>
+                                                                                                        <AnchorPane>
+                                                                                                            <children>
+                                                                                    <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                                      <columnConstraints>
+                                                                                        <ColumnConstraints />
+                                                                                      </columnConstraints>
+                                                                                      <rowConstraints>
+                                                                                        <RowConstraints />
+                                                                                        <RowConstraints />
+                                                                                          <RowConstraints />
+                                                                                      </rowConstraints>
+                                                                                       <children>
+                                                                                                                        <JFXComboBox fx:id="attBox" labelFloat="true" maxWidth="1.7976931348623157E308" onAction="#attBoxOnChange" promptText="Attribute quality function" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                             <GridPane.margin>
+                                                                                                <Insets bottom="10.0" top="25.0" />
+                                                                                             </GridPane.margin>
+                                                                                          </JFXComboBox>
+                                                                                                                        <VBox fx:id="reliefBox" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
+                                                                                          <JFXCheckBox fx:id="comSubSetCheckBox" onAction="#comSubSetAction" text="Compare subsets" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                             <GridPane.margin>
+                                                                                                <Insets bottom="10.0" top="10.0" />
+                                                                                             </GridPane.margin>
+                                                                                          </JFXCheckBox>
+                                                                                       </children>
+                                                                                    </GridPane>
+                                                                                                            </children>
+                                                                                                        </AnchorPane>
+                                                                                                    </content>
+                                                                                                    <font>
+                                                                                                        <Font name="System Italic" size="14.0" />
+                                                                                                    </font>
+                                                                           <HBox.margin>
+                                                                              <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+                                                                           </HBox.margin>
+                                                                                                </TitledPane>
+                                                                                                <TitledPane animated="false" collapsible="false" text="Fitness function" HBox.hgrow="ALWAYS">
+                                                                                                    <content>
+                                                                                                        <AnchorPane>
+                                                                                                            <children>
+                                                                                    <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                                      <columnConstraints>
+                                                                                        <ColumnConstraints />
+                                                                                      </columnConstraints>
+                                                                                      <rowConstraints>
+                                                                                        <RowConstraints />
+                                                                                        <RowConstraints />
+                                                                                        <RowConstraints />
+                                                                                      </rowConstraints>
+                                                                                       <children>
+                                                                                                                        <JFXComboBox fx:id="fitnessBox" labelFloat="true" maxWidth="1.7976931348623157E308" onAction="#changePanelChildren" promptText="Subset fitness function" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                             <GridPane.margin>
+                                                                                                <Insets bottom="10.0" top="20.0" />
+                                                                                             </GridPane.margin>
+                                                                                          </JFXComboBox>
+                                                                                                                        <JFXComboBox fx:id="vRetBox" labelFloat="true" maxWidth="1.7976931348623157E308" promptText="Subset merit function" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                                                             <GridPane.margin>
+                                                                                                <Insets bottom="10.0" top="20.0" />
+                                                                                             </GridPane.margin>
+                                                                                          </JFXComboBox>
+                                                                                                                        <VBox fx:id="fitBox" alignment="TOP_CENTER" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
+                                                                                       </children>
+                                                                                    </GridPane>
+                                                                                                            </children>
+                                                                                                        </AnchorPane>
+                                                                                                    </content>
+                                                                                                    <font>
+                                                                                                        <Font name="System Italic" size="14.0" />
+                                                                                                    </font>
+                                                                           <HBox.margin>
+                                                                              <Insets bottom="5.0" left="5.0" right="10.0" top="5.0" />
+                                                                           </HBox.margin>
+                                                                                                </TitledPane>
+                                                                     </children>
+                                                                  </HBox>
                                                                </children>
-                                                            </HBox>
+                                                            </VBox>
                                                                             </children>
                                                                         </AnchorPane>
                                                                     </content>

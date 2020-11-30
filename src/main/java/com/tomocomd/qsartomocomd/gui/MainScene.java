@@ -61,6 +61,7 @@ import com.tomocomd.qsartomocomdlib.configuration.search.geneticalgorithm.operat
 import com.tomocomd.qsartomocomdlib.configuration.search.geneticalgorithm.operators.GAReplaceSubPoblationType;
 import com.tomocomd.qsartomocomdlib.configuration.search.geneticalgorithm.operators.GASelectionConfig;
 import com.tomocomd.qsartomocomdlib.configuration.search.geneticalgorithm.operators.GASelectionType;
+import com.tomocomd.qsartomocomdlib.configuration.search.geneticalgorithm.searchaggroperators.SearchAggrType;
 import com.tomocomd.qsartomocomdlib.io.SDFFiles;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -375,6 +376,8 @@ public class MainScene implements Initializable {
     private JFXCheckBox comSubSetCheckBox;
     @FXML
     private JFXCheckBox coopCheck;
+    @FXML
+    private JFXComboBox<SearchAggrType> aggSearchCombo;
 
     /**
      * Initializes the controller class.
@@ -508,6 +511,11 @@ public class MainScene implements Initializable {
         ObservableList<AttributeQualityType> attData = FXCollections.observableArrayList();
         attData.addAll(Arrays.asList(AttributeQualityType.values()));
         attBox.setItems(attData);
+        
+        // search aggregations operators
+        ObservableList<SearchAggrType> searchAgg = FXCollections.observableArrayList();
+        searchAgg.addAll(Arrays.asList(SearchAggrType.values()));
+        aggSearchCombo.setItems(searchAgg);
 
         // quality subset
         ObservableList<EvaluationFunctionType> evaData = FXCollections.observableArrayList();
@@ -677,6 +685,9 @@ public class MainScene implements Initializable {
         fitnessBox.setValue(((GAConf) conf.getSearch()).getSubsetEva().getType());
         vRetBox.setValue(((GAConf) conf.getSearch()).getSubsetEva().getMethod().getType());
         setFitBox(true);
+        
+        // search aggregations operators
+        aggSearchCombo.setValue(((GAConf) conf.getSearch()).getFamConf().getsAType());
 
         initFilters();
     }
@@ -2232,5 +2243,10 @@ public class MainScene implements Initializable {
     @FXML
     private void coopAction(ActionEvent event) {
         ((GAConf) conf.getSearch()).setCoop(coopCheck.isSelected());
+    }
+
+    @FXML
+    private void aggSearchAction(ActionEvent event) {
+        ((GAConf) conf.getSearch()).getFamConf().setsAType(aggSearchCombo.getValue());
     }
 }

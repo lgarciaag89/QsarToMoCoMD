@@ -56,6 +56,7 @@ public class GAJFXTask extends Task<Boolean> {
             updateProgress(i + 1, numIter);
             updateMessage(String.format("%d%%",(100*(i+1))/numIter));
         }
+        ga.deleteFiles();
         return true;
     }
 

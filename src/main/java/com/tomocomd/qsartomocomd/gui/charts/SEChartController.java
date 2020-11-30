@@ -187,7 +187,7 @@ public class SEChartController implements Initializable {
         int maxNumAtt = -1000;
         for (String path : paths) {
             Instances inst = CSVFileManage.loadCSV(path);
-            maxE = Math.log(inst.numInstances());
+            maxE = Statistics.log2(inst.numInstances());
             XYChart.Series<Number, Number> SE = new XYChart.Series<>();
             List<Double> values = new LinkedList<>();
             if (inst.numAttributes() > maxNumAtt) {
