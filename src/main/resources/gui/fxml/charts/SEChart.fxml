@@ -17,7 +17,7 @@
       <StackPane fx:id="stackPanel" VBox.vgrow="ALWAYS" />
       <HBox>
          <children>
-            <HBox prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+            <HBox HBox.hgrow="ALWAYS" />
             <JFXCheckBox fx:id="showTargetCheck" onAction="#showTargetAction" text="Show Target SE" HBox.hgrow="ALWAYS">
                <font>
                   <Font name="System Italic" size="14.0" />

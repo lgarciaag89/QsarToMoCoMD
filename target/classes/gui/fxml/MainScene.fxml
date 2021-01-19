@@ -56,8 +56,17 @@
                                 <KeyCodeCombination alt="UP" code="E" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                             </accelerator>
                         </MenuItem>
+                  <MenuItem fx:id="builModelMenulItem" mnemonicParsing="false" onAction="#builModelAction" text="BuildModel">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="B" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
                     </items>
                 </Menu>
+            <Menu mnemonicParsing="false" text="Graphics">
+               <items>
+                  <MenuItem fx:id="showSEExtDBMenulItem" mnemonicParsing="false" onAction="#showSEExtDBAction" text="SE graph" />
+               </items>
+            </Menu>
                 <Menu mnemonicParsing="false" text="Help">
                     <items>
                         <MenuItem mnemonicParsing="false" text="About QSARTomocomd" />
@@ -1284,6 +1293,7 @@
                                         <ContextMenu fx:id="tableCM">
                                             <items>
                                                 <MenuItem fx:id="seGraphItem" mnemonicParsing="false" onAction="#seGraphShowAction" text="SE graph" />
+                                    <MenuItem fx:id="builModelContextItem" mnemonicParsing="false" onAction="#builModelAction" text="Build model" />
                                             </items>
                                         </ContextMenu>
                                     </contextMenu>

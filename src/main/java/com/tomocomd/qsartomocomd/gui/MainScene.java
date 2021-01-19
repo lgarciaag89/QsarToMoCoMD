@@ -13,6 +13,7 @@ import com.tomocomd.qsartomocomd.gui.alerts.ShowAlerts;
 import com.tomocomd.qsartomocomd.gui.attributeFitBox.AttFitBoxFactory;
 import com.tomocomd.qsartomocomd.gui.attributeFitBox.IAttFitBoxChields;
 import com.tomocomd.qsartomocomd.gui.charts.SEChartController;
+import com.tomocomd.qsartomocomd.gui.charts.SEGraphController;
 import com.tomocomd.qsartomocomd.gui.descriptors.tomocomd.GroupsController;
 import com.tomocomd.qsartomocomd.gui.descriptors.tomocomd.aggregations.ClasicalAggController;
 import com.tomocomd.qsartomocomd.gui.descriptors.tomocomd.aggregations.MeansAggController;
@@ -67,6 +68,7 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -378,6 +380,12 @@ public class MainScene implements Initializable {
     private JFXCheckBox coopCheck;
     @FXML
     private JFXComboBox<SearchAggrType> aggSearchCombo;
+    @FXML
+    private MenuItem builModelMenulItem;
+    @FXML
+    private MenuItem builModelContextItem;
+    @FXML
+    private MenuItem showSEExtDBMenulItem;
 
     /**
      * Initializes the controller class.
@@ -511,7 +519,7 @@ public class MainScene implements Initializable {
         ObservableList<AttributeQualityType> attData = FXCollections.observableArrayList();
         attData.addAll(Arrays.asList(AttributeQualityType.values()));
         attBox.setItems(attData);
-        
+
         // search aggregations operators
         ObservableList<SearchAggrType> searchAgg = FXCollections.observableArrayList();
         searchAgg.addAll(Arrays.asList(SearchAggrType.values()));
@@ -541,13 +549,17 @@ public class MainScene implements Initializable {
 
         if (conf.getSdfFile() != null) {
 
-            Set targets = SDFFiles.getProperties(conf.getSdfFile());
+            try {
+                Set targets = SDFFiles.getProperties(conf.getSdfFile());
+                ObservableList<String> repSubData = FXCollections.observableArrayList();
+                repSubData.addAll(targets);
+                targetComboBox.getItems().clear();
+                targetComboBox.setItems(repSubData);
+                targetComboBox.setValue(conf.getTarget());
+            } catch (FileNotFoundException ex) {
+                LOGGER.error("Problems loading sdf file");
+            }
 
-            ObservableList<String> repSubData = FXCollections.observableArrayList();
-            repSubData.addAll(targets);
-            targetComboBox.getItems().clear();
-            targetComboBox.setItems(repSubData);
-            targetComboBox.setValue(conf.getTarget());
         }
         csvFileTextFiled.setText(conf.getOutFileFile());
 
@@ -641,7 +653,7 @@ public class MainScene implements Initializable {
     }
 
     private void setGAForm() {
-        
+
         //cooperative mode
         coopCheck.setSelected(((GAConf) conf.getSearch()).isCoop());
         //set architecture         
@@ -685,7 +697,7 @@ public class MainScene implements Initializable {
         fitnessBox.setValue(((GAConf) conf.getSearch()).getSubsetEva().getType());
         vRetBox.setValue(((GAConf) conf.getSearch()).getSubsetEva().getMethod().getType());
         setFitBox(true);
-        
+
         // search aggregations operators
         aggSearchCombo.setValue(((GAConf) conf.getSearch()).getFamConf().getsAType());
 
@@ -771,14 +783,14 @@ public class MainScene implements Initializable {
         AttributeQualityType type = attBox.getValue();
         AttFitOptValues = AttFitBoxFactory.getChield(type, stage);
         reliefBox.getChildren().clear();
-        
-        if(AttFitOptValues !=null){
+
+        if (AttFitOptValues != null) {
             String[] opts = ((GAConf) conf.getSearch()).getFamConf().getAttConf().getOption();
             if (opts != null && flag) {
                 AttFitOptValues.setOptions(opts);
             }
             reliefBox.getChildren().addAll(AttFitOptValues.getChilds());
-        }else{
+        } else {
             reliefBox.setStyle("");
         }
     }
@@ -1192,7 +1204,7 @@ public class MainScene implements Initializable {
             ga.setOnFailed(evt -> {
                 Throwable exception = evt.getSource().getException();
                 if (exception != null) {
-                    LOGGER.error(exception.toString(),exception);
+                    LOGGER.error(exception.toString(), exception);
                     new ShowAlerts().showError(exception.toString());
                 }
                 if (!ga.isDone()) {
@@ -1208,7 +1220,7 @@ public class MainScene implements Initializable {
             }
             service.shutdown();
             new ShowAlerts().showError(ex.getMessage());
-            LOGGER.error(ex.toString(),ex);
+            LOGGER.error(ex.toString(), ex);
             ended();
         }
     }
@@ -2248,5 +2260,26 @@ public class MainScene implements Initializable {
     @FXML
     private void aggSearchAction(ActionEvent event) {
         ((GAConf) conf.getSearch()).getFamConf().setsAType(aggSearchCombo.getValue());
+    }
+
+    @FXML
+    private void builModelAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void showSEExtDBAction(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/fxml/charts/SEGraph.fxml"));
+        Parent root = fxmlLoader.load();
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/gui/styles/Styles.css");
+        Stage myStage = new Stage();
+        myStage.setScene(scene);
+        myStage.setMaximized(true);
+        myStage.setResizable(true);
+        ((SEGraphController) fxmlLoader.getController()).setStage(myStage);
+
+        myStage.setTitle("QSAR-ToMoCoMD");
+        Image ima = new Image(this.getClass().getResource("/gui/icons/molecule.png").toString());
+        myStage.show();
     }
 }
