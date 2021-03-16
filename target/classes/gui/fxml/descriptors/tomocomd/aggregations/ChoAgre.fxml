@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="264.0" prefWidth="419.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="qsartomocomd_v2.gui.descriptors.midasdescriptors.aggregations.ChoquetAggController">
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="264.0" prefWidth="419.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tomocomd.qsartomocomd.gui.descriptors.tomocomd.aggregations.ChoquetAggController">
    <children>
       <VBox prefHeight="267.0" prefWidth="409.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -30,7 +30,7 @@
                   </GridPane>
                </children>
             </HBox>
-            <HBox prefHeight="158.0" prefWidth="419.0" VBox.vgrow="ALWAYS">
+            <HBox fx:id="boxChoquet" prefHeight="158.0" prefWidth="419.0" VBox.vgrow="ALWAYS">
                <children>
                   <GridPane HBox.hgrow="ALWAYS">
                     <columnConstraints>

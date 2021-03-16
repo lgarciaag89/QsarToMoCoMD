@@ -15,7 +15,9 @@ import com.tomocomd.qsartomocomd.gui.attributeFitBox.IAttFitBoxChields;
 import com.tomocomd.qsartomocomd.gui.charts.SEChartController;
 import com.tomocomd.qsartomocomd.gui.charts.SEGraphController;
 import com.tomocomd.qsartomocomd.gui.descriptors.tomocomd.GroupsController;
+import com.tomocomd.qsartomocomd.gui.descriptors.tomocomd.aggregations.ChoquetAggController;
 import com.tomocomd.qsartomocomd.gui.descriptors.tomocomd.aggregations.ClasicalAggController;
+import com.tomocomd.qsartomocomd.gui.descriptors.tomocomd.aggregations.GowawaAggController;
 import com.tomocomd.qsartomocomd.gui.descriptors.tomocomd.aggregations.MeansAggController;
 import com.tomocomd.qsartomocomd.gui.descriptors.tomocomd.aggregations.NormsAggController;
 import com.tomocomd.qsartomocomd.gui.descriptors.tomocomd.aggregations.StatisticsAggController;
@@ -2011,7 +2013,29 @@ public class MainScene implements Initializable {
     }
 
     @FXML
-    private void showShoAgreMidasAction(ActionEvent event) {
+    private void showShoAgreMidasAction(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/fxml/descriptors/tomocomd/aggregations/ChoAgre.fxml"));
+        Parent root = fxmlLoader.load();
+
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/gui/styles/descriptorsParams.css");
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setResizable(false);
+        ((ChoquetAggController) fxmlLoader.getController()).setStage(stage);
+        ((ChoquetAggController) fxmlLoader.getController()).setCho(conf.getMidConf().getAgg().getChoquet());
+        stage.setTitle("Choquet aggregation operators Midas descriptors");
+        stage.getIcons().add(new Image(this.getClass().getResource("/gui/icons/molecule.png").toString()));
+        stage.setOnCloseRequest(action -> {
+            ((ChoquetAggController) fxmlLoader.getController()).setCho(conf.getMidConf().getAgg().getChoquet());
+            stage.close();
+        });
+        stage.showAndWait();
+        try {
+            conf.getMidConf().getAgg().setChoquet(((ChoquetAggController) fxmlLoader.getController()).getCho());
+        } catch (AggregationsConfException ex) {
+            new ShowAlerts().showWarning(ex.getMessage());
+        }
     }
 
     @FXML
@@ -2041,7 +2065,29 @@ public class MainScene implements Initializable {
     }
 
     @FXML
-    private void showGowAgreMidasAction(ActionEvent event) {
+    private void showGowAgreMidasAction(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/fxml/descriptors/tomocomd/aggregations/GowAgre.fxml"));
+        Parent root = fxmlLoader.load();
+
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/gui/styles/descriptorsParams.css");
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setResizable(false);
+        ((GowawaAggController) fxmlLoader.getController()).setStage(stage);
+        ((GowawaAggController) fxmlLoader.getController()).setGow(conf.getMidConf().getAgg().getGowawa());
+        stage.setTitle("Gowawa aggregation operators midas descriptors");
+        stage.getIcons().add(new Image(this.getClass().getResource("/gui/icons/molecule.png").toString()));
+        stage.setOnCloseRequest(action -> {
+            ((GowawaAggController) fxmlLoader.getController()).setGow(conf.getMidConf().getAgg().getGowawa());
+            stage.close();
+        });
+        stage.showAndWait();
+        try {
+            conf.getMidConf().getAgg().setGowawa(((GowawaAggController) fxmlLoader.getController()).getGow());
+        } catch (AggregationsConfException ex) {
+            new ShowAlerts().showWarning(ex.getMessage());
+        }
     }
 
     @FXML
@@ -2123,7 +2169,29 @@ public class MainScene implements Initializable {
     }
 
     @FXML
-    private void showShoAgreMasAction(ActionEvent event) {
+    private void showShoAgreMasAction(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/fxml/descriptors/tomocomd/aggregations/ChoAgre.fxml"));
+        Parent root = fxmlLoader.load();
+
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/gui/styles/descriptorsParams.css");
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setResizable(false);
+        ((ChoquetAggController) fxmlLoader.getController()).setStage(stage);
+        ((ChoquetAggController) fxmlLoader.getController()).setCho(conf.getMasConf().getAgg().getChoquet());
+        stage.setTitle("Choquet aggregation operators mas descriptors");
+        stage.getIcons().add(new Image(this.getClass().getResource("/gui/icons/molecule.png").toString()));
+        stage.setOnCloseRequest(action -> {
+            ((ChoquetAggController) fxmlLoader.getController()).setCho(conf.getMasConf().getAgg().getChoquet());
+            stage.close();
+        });
+        stage.showAndWait();
+        try {
+            conf.getMasConf().getAgg().setChoquet(((ChoquetAggController) fxmlLoader.getController()).getCho());
+        } catch (AggregationsConfException ex) {
+            new ShowAlerts().showWarning(ex.getMessage());
+        }
     }
 
     @FXML
@@ -2153,7 +2221,29 @@ public class MainScene implements Initializable {
     }
 
     @FXML
-    private void showGowAgreMasAction(ActionEvent event) {
+    private void showGowAgreMasAction(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/fxml/descriptors/tomocomd/aggregations/GowAgre.fxml"));
+        Parent root = fxmlLoader.load();
+
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/gui/styles/descriptorsParams.css");
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setResizable(false);
+        ((GowawaAggController) fxmlLoader.getController()).setStage(stage);
+        ((GowawaAggController) fxmlLoader.getController()).setGow(conf.getMasConf().getAgg().getGowawa());
+        stage.setTitle("Gowawa aggregation operators mas descriptors");
+        stage.getIcons().add(new Image(this.getClass().getResource("/gui/icons/molecule.png").toString()));
+        stage.setOnCloseRequest(action -> {
+            ((GowawaAggController) fxmlLoader.getController()).setGow(conf.getMasConf().getAgg().getGowawa());
+            stage.close();
+        });
+        stage.showAndWait();
+        try {
+            conf.getMasConf().getAgg().setGowawa(((GowawaAggController) fxmlLoader.getController()).getGow());
+        } catch (AggregationsConfException ex) {
+            new ShowAlerts().showWarning(ex.getMessage());
+        }
     }
 
     private void validateMeasures() {

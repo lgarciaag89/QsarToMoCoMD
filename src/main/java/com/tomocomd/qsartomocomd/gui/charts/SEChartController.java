@@ -137,8 +137,8 @@ public class SEChartController implements Initializable {
         Integer maxX = Integer.MIN_VALUE;
 
         for (XYChart.Series<Number, Number> serie : d) {
-            if (serie.getData().get(0).getYValue().doubleValue() < minY) {
-                minY = serie.getData().get(0).getYValue().doubleValue();
+            if (serie.getData().get(serie.getData().size()-1).getYValue().doubleValue() < minY) {
+                minY = serie.getData().get(serie.getData().size()-1).getYValue().doubleValue();
             }
 
             if (serie.getData().size() > maxX) {
@@ -201,7 +201,7 @@ public class SEChartController implements Initializable {
                     seClass = Statistics.SE(inst.attributeToDoubleArray(i));
                 }
             }
-            values.sort(Comparator.naturalOrder());
+            values.sort(Comparator.reverseOrder());
             for (int i = 0; i < values.size(); i++) {
                 SE.getData().add(new XYChart.Data<>(i + 1, values.get(i)));
             }

@@ -170,8 +170,8 @@ public class SEGraphController implements Initializable {
 
             XYChart.Series<Number, Number> SE = new XYChart.Series<>();
             XYChart.Series<Number, Number> SENorm = new XYChart.Series<>();
-            values.sort(Comparator.naturalOrder());
-            valuesNorm.sort(Comparator.naturalOrder());
+            values.sort(Comparator.reverseOrder());
+            valuesNorm.sort(Comparator.reverseOrder());
             for (int i = 0; i < values.size(); i++) {
                 SE.getData().add(new XYChart.Data<>(i + 1, values.get(i)));
                 SENorm.getData().add(new XYChart.Data<>(i + 1, valuesNorm.get(i)));
@@ -185,7 +185,7 @@ public class SEGraphController implements Initializable {
         }
 
         namesAtt = namesAtt.entrySet().stream()
-                .sorted(Map.Entry.comparingByValue())
+                .sorted(Map.Entry.<String, Double>comparingByValue().reversed())
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
                         (oldValue, newValue) -> oldValue, LinkedHashMap::new));
 
@@ -208,10 +208,10 @@ public class SEGraphController implements Initializable {
         }
 
         for (XYChart.Series<Number, Number> serie : datas) {
-            if (serie.getData().get(0).getYValue().doubleValue() < minY) {
-                minY = serie.getData().get(0).getYValue().doubleValue();
+            if (serie.getData().get(serie.getData().size()-1).getYValue().doubleValue() < minY) {
+                minY = serie.getData().get(serie.getData().size()-1).getYValue().doubleValue();
             }
-
+            
             if (serie.getData().size() > maxX) {
                 maxX = serie.getData().size();
             }
