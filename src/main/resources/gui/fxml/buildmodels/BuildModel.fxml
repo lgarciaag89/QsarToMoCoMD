@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tomocomd.qsartomocomd.gui.buildmodels.BuildModelController">
+  <children>
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+         <children>
+            <VBox prefHeight="400.0" prefWidth="640.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <VBox style="-fx-border-color: gray;">
+                     <children>
+                        <HBox maxWidth="1.7976931348623157E308">
+                           <children>
+                              <JFXTextField fx:id="csvTrainFiled" alignment="CENTER" editable="false" labelFloat="true" maxWidth="1.7976931348623157E308" onMouseClicked="#findCSVTrainActionMouse" promptText="CSV train set" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="5.0" top="25.0" />
+                                 </HBox.margin>
+                              </JFXTextField>
+                              <JFXComboBox fx:id="operationCombo" maxWidth="1.7976931348623157E308" onAction="#operationAction" HBox.hgrow="ALWAYS">
+                                 <HBox.margin>
+                                    <Insets bottom="10.0" left="5.0" right="5.0" top="25.0" />
+                                 </HBox.margin>
+                              </JFXComboBox>
+                              <JFXButton fx:id="modelBuildBut" buttonType="RAISED" onMouseClicked="#modelBuildAction" text="Build models" HBox.hgrow="ALWAYS">
+                                 <HBox.margin>
+                                    <Insets bottom="10.0" left="5.0" right="10.0" top="25.0" />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </JFXButton>
+                           </children>
+                        </HBox>
+                        <HBox>
+                           <children>
+                              <JFXTextField fx:id="sdfExtFiled" alignment="CENTER" editable="false" labelFloat="true" maxWidth="1.7976931348623157E308" onMouseClicked="#findSDFExtActionMouse" promptText="SDF external set" HBox.hgrow="ALWAYS">
+                                 <HBox.margin>
+                                    <Insets bottom="10.0" left="5.0" right="5.0" top="25.0" />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </JFXTextField>
+                              <JFXComboBox fx:id="actCombo" labelFloat="true" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+                                 <HBox.margin>
+                                    <Insets bottom="10.0" left="5.0" right="5.0" top="25.0" />
+                                 </HBox.margin>
+                              </JFXComboBox>
+                              <JFXComboBox fx:id="ClasCombo" labelFloat="true" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+                                 <HBox.margin>
+                                    <Insets bottom="10.0" left="5.0" right="5.0" top="25.0" />
+                                 </HBox.margin>
+                              </JFXComboBox>
+                              <JFXButton fx:id="cleanBut" buttonType="RAISED" onAction="#cleanAction" text="Clear info" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets bottom="10.0" left="5.0" right="5.0" top="25.0" />
+                                 </HBox.margin>
+                              </JFXButton>
+                              <JFXButton fx:id="filterBut" buttonType="RAISED" onAction="#filterId" text="Filter" HBox.hgrow="ALWAYS">
+                                 <HBox.margin>
+                                    <Insets bottom="10.0" left="5.0" right="5.0" top="25.0" />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </JFXButton>
+                              <JFXButton fx:id="saveMoBut" buttonType="RAISED" onAction="#saveMoAction" text="Save models info" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets bottom="10.0" right="10.0" top="25.0" />
+                                 </HBox.margin>
+                              </JFXButton>
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </HBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </VBox>
+                  <TableView fx:id="tableModelInfo" VBox.vgrow="ALWAYS">
+                    <columns>
+                      <TableColumn fx:id="modelIdColumn" prefWidth="75.0" text="Model ID" />
+                        <TableColumn fx:id="selColumn" prefWidth="75.0" text="Selection" />
+                        <TableColumn fx:id="clasColumn" prefWidth="75.0" text="Classifier" />
+                        <TableColumn fx:id="sizeColumn" prefWidth="75.0" text="size" />
+                      <TableColumn fx:id="R2LooColumn" prefWidth="75.0" />
+                        <TableColumn fx:id="MaeLooColumn" prefWidth="75.0" />
+                        <TableColumn fx:id="R2ExtColumn" prefWidth="75.0" />
+                        <TableColumn fx:id="MaeExtColumn" prefWidth="75.0" />
+                    </columns>
+                     <contextMenu>
+                        <ContextMenu fx:id="modelCM">
+                          <items>
+                              <MenuItem fx:id="selectionItem" mnemonicParsing="false" onAction="#selectionMDAction" text="Selection" />
+                              <MenuItem fx:id="clasificationItem" mnemonicParsing="false" onAction="#clasificationAction" text="Clasification" />
+                              <MenuItem fx:id="selclasificationItem" mnemonicParsing="false" onAction="#selclasificationAction" text="Selection+Clasification" />
+                              <MenuItem fx:id="saveIDataItem" mnemonicParsing="false" onAction="#saveIDataAction" text="Save csv dataset" />
+                            <MenuItem fx:id="modelSaveItem" mnemonicParsing="false" onAction="#modelSaveAction" text="Save model" />
+                              <MenuItem fx:id="modelMDsSaveItem" mnemonicParsing="false" onAction="#modelMDsSaveAction" text="Save MDs subset" />
+                          </items>
+                        </ContextMenu>
+                     </contextMenu>
+                  </TableView>
+               </children>
+            </VBox>
+         </children>
+    </AnchorPane>
+  </children>
+</VBox>

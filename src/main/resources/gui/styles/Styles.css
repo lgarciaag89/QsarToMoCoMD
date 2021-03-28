@@ -41,3 +41,7 @@
 .jfx-combo-box{
     -fx-pref-width: 150;
 }
+
+.jfx-combo-box > .prompt-container {
+    -fx-alignment: center;
+}

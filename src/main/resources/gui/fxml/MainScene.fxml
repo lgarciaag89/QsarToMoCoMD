@@ -62,9 +62,10 @@
                      </accelerator></MenuItem>
                     </items>
                 </Menu>
-            <Menu mnemonicParsing="false" text="Graphics">
+            <Menu mnemonicParsing="false" text="External subset">
                <items>
                   <MenuItem fx:id="showSEExtDBMenulItem" mnemonicParsing="false" onAction="#showSEExtDBAction" text="SE graph" />
+                  <MenuItem fx:id="buildModelDBExtMenulItem" mnemonicParsing="false" onAction="#buildModelDBExtAction" text="Build model" />
                </items>
             </Menu>
                 <Menu mnemonicParsing="false" text="Help">

@@ -9,6 +9,8 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
 import com.tomocomd.qsartomocomd.gui.alerts.ShowAlerts;
+import com.tomocomd.qsartomocomd.gui.charts.sechart.ContainerChart;
+import com.tomocomd.qsartomocomd.gui.charts.sechart.SEXYChart;
 import com.tomocomd.qsartomocomdlib.io.CSVFileManage;
 import com.tomocomd.qsartomocomdlib.utils.Statistics;
 import java.io.File;
@@ -63,20 +65,21 @@ public class SEGraphController implements Initializable {
     private JFXButton saveChartButton;
     @FXML
     private JFXButton loadDBButton;
-    @FXML
-    private JFXComboBox<String> nameListCombo;
-    @FXML
-    private JFXCheckBox normDatCheck;
+//    @FXML
+//    private JFXComboBox<String> nameListCombo;
+//    @FXML
+//    private JFXCheckBox normDatCheck;
 
     private Scene scene;
     private Stage stage;
-    private NumberAxis yAxis;
-    private NumberAxis xAxis;
-    private LineChartWithMarkers lineChart;
-    HashMap<String, Double> namesAtt;
-    HashMap<String, XYChart.Data<Number, Number>> seMarket;
-    private ObservableList<XYChart.Series<Number, Number>> dataComplete;
-    private ObservableList<XYChart.Series<Number, Number>> dataCompleteNorm;
+//    private NumberAxis yAxis;
+//    private NumberAxis xAxis;
+    private ContainerChart container ;
+//    private LineChartWithMarkers lineChart;
+//    HashMap<String, Double> namesAtt;
+//    HashMap<String, XYChart.Data<Number, Number>> seMarket;
+//    private ObservableList<XYChart.Series<Number, Number>> dataComplete;
+//    private ObservableList<XYChart.Series<Number, Number>> dataCompleteNorm;
 
     /**
      * Initializes the controller class.
@@ -84,16 +87,13 @@ public class SEGraphController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        xAxis = new NumberAxis();
-        yAxis = new NumberAxis();
-        xAxis.setLabel("Molecular descriptor index");
-        yAxis.setLabel("SE");
+       
 
-        lineChart = new LineChartWithMarkers(xAxis, yAxis);
-        lineChart.setLegendSide(Side.LEFT);
-        stackPanel.getChildren().add(lineChart);
+//        lineChart = new LineChartWithMarkers(xAxis, yAxis);
+        container = new ContainerChart(stackPanel);
+        
+//        stackPanel.getChildren().add(lineChart);
 
-        seMarket = new HashMap<>();
     }
 
     public Scene getScene() {
@@ -126,7 +126,7 @@ public class SEGraphController implements Initializable {
                 SnapshotParameters spa = new SnapshotParameters();
                 spa.setFill(Color.TRANSPARENT);
                 WritableImage writableImage = new WritableImage((int) stage.getScene().getWidth(), (int) stage.getScene().getHeight());
-                WritableImage img = lineChart.snapshot(spa, writableImage);
+                WritableImage img = container.getLines().snapshot(spa, writableImage);
                 ImageIO.write(SwingFXUtils.fromFXImage(img, null), "png", file);
                 new ShowAlerts().showInfo(String.format("Image file %s created successfuly", file.getName()));
             }
@@ -141,12 +141,10 @@ public class SEGraphController implements Initializable {
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("csv Files(coma separator)", "*.csv"));
         List<File> files = fileChooser.showOpenMultipleDialog(stage);
 
-        namesAtt = new HashMap<>();
-
         double maxE;
         int maxNumAtt = -1000;
-        dataComplete = FXCollections.observableArrayList();
-        dataCompleteNorm = FXCollections.observableArrayList();
+        ObservableList<SEXYChart.Series<Number, Number>> dataComplete = FXCollections.observableArrayList();
+//        dataCompleteNorm = FXCollections.observableArrayList();
         for (File path : files) {
             Instances inst = CSVFileManage.loadCSV(path.getAbsolutePath());
             if (inst == null) {
@@ -165,202 +163,184 @@ public class SEGraphController implements Initializable {
                 double[] att = inst.attributeToDoubleArray(i);
                 valuesNorm.add(Statistics.SE(att) / maxE);
                 values.add(Statistics.SE(att));
-                namesAtt.put(inst.attribute(i).name(), Statistics.SE(att) / maxE);
+//                namesAtt.put(inst.attribute(i).name(), Statistics.SE(att) / maxE);
             }
 
-            XYChart.Series<Number, Number> SE = new XYChart.Series<>();
-            XYChart.Series<Number, Number> SENorm = new XYChart.Series<>();
+            SEXYChart.Series<Number, Number> SE = new SEXYChart.Series<>();
+//            XYChart.Series<Number, Number> SENorm = new XYChart.Series<>();
             values.sort(Comparator.reverseOrder());
-            valuesNorm.sort(Comparator.reverseOrder());
             for (int i = 0; i < values.size(); i++) {
-                SE.getData().add(new XYChart.Data<>(i + 1, values.get(i)));
-                SENorm.getData().add(new XYChart.Data<>(i + 1, valuesNorm.get(i)));
+                SE.getData().add(new SEXYChart.Data<>(i + 1, values.get(i)));
+//                SENorm.getData().add(new XYChart.Data<>(i + 1, valuesNorm.get(i)));
             }
             String[] namesS = path.getName().split("_");
             String name = namesS[namesS.length - 2] + "_" + namesS[namesS.length - 1];
             SE.setName(name);
-            SENorm.setName(name);
+//            SENorm.setName(name);
             dataComplete.add(SE);
-            dataCompleteNorm.add(SENorm);
+//            dataCompleteNorm.add(SENorm);
         }
+        
+        container = new ContainerChart(stackPanel, dataComplete);
 
-        namesAtt = namesAtt.entrySet().stream()
-                .sorted(Map.Entry.<String, Double>comparingByValue().reversed())
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
-                        (oldValue, newValue) -> oldValue, LinkedHashMap::new));
-
-        ObservableList<String> archData = FXCollections.observableArrayList();
-        archData.addAll(namesAtt.keySet());
-        nameListCombo.setItems(archData);
-
-        showLines(false);
-    }
-
-    private void showLines(boolean norm) {
-        Double minY = Double.MAX_VALUE;
-        Integer maxX = Integer.MIN_VALUE;
-        ObservableList<XYChart.Series<Number, Number>> datas;
-
-        if (norm) {
-            datas = dataCompleteNorm;
-        } else {
-            datas = dataComplete;
-        }
-
-        for (XYChart.Series<Number, Number> serie : datas) {
-            if (serie.getData().get(serie.getData().size()-1).getYValue().doubleValue() < minY) {
-                minY = serie.getData().get(serie.getData().size()-1).getYValue().doubleValue();
-            }
-            
-            if (serie.getData().size() > maxX) {
-                maxX = serie.getData().size();
-            }
-        }
-        yAxis.setAutoRanging(false);
-        yAxis.setLowerBound(minY - 0.1);
-
-        if (norm) {
-            yAxis.setUpperBound(1);
-            yAxis.setTickUnit((1 - minY) / 10);
-        }else{
-            double maxE = Statistics.log2(maxX);
-            yAxis.setUpperBound(maxE+1);
-            yAxis.setTickUnit((maxE - minY) / 10);
-        }
-
-        if (maxX > 20) {
-            xAxis.setAutoRanging(false);
-            xAxis.setTickUnit((int) ((maxX - 1) / 20));
-            xAxis.setUpperBound(maxX + 2);
-        }
-        lineChart.setTitle("SE");
-        lineChart.setData(datas);
-
-        for (XYChart.Series<Number, Number> SE : lineChart.getData()) {
-//            SE.getNode().setCursor(Cursor.HAND);
-//            Tooltip tip = new Tooltip(SE.getName());
-//            Tooltip.install(SE.getNode(), tip);
-//            SE.getNode().addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+//        namesAtt = namesAtt.entrySet().stream()
+//                .sorted(Map.Entry.<String, Double>comparingByValue().reversed())
+//                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
+//                        (oldValue, newValue) -> oldValue, LinkedHashMap::new));
 //
-//                @Override
-//                public void handle(MouseEvent event) {
-//                    tip.show(SE.getNode(), event.getScreenX(), event.getScreenY());
-//                }
-//            });
-//            SE.getNode().addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
+//        ObservableList<String> archData = FXCollections.observableArrayList();
+//        archData.addAll(namesAtt.keySet());
+//        nameListCombo.setItems(archData);
+
+//        showLines(false);
+    }
+
+//    private void showLines(boolean norm) {
+//        Double minY = Double.MAX_VALUE;
+//        Double maxY = Double.MIN_VALUE;
+//        Integer maxX = Integer.MIN_VALUE;
+//        ObservableList<XYChart.Series<Number, Number>> datas;
 //
-//                @Override
-//                public void handle(MouseEvent event) {
-//                    tip.hide();
-//                }
-//            });
+//        if (norm) {
+//            datas = dataCompleteNorm;
+//        } else {
+//            datas = dataComplete;
+//        }
+//
+//        for (XYChart.Series<Number, Number> serie : datas) {
+//            if (serie.getData().get(0).getYValue().doubleValue() < minY) {
+//                minY = serie.getData().get(0).getYValue().doubleValue();
+//            }
+//
+//            if (serie.getData().get(serie.getData().size() - 1).getYValue().doubleValue() > maxY) {
+//                maxY = serie.getData().get(serie.getData().size() - 1).getYValue().doubleValue();
+//            }
+//
+//            if (serie.getData().size() > maxX) {
+//                maxX = serie.getData().size();
+//            }
+//        }
+//        yAxis.setAutoRanging(false);
+//        yAxis.setLowerBound(minY - 0.1);
+//        yAxis.setUpperBound(maxY + 0.1);
+//        yAxis.setTickUnit((maxY - minY) / 10);
+//
+//        if (maxX > 20) {
+//            xAxis.setAutoRanging(false);
+//            xAxis.setTickUnit((int) ((maxX - 1) / 20));
+//            xAxis.setUpperBound(maxX + 2);
+//        }
+//        lineChart.setTitle("SE");
+//        lineChart.setData(datas);
+//
+//        for (XYChart.Series<Number, Number> SE : lineChart.getData()) {
+//// 
+//            for (XYChart.Data<Number, Number> dataSE : SE.getData()) {
+//                dataSE.getNode().setCursor(Cursor.OPEN_HAND);
+//                Tooltip tipData = new Tooltip();
+//
+//                dataSE.getNode().addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+//
+//                    @Override
+//                    public void handle(MouseEvent event) {
+//                        double val = dataSE.getYValue().doubleValue();
+//
+//                        String Names = "";
+//                        for (Map.Entry<String, Double> entry : namesAtt.entrySet()) {
+//                            if (entry.getValue().equals(val)) {
+//                                if (Names.isEmpty()) {
+//                                    Names = entry.getKey();
+//                                } else {
+//                                    Names = String.format("%s\n%s", Names, entry.getKey());
+//                                }
+//                            }
+//                        }
+//                        Names = String.format("%s\n%.4f", Names, val);
+//                        tipData.setText(Names);
+//                        Tooltip.install(dataSE.getNode(), tipData);
+//                        tipData.show(dataSE.getNode(), event.getScreenX(), event.getScreenY());
+//                    }
+//                });
+//                dataSE.getNode().addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
+//
+//                    @Override
+//                    public void handle(MouseEvent event) {
+//                        tipData.hide();
+//                    }
+//                });
+//            }
+//
+//        }
+//
+//        lineChart.setLegendSide(Side.BOTTOM);
+//    }
 
-            for (XYChart.Data<Number, Number> dataSE : SE.getData()) {
-                dataSE.getNode().setCursor(Cursor.OPEN_HAND);
-                Tooltip tipData = new Tooltip();
+//    @FXML
+//    private void showTargetNameAction(ActionEvent event) {
+//        String name = nameListCombo.getValue();
+//        if (namesAtt.containsKey(name)) {
+//            if (seMarket.containsKey(name)) {
+//                lineChart.removeHorizontalValueMarker(seMarket.remove(name));
+//            } else {
+//                seMarket.put(name, new XYChart.Data<>(0, namesAtt.get(name)));
+//                lineChart.addHorizontalValueMarker(seMarket.get(name));
+//            }
+//        }
+//    }
+//
+//    @FXML
+//    private void normDatAction(ActionEvent event) {
+//        if (normDatCheck.isSelected()) {
+//            showLines(true);
+//        } else {
+//            showLines(false);
+//        }
+//    }
 
-                dataSE.getNode().addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-
-                    @Override
-                    public void handle(MouseEvent event) {
-                        double val = dataSE.getYValue().doubleValue();
-
-                        String Names = "";
-                        for (Map.Entry<String, Double> entry : namesAtt.entrySet()) {
-                            if (entry.getValue().equals(val)) {
-                                if (Names.isEmpty()) {
-                                    Names = entry.getKey();
-                                } else {
-                                    Names = String.format("%s\n%s", Names, entry.getKey());
-                                }
-                            }
-                        }
-                        Names = String.format("%s\n%.4f", Names, val);
-                        tipData.setText(Names);
-                        Tooltip.install(dataSE.getNode(), tipData);
-                        tipData.show(dataSE.getNode(), event.getScreenX(), event.getScreenY());
-                    }
-                });
-                dataSE.getNode().addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
-
-                    @Override
-                    public void handle(MouseEvent event) {
-                        tipData.hide();
-                    }
-                });
-            }
-
-        }
-
-        lineChart.setLegendSide(Side.BOTTOM);
-    }
-
-    @FXML
-    private void showTargetNameAction(ActionEvent event) {
-        String name = nameListCombo.getValue();
-        if (namesAtt.containsKey(name)) {
-            if (seMarket.containsKey(name)) {
-                lineChart.removeHorizontalValueMarker(seMarket.remove(name));
-            } else {
-                seMarket.put(name, new XYChart.Data<>(0, namesAtt.get(name)));
-                lineChart.addHorizontalValueMarker(seMarket.get(name));
-            }
-        }
-    }
-
-    @FXML
-    private void normDatAction(ActionEvent event) {
-        if (normDatCheck.isSelected()) {
-            showLines(true);
-        } else {
-            showLines(false);
-        }
-    }
-
-    private class LineChartWithMarkers extends LineChart<Number, Number> {
-
-        private ObservableList<XYChart.Data<Number, Number>> horizontalMarkers;
-
-        public LineChartWithMarkers(NumberAxis xAxis, NumberAxis yAxis) {
-            super(xAxis, yAxis);
-            horizontalMarkers = FXCollections.observableArrayList(data -> new Observable[]{data.YValueProperty()});
-            horizontalMarkers.addListener((InvalidationListener) observable -> layoutPlotChildren());
-        }
-
-        public void addHorizontalValueMarker(XYChart.Data<Number, Number> marker) {
-            Objects.requireNonNull(marker, "the marker must not be null");
-            if (horizontalMarkers.contains(marker)) {
-                return;
-            }
-            Line line = new Line();
-            line.setStroke(Color.GREY);
-            marker.setNode(line);
-            getPlotChildren().add(line);
-            horizontalMarkers.add(marker);
-        }
-
-        public void removeHorizontalValueMarker(XYChart.Data<Number, Number> marker) {
-            Objects.requireNonNull(marker, "the marker must not be null");
-            if (marker.getNode() != null) {
-                getPlotChildren().remove(marker.getNode());
-                marker.setNode(null);
-            }
-            horizontalMarkers.remove(marker);
-        }
-
-        @Override
-        protected void layoutPlotChildren() {
-            super.layoutPlotChildren();
-            for (XYChart.Data<Number, Number> horizontalMarker : horizontalMarkers) {
-                Line line = (Line) horizontalMarker.getNode();
-                line.setStartX(0);
-                line.setEndX(getBoundsInLocal().getWidth());
-                line.setStartY(getYAxis().getDisplayPosition(horizontalMarker.getYValue()) + 0.5); // 0.5 for crispness
-                line.setEndY(line.getStartY());
-                line.toFront();
-            }
-        }
-
-    }
+//    private class LineChartWithMarkers extends LineChart<Number, Number> {
+//
+//        private ObservableList<XYChart.Data<Number, Number>> horizontalMarkers;
+//
+//        public LineChartWithMarkers(NumberAxis xAxis, NumberAxis yAxis) {
+//            super(xAxis, yAxis);
+//            horizontalMarkers = FXCollections.observableArrayList(data -> new Observable[]{data.YValueProperty()});
+//            horizontalMarkers.addListener((InvalidationListener) observable -> layoutPlotChildren());
+//        }
+//
+//        public void addHorizontalValueMarker(XYChart.Data<Number, Number> marker) {
+//            Objects.requireNonNull(marker, "the marker must not be null");
+//            if (horizontalMarkers.contains(marker)) {
+//                return;
+//            }
+//            Line line = new Line();
+//            line.setStroke(Color.GREY);
+//            marker.setNode(line);
+//            getPlotChildren().add(line);
+//            horizontalMarkers.add(marker);
+//        }
+//
+//        public void removeHorizontalValueMarker(XYChart.Data<Number, Number> marker) {
+//            Objects.requireNonNull(marker, "the marker must not be null");
+//            if (marker.getNode() != null) {
+//                getPlotChildren().remove(marker.getNode());
+//                marker.setNode(null);
+//            }
+//            horizontalMarkers.remove(marker);
+//        }
+//
+//        @Override
+//        protected void layoutPlotChildren() {
+//            super.layoutPlotChildren();
+//            for (XYChart.Data<Number, Number> horizontalMarker : horizontalMarkers) {
+//                Line line = (Line) horizontalMarker.getNode();
+//                line.setStartX(0);
+//                line.setEndX(getBoundsInLocal().getWidth());
+//                line.setStartY(getYAxis().getDisplayPosition(horizontalMarker.getYValue()) + 0.5); // 0.5 for crispness
+//                line.setEndY(line.getStartY());
+//                line.toFront();
+//            }
+//        }
+//
+//    }
 
 }

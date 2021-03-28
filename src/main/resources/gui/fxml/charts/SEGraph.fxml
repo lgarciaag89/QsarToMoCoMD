@@ -18,17 +18,17 @@
          <children>
             <HBox HBox.hgrow="ALWAYS">
                <children>
-                  <JFXCheckBox fx:id="normDatCheck" onAction="#normDatAction" text="Normalized data" HBox.hgrow="ALWAYS">
+<!--                  <JFXCheckBox fx:id="normDatCheck" onAction="#normDatAction" text="Normalized data" HBox.hgrow="ALWAYS">
                      <HBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="30.0" />
                      </HBox.margin>
-                  </JFXCheckBox>
+                  </JFXCheckBox>-->
                </children></HBox>
-            <JFXComboBox fx:id="nameListCombo" onAction="#showTargetNameAction" promptText="Target name" HBox.hgrow="ALWAYS">
+<!--            <JFXComboBox fx:id="nameListCombo" onAction="#showTargetNameAction" promptText="Target name" HBox.hgrow="ALWAYS">
                <HBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="20.0" />
                </HBox.margin>
-            </JFXComboBox>
+            </JFXComboBox>-->
             <JFXButton fx:id="loadDBButton" buttonType="RAISED" layoutX="544.0" layoutY="20.0" onAction="#loadDBAction" style="-fx-background-color: green;" text="Load datasets" textFill="WHITE" HBox.hgrow="ALWAYS">
                <font>
                   <Font name="System Italic" size="25.0" />

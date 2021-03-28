@@ -12,6 +12,7 @@ import com.jfoenix.controls.JFXTextField;
 import com.tomocomd.qsartomocomd.gui.alerts.ShowAlerts;
 import com.tomocomd.qsartomocomd.gui.attributeFitBox.AttFitBoxFactory;
 import com.tomocomd.qsartomocomd.gui.attributeFitBox.IAttFitBoxChields;
+import com.tomocomd.qsartomocomd.gui.buildmodels.BuildModelController;
 import com.tomocomd.qsartomocomd.gui.charts.SEChartController;
 import com.tomocomd.qsartomocomd.gui.charts.SEGraphController;
 import com.tomocomd.qsartomocomd.gui.descriptors.tomocomd.GroupsController;
@@ -388,6 +389,8 @@ public class MainScene implements Initializable {
     private MenuItem builModelContextItem;
     @FXML
     private MenuItem showSEExtDBMenulItem;
+    @FXML
+    private MenuItem buildModelDBExtMenulItem;
 
     /**
      * Initializes the controller class.
@@ -908,6 +911,13 @@ public class MainScene implements Initializable {
         return names;
     }
 
+    private String getPathFromtableExec(TreeItem<ExecutionInfo> info) {
+        if (info.isLeaf()) {
+            return info.getValue().getAbsolutePath();
+        }
+        return "";
+    }
+
     @FXML
     private void seGraphShowAction(ActionEvent event) throws IOException {
         ObservableList<TreeItem<ExecutionInfo>> infos = treeTableExecution.getSelectionModel().getSelectedItems();
@@ -933,6 +943,7 @@ public class MainScene implements Initializable {
                 createLineChart(conf.getTarget());
         myStage.setTitle("QSAR-ToMoCoMD");
         Image ima = new Image(this.getClass().getResource("/gui/icons/molecule.png").toString());
+        stage.getIcons().add(ima);
         myStage.show();
     }
 
@@ -2353,7 +2364,29 @@ public class MainScene implements Initializable {
     }
 
     @FXML
-    private void builModelAction(ActionEvent event) {
+    private void builModelAction(ActionEvent event) throws IOException {
+
+        TreeItem<ExecutionInfo> info = treeTableExecution.getSelectionModel().getSelectedItem();
+//     
+
+        String name = getPathFromtableExec(info);
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/fxml/buildmodels/BuildModel.fxml"));
+        Parent root = fxmlLoader.load();
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/gui/styles/Styles.css");
+        Stage myStage = new Stage();
+        myStage.setTitle("QSAR-ToMoCoMD models for "+new File(name).getName());
+        myStage.setScene(scene);
+        myStage.setMaximized(true);
+        myStage.setResizable(true);
+        ((BuildModelController) fxmlLoader.getController()).setStage(myStage);
+        ((BuildModelController) fxmlLoader.getController()).
+                setPath(name);
+        ((BuildModelController) fxmlLoader.getController()).setAct("Activity");
+        Image ima = new Image(this.getClass().getResource("/gui/icons/molecule.png").toString());
+//        stage.getIcons().add(ima);
+        myStage.show();
     }
 
     @FXML
@@ -2370,6 +2403,25 @@ public class MainScene implements Initializable {
 
         myStage.setTitle("QSAR-ToMoCoMD");
         Image ima = new Image(this.getClass().getResource("/gui/icons/molecule.png").toString());
+        myStage.show();
+    }
+
+    @FXML
+    private void buildModelDBExtAction(ActionEvent event) throws IOException {
+        
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/fxml/buildmodels/BuildModel.fxml"));
+        Parent root = fxmlLoader.load();
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/gui/styles/Styles.css");
+        Stage myStage = new Stage();
+        myStage.setTitle("QSAR-ToMoCoMD models");
+        myStage.setScene(scene);
+        myStage.setMaximized(true);
+        myStage.setResizable(true);
+        ((BuildModelController) fxmlLoader.getController()).setStage(myStage);        
+//        ((BuildModelController) fxmlLoader.getController()).setAct("Activity");
+        Image ima = new Image(this.getClass().getResource("/gui/icons/molecule.png").toString());
+//        stage.getIcons().add(ima);
         myStage.show();
     }
 }
