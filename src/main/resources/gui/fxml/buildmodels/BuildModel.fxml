@@ -32,6 +32,11 @@
                                     <Insets bottom="10.0" left="5.0" right="5.0" top="25.0" />
                                  </HBox.margin>
                               </JFXComboBox>
+                              <JFXComboBox fx:id="paramCamboBox" HBox.hgrow="ALWAYS">
+                                 <HBox.margin>
+                                    <Insets bottom="10.0" left="5.0" right="5.0" top="25.0" />
+                                 </HBox.margin>
+                              </JFXComboBox>
                               <JFXButton fx:id="modelBuildBut" buttonType="RAISED" onMouseClicked="#modelBuildAction" text="Build models" HBox.hgrow="ALWAYS">
                                  <HBox.margin>
                                     <Insets bottom="10.0" left="5.0" right="10.0" top="25.0" />
@@ -77,6 +82,14 @@
                                  <font>
                                     <Font size="14.0" />
                                  </font>
+                              </JFXButton>
+                              <JFXButton fx:id="sortButton" buttonType="RAISED" onAction="#sortAction" text="Sort" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets bottom="10.0" left="5.0" right="5.0" top="25.0" />
+                                 </HBox.margin>
                               </JFXButton>
                               <JFXButton fx:id="saveMoBut" buttonType="RAISED" onAction="#saveMoAction" text="Save models info" HBox.hgrow="ALWAYS">
                                  <font>

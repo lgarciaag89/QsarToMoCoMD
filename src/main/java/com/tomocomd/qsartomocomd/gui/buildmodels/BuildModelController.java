@@ -14,6 +14,7 @@ import com.tomocomd.qsartomocomdlib.data.TomocomdInstances;
 import com.tomocomd.qsartomocomdlib.descriptors.descriptors.TomocomdDescriptor;
 import com.tomocomd.qsartomocomdlib.io.CSVFileManage;
 import com.tomocomd.qsartomocomdlib.io.SDFFiles;
+import com.tomocomd.qsartomocomdlib.modelssearch.OptimizationParam;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -126,6 +127,10 @@ public class BuildModelController implements Initializable {
     private MenuItem selclasificationItem;
     @FXML
     private MenuItem saveIDataItem;
+    @FXML
+    private JFXButton sortButton;
+    @FXML
+    private JFXComboBox<OptimizationParam> paramCamboBox;
 
     /**
      * Initializes the controller class.
@@ -190,6 +195,9 @@ public class BuildModelController implements Initializable {
 
         pathCSV = "";
         pathSDF = "";
+        
+        paramCamboBox.getItems().setAll(OptimizationParam.values());
+        paramCamboBox.getSelectionModel().selectFirst();
     }
 
     public void setStage(Stage myStage) {
@@ -244,7 +252,7 @@ public class BuildModelController implements Initializable {
 
     private void selectionExtVal() {
         taskService = new SelectionService(actCombo.getSelectionModel().getSelectedItem(),
-                pathSDF, pathCSV, train, getClassifier(), tableModelInfo.getItems().size());
+                pathSDF, pathCSV, train, getClassifier(), tableModelInfo.getItems().size(),paramCamboBox.getValue());
         executeService();
     }
 
@@ -344,9 +352,9 @@ public class BuildModelController implements Initializable {
                 new FileChooser.ExtensionFilter("SDF Files", "*.sdf"),
                 new FileChooser.ExtensionFilter("SDF Files", "*.SDF")
         );
-        if (!pathCSV.isEmpty()) {
-            if (new File(pathCSV).getParentFile().exists()) {
-                fileChooser.setInitialDirectory(new File(pathCSV).getParentFile());
+        if (!pathSDF.isEmpty()) {
+            if (new File(pathSDF).getParentFile().exists()) {
+                fileChooser.setInitialDirectory(new File(pathSDF).getParentFile());
             }
         }
 
@@ -546,7 +554,7 @@ public class BuildModelController implements Initializable {
 
         if (info != null) {
             taskService = new SelectionService(actCombo.getSelectionModel().getSelectedItem(),
-                    pathSDF, pathCSV, getDescAndFilter(info), getClassifier(), tableModelInfo.getItems().size());
+                    pathSDF, pathCSV, getDescAndFilter(info), getClassifier(), tableModelInfo.getItems().size(),paramCamboBox.getValue());
             executeService();
         }
     }
@@ -689,5 +697,29 @@ public class BuildModelController implements Initializable {
             }
             new ShowAlerts().showInfo("Saved "+infos.size()+" databases");
         }
+    }
+
+    @FXML
+    private void sortAction(ActionEvent event) {
+        List<ModelInfo> oldModels = new LinkedList<>(tableModelInfo.getItems());
+        
+        oldModels.sort(new Comparator<ModelInfo>() {
+            @Override
+            public int compare(ModelInfo o1, ModelInfo o2) {
+                double p1 = (o1.getR2Ext()+o1.getR2Loo())/2;
+                double p2 = (o2.getR2Ext()+o2.getR2Loo())/2;
+                if( p1 < p2 ){
+                    return 1;
+                }else if( p1 > p2 ){
+                    return -1;
+                }
+                return 0;
+            }
+        });
+        
+        Node oldPlaceHolder = tableModelInfo.getPlaceholder();
+        tableModelInfo.getItems().clear();
+        tableModelInfo.getItems().setAll(oldModels);
+        tableModelInfo.setPlaceholder(oldPlaceHolder);
     }
 }

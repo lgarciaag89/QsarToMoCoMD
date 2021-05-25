@@ -817,7 +817,8 @@ public class MainScene implements Initializable {
 
     private void setTourSize() {
         GASelectionType type = seleOpeBox.getValue();
-        if (type == GASelectionType.Tournament || type == GASelectionType.ProgressiveSelection) {
+        if (type == GASelectionType.Tournament || type == GASelectionType.ProgressiveSelection 
+                || type == GASelectionType.TournamentProgressive || type == GASelectionType.RandomTournament ) {
             tourSizeTextField.setDisable(false);
             String[] opts = ((GAConf) conf.getSearch()).getFamConf().getSelConf().getOptions();
             if (type == GASelectionType.Tournament) {
@@ -1051,7 +1052,18 @@ public class MainScene implements Initializable {
             opt = new String[]{"-s", tourSizeTextField.getText()};
         } else if (type == GASelectionType.ProgressiveSelection) {
             opt = new String[]{"-i", numIterBox.getText(), "-s", tourSizeTextField.getText()};
+        } else if (type == GASelectionType.TournamentProgressive) {
+            if(repBox.getValue() == GAReplacePoblationType.Steadystatereset)
+                opt = new String[]{"-i", repNumIterTextField.getText(), "-s", tourSizeTextField.getText()};
+            else
+                opt = new String[]{"-i", numIterBox.getText(), "-s", tourSizeTextField.getText()};
+        } else if (type == GASelectionType.RandomTournament) {
+            if(repBox.getValue() == GAReplacePoblationType.Steadystatereset)
+                opt = new String[]{"-i", repNumIterTextField.getText(), "-s", tourSizeTextField.getText()};
+            else
+                opt = new String[]{"-i", numIterBox.getText(), "-s", tourSizeTextField.getText()};
         }
+        
         return new GASelectionConfig(num, type, opt);
     }
 

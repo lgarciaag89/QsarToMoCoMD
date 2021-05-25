@@ -10,6 +10,7 @@ import com.tomocomd.qsartomocomd.gui.alerts.ShowAlerts;
 import com.tomocomd.qsartomocomdlib.data.TomocomdInstances;
 import com.tomocomd.qsartomocomdlib.descriptors.descriptors.TomocomdDescriptor;
 import com.tomocomd.qsartomocomdlib.io.SDFFiles;
+import com.tomocomd.qsartomocomdlib.modelssearch.OptimizationParam;
 import com.tomocomd.qsartomocomdlib.modelssearch.SearchByExternalValidation;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
@@ -32,9 +33,11 @@ public class SelectionService extends AbstractServiceValue {
     private Instances train;
     private List<AbstractClassifier> classifiers;
     private int mId;
+    private OptimizationParam opt;
     List<ModelInfo> infos ;
 
-    public SelectionService(String act, String pathSDF, String pathCSV, Instances train, List<AbstractClassifier> classifiers, int mId) {
+    public SelectionService(String act, String pathSDF, String pathCSV, Instances train, List<AbstractClassifier> classifiers, 
+            int mId, OptimizationParam oP) {
         this.act = act;
         this.pathSDF = pathSDF;
         this.pathCSV = pathCSV;
@@ -42,7 +45,17 @@ public class SelectionService extends AbstractServiceValue {
         this.classifiers = new LinkedList<>(classifiers);
         this.mId = mId;
         infos = new LinkedList<>();
+        opt = oP;
     }
+
+    public OptimizationParam getOpt() {
+        return opt;
+    }
+
+    public void setOpt(OptimizationParam opt) {
+        this.opt = opt;
+    }
+    
     
     @Override
     public List<ModelInfo> getValues() {
@@ -139,7 +152,7 @@ public class SelectionService extends AbstractServiceValue {
         inst.setClassIndex(cIdx);
         AttributeSelection asSubset = new AttributeSelection();
         SearchByExternalValidation search = new SearchByExternalValidation(inst, pathCSV + "_sel.csv", 
-                act, classifier,infos,mId+infos.size());
+                act, classifier,infos,mId+infos.size(),opt);
         asSubset.setSearch(new BestFirst());
         asSubset.setEvaluator(search);
         asSubset.setXval(false);

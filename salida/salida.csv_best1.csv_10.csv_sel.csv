@@ -1,6 +1,0 @@
-LinearRegressionModelActivity=+6.367,1,-0.32123,0.00000,0.00000,2.11533,1.81952,[Activity]
-LinearRegressionModelActivity=+6.367,1,-0.45866,0.00000,0.00000,2.13022,1.81952,[Activity]
-LinearRegressionModelActivity=0.0495*N3_Q_AB_nCi_2_NS0_T_KA_p_MAS+-0.1427,2,0.71633,0.69272,0.47986,1.36415,1.34502,[N3_Q_AB_nCi_2_NS0_T_KA_p_MAS  Activity]
-LinearRegressionModelActivity=0.01*N3_Q_AB_nCi_2_NS0_T_KA_v_MAS+-6.3713,2,0.82352,0.65208,0.42521,1.05326,1.47605,[Activity  N3_Q_AB_nCi_2_NS0_T_KA_v_MAS]
-LinearRegressionModelActivity=0.6302*N3_Q_AB_nCi_2_NS0_T_KA_e_MAS+-8.5393,2,0.73529,0.60181,0.36218,1.35442,1.51507,[Activity  N3_Q_AB_nCi_2_NS0_T_KA_e_MAS]
-LinearRegressionModelActivity=0.0954*N2_Q_AB_nCi_2_NS1_T_KA_e_MAS+-2.3344,2,0.78336,0.60701,0.36846,1.25699,5.05100,[Activity  N2_Q_AB_nCi_2_NS1_T_KA_e_MAS]
