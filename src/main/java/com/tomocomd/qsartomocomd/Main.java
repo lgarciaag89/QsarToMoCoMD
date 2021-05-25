@@ -44,7 +44,7 @@ public class Main {
     static final Logger LOGGER = (Logger) LogManager.getLogger(Main.class);
 
     public static void main(String[] args) throws Exception {
-
+        // esto se va a añadir
         validateFolders();
 
         parseOptions(args);
