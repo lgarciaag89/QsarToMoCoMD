@@ -17,15 +17,15 @@
       <StackPane fx:id="stackPanel" VBox.vgrow="ALWAYS" />
       <HBox>
          <children>
-            <HBox prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-            <JFXCheckBox fx:id="showTargetCheck" onAction="#showTargetAction" text="Show Target SE" HBox.hgrow="ALWAYS">
+            <HBox HBox.hgrow="ALWAYS" />
+<!--            <JFXCheckBox fx:id="showTargetCheck" onAction="#showTargetAction" text="Show Target SE" HBox.hgrow="ALWAYS">
                <font>
                   <Font name="System Italic" size="14.0" />
                </font>
                <HBox.margin>
                   <Insets right="10.0" top="30.0" />
                </HBox.margin>
-            </JFXCheckBox>
+            </JFXCheckBox>-->
             <JFXButton fx:id="saveChartButton" buttonType="RAISED" onAction="#saveChartAction" style="-fx-background-color: green;" text="Save" textFill="WHITE" HBox.hgrow="ALWAYS">
                <font>
                   <Font name="System Italic" size="25.0" />

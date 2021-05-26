@@ -1,5 +1,7 @@
 package com.tomocomd.qsartomocomd.gui;
 
+import com.tomocomd.qsartomocomd.gui.buildmodels.BuildModelController;
+import java.io.File;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,7 +10,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class GuiApp extends Application {
-
+    
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/fxml/MainScene.fxml"));
@@ -28,6 +30,27 @@ public class GuiApp extends Application {
             ((MainScene) fxmlLoader.getController()).stopALL(event);
         });
         stage.show();
+//        testModel(stage);
+    }
+    
+    private void testModel(Stage stage) throws Exception {
+        String path = "/media/DATA/Doctorado/WORKSPACE/QsarToMoCoMDProject/QsarToMoCoMD/salida/salida.csv_best3.csv";
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/fxml/buildmodels/BuildModel.fxml"));
+        Parent root = fxmlLoader.load();
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/gui/styles/Styles.css");
+        Stage myStage = new Stage();
+        myStage.setTitle("QSAR-ToMoCoMD models for "+new File(path).getName());
+        myStage.setScene(scene);
+        myStage.setMaximized(true);
+        myStage.setResizable(true);
+        ((BuildModelController) fxmlLoader.getController()).setStage(myStage);
+        ((BuildModelController) fxmlLoader.getController()).
+                setPath(path);
+        ((BuildModelController) fxmlLoader.getController()).setAct("Activity");
+        Image ima = new Image(this.getClass().getResource("/gui/icons/molecule.png").toString());
+        stage.getIcons().add(ima);
+        myStage.show();
     }
 
     /**

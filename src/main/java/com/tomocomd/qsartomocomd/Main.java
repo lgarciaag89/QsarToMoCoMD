@@ -44,21 +44,11 @@ public class Main {
     static final Logger LOGGER = (Logger) LogManager.getLogger(Main.class);
 
     public static void main(String[] args) throws Exception {
-
+        // esto se va a añadir
         validateFolders();
 
         parseOptions(args);
-        /*       ProjectConf conf = new ProjectConf();
-        conf.setOutFileFile("salida.csv");
-        conf.setSdfFile("/media/DATA/Doctorado/WORKSPACE/QsarToMoCoMDProj/Data/BRD3_01_TCA_recortada_pIC50-BRD3.sdf");
-        conf.setTarget("pIC50-BRD3");
-
-        AbstractGeneticAlgorithm ga = new MultiCoreGA((GAConf) conf.getSearch(), conf.getMasConf(), conf.getMidConf(), conf.getOutFileFile(),
-                conf.getTarget(), conf.getSdfFile());
-
-        ga.compute();
-
-        System.out.println(String.format("Luis %s", conf.getArch()));*/
+     
     }
 
     private static void validateFolders() {

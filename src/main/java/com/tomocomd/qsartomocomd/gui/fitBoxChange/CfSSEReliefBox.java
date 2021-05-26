@@ -6,7 +6,7 @@
 package com.tomocomd.qsartomocomd.gui.fitBoxChange;
 
 import com.jfoenix.controls.JFXComboBox;
-import com.tomocomd.qsartomocomdlib.evaluation.fitnessfunction.ElectionMethod;
+import com.tomocomd.qsartomocomdlib.evaluation.subsetfitnessfunction.ElectionMethod;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -22,11 +22,11 @@ import javafx.scene.Node;
  */
 public class CfSSEReliefBox implements IFitBoxChields {
 
-    private ReliefBox relief;
+    private ReliefSubsetBox relief;
     JFXComboBox<ElectionMethod> election;
 
     public CfSSEReliefBox() {
-        relief = new ReliefBox();
+        relief = new ReliefSubsetBox();
         election = new JFXComboBox<>();
         election = new JFXComboBox<>();
         // list of selection operatios 

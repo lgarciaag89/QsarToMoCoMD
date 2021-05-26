@@ -20,9 +20,9 @@ public class FitBoxFactory {
             case SE_SUM_Relief:
                 return new SeReliefBox();
             case ReliefRankMean:
-                return new ReliefBox();
-            case CfsSubsetReliefSE:
-                return new CfSSEReliefBox();
+                return new ReliefSubsetBox();
+//            case CfsSubsetReliefSE:
+//                return new CfSSEReliefBox();
                     
         }
         return null;

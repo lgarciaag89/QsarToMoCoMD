@@ -10,9 +10,15 @@ import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import com.tomocomd.qsartomocomd.gui.alerts.ShowAlerts;
+import com.tomocomd.qsartomocomd.gui.attributeFitBox.AttFitBoxFactory;
+import com.tomocomd.qsartomocomd.gui.attributeFitBox.IAttFitBoxChields;
+import com.tomocomd.qsartomocomd.gui.buildmodels.BuildModelController;
 import com.tomocomd.qsartomocomd.gui.charts.SEChartController;
+import com.tomocomd.qsartomocomd.gui.charts.SEGraphController;
 import com.tomocomd.qsartomocomd.gui.descriptors.tomocomd.GroupsController;
+import com.tomocomd.qsartomocomd.gui.descriptors.tomocomd.aggregations.ChoquetAggController;
 import com.tomocomd.qsartomocomd.gui.descriptors.tomocomd.aggregations.ClasicalAggController;
+import com.tomocomd.qsartomocomd.gui.descriptors.tomocomd.aggregations.GowawaAggController;
 import com.tomocomd.qsartomocomd.gui.descriptors.tomocomd.aggregations.MeansAggController;
 import com.tomocomd.qsartomocomd.gui.descriptors.tomocomd.aggregations.NormsAggController;
 import com.tomocomd.qsartomocomd.gui.descriptors.tomocomd.aggregations.StatisticsAggController;
@@ -44,9 +50,12 @@ import com.tomocomd.qsartomocomdlib.configuration.evaluation.attributeevaluation
 import com.tomocomd.qsartomocomdlib.configuration.evaluation.attributeevaluation.AttributeQualityType;
 import com.tomocomd.qsartomocomdlib.configuration.evaluation.fitnessfunction.EvaluationFunctionConf;
 import com.tomocomd.qsartomocomdlib.configuration.evaluation.fitnessfunction.EvaluationFunctionType;
+import com.tomocomd.qsartomocomdlib.configuration.evaluation.subsetqualityfunction.SubSetQualityConf;
 import com.tomocomd.qsartomocomdlib.configuration.evaluation.subsetqualityfunction.SubSetQualityType;
 import com.tomocomd.qsartomocomdlib.configuration.filters.FilterConfig;
 import com.tomocomd.qsartomocomdlib.configuration.filters.FilterType;
+import com.tomocomd.qsartomocomdlib.configuration.filters.ImputationMissingValuesType;
+import com.tomocomd.qsartomocomdlib.configuration.filters.ImputationReplaceValue;
 import com.tomocomd.qsartomocomdlib.configuration.search.geneticalgorithm.GAConf;
 import com.tomocomd.qsartomocomdlib.configuration.search.geneticalgorithm.operators.GACrossoverConf;
 import com.tomocomd.qsartomocomdlib.configuration.search.geneticalgorithm.operators.GACrossoverType;
@@ -56,11 +65,13 @@ import com.tomocomd.qsartomocomdlib.configuration.search.geneticalgorithm.operat
 import com.tomocomd.qsartomocomdlib.configuration.search.geneticalgorithm.operators.GAReplaceSubPoblationType;
 import com.tomocomd.qsartomocomdlib.configuration.search.geneticalgorithm.operators.GASelectionConfig;
 import com.tomocomd.qsartomocomdlib.configuration.search.geneticalgorithm.operators.GASelectionType;
+import com.tomocomd.qsartomocomdlib.configuration.search.geneticalgorithm.searchaggroperators.SearchAggrType;
 import com.tomocomd.qsartomocomdlib.io.SDFFiles;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -74,7 +85,6 @@ import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.function.UnaryOperator;
-import java.util.logging.Level;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -91,8 +101,8 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
@@ -103,8 +113,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -126,6 +134,7 @@ public class MainScene implements Initializable {
     GAJFXTask ga;
 
     private IFitBoxChields fitOptValues;
+    private IAttFitBoxChields AttFitOptValues;
     private Stage stage;
 
     @FXML
@@ -305,8 +314,6 @@ public class MainScene implements Initializable {
     @FXML
     private JFXTextField numIterBox;
     @FXML
-    private JFXTextField numIterSubPobTextField;
-    @FXML
     private JFXComboBox<GASelectionType> seleOpeBox;
     @FXML
     private JFXTextField numSelTextField;
@@ -333,14 +340,6 @@ public class MainScene implements Initializable {
     @FXML
     private VBox reliefBox;
     @FXML
-    private JFXTextField insTextField;
-    @FXML
-    private JFXTextField neiTextField;
-    @FXML
-    private JFXTextField sigmaTextField;
-    @FXML
-    private VBox bBoxFitnnesFnc;
-    @FXML
     private JFXComboBox<EvaluationFunctionType> fitnessBox;
     @FXML
     private JFXComboBox<SubSetQualityType> vRetBox;
@@ -348,24 +347,6 @@ public class MainScene implements Initializable {
     private VBox fitBox;
     @FXML
     private JFXCheckBox nanFilterSubPobCheck;
-    @FXML
-    private JFXCheckBox seFilterSubPobCheck;
-    @FXML
-    private JFXTextField seSubPobTextField;
-    @FXML
-    private JFXCheckBox r2FilterSubPobCheck;
-    @FXML
-    private JFXTextField r2SubpobTextField;
-    @FXML
-    private JFXCheckBox corFilterSubPobCheck;
-    @FXML
-    private JFXTextField corSubPobTextField;
-    @FXML
-    private JFXCheckBox kurSubPobCheck;
-    @FXML
-    private JFXTextField kurSubPobTextField;
-    @FXML
-    private JFXCheckBox nanFilterPobCheck;
     @FXML
     private JFXCheckBox seFilterPobCheck;
     @FXML
@@ -388,6 +369,28 @@ public class MainScene implements Initializable {
     private HBox boxIndicator;
     @FXML
     private Label indTimeLabel;
+    @FXML
+    private TabPane tabPanelGASearch;
+    @FXML
+    private JFXTextField numIterSubPobTextField;
+    @FXML
+    private JFXComboBox<ImputationMissingValuesType> impTypeSub;
+    @FXML
+    private JFXComboBox<ImputationReplaceValue> impValueSub;
+    @FXML
+    private JFXCheckBox comSubSetCheckBox;
+    @FXML
+    private JFXCheckBox coopCheck;
+    @FXML
+    private JFXComboBox<SearchAggrType> aggSearchCombo;
+    @FXML
+    private MenuItem builModelMenulItem;
+    @FXML
+    private MenuItem builModelContextItem;
+    @FXML
+    private MenuItem showSEExtDBMenulItem;
+    @FXML
+    private MenuItem buildModelDBExtMenulItem;
 
     /**
      * Initializes the controller class.
@@ -522,10 +525,10 @@ public class MainScene implements Initializable {
         attData.addAll(Arrays.asList(AttributeQualityType.values()));
         attBox.setItems(attData);
 
-        // relief 
-        insTextField.setTextFormatter(new TextFormatter<>(filter));
-        neiTextField.setTextFormatter(new TextFormatter<>(filter));
-        sigmaTextField.setTextFormatter(new TextFormatter<>(filter));
+        // search aggregations operators
+        ObservableList<SearchAggrType> searchAgg = FXCollections.observableArrayList();
+        searchAgg.addAll(Arrays.asList(SearchAggrType.values()));
+        aggSearchCombo.setItems(searchAgg);
 
         // quality subset
         ObservableList<EvaluationFunctionType> evaData = FXCollections.observableArrayList();
@@ -534,6 +537,15 @@ public class MainScene implements Initializable {
         ObservableList<SubSetQualityType> subsetEvaData = FXCollections.observableArrayList();
         subsetEvaData.addAll(Arrays.asList(SubSetQualityType.values()));
         vRetBox.setItems(subsetEvaData);
+
+        // nan filters
+        ObservableList<ImputationMissingValuesType> impTypesData = FXCollections.observableArrayList();
+        impTypesData.addAll(Arrays.asList(ImputationMissingValuesType.values()));
+        impTypeSub.setItems(impTypesData);
+
+        ObservableList<ImputationReplaceValue> impValuesData = FXCollections.observableArrayList();
+        impValuesData.addAll(Arrays.asList(ImputationReplaceValue.values()));
+        impValueSub.setItems(impValuesData);
     }
 
     private void loadFromConf() throws Exception {
@@ -542,13 +554,17 @@ public class MainScene implements Initializable {
 
         if (conf.getSdfFile() != null) {
 
-            Set targets = SDFFiles.getProperties(conf.getSdfFile());
+            try {
+                Set targets = SDFFiles.getProperties(conf.getSdfFile());
+                ObservableList<String> repSubData = FXCollections.observableArrayList();
+                repSubData.addAll(targets);
+                targetComboBox.getItems().clear();
+                targetComboBox.setItems(repSubData);
+                targetComboBox.setValue(conf.getTarget());
+            } catch (FileNotFoundException ex) {
+                LOGGER.error("Problems loading sdf file");
+            }
 
-            ObservableList<String> repSubData = FXCollections.observableArrayList();
-            repSubData.addAll(targets);
-            targetComboBox.getItems().clear();
-            targetComboBox.setItems(repSubData);
-            targetComboBox.setValue(conf.getTarget());
         }
         csvFileTextFiled.setText(conf.getOutFileFile());
 
@@ -642,7 +658,10 @@ public class MainScene implements Initializable {
     }
 
     private void setGAForm() {
-        //set architecture 
+
+        //cooperative mode
+        coopCheck.setSelected(((GAConf) conf.getSearch()).isCoop());
+        //set architecture         
         parSchComboBox.setValue(conf.getArch());
 
         // replace subpopulation
@@ -677,11 +696,15 @@ public class MainScene implements Initializable {
         // quality fnc attributes
         attBox.setValue(((GAConf) conf.getSearch()).getFamConf().getAttConf().getType());
         setQualityAttBox(true);
+        comSubSetCheckBox.setSelected(((GAConf) conf.getSearch()).getFamConf().isCompareSubset());
 
         // quality subset
         fitnessBox.setValue(((GAConf) conf.getSearch()).getSubsetEva().getType());
-        vRetBox.setValue(((GAConf) conf.getSearch()).getSubsetEva().getMethod());
+        vRetBox.setValue(((GAConf) conf.getSearch()).getSubsetEva().getMethod().getType());
         setFitBox(true);
+
+        // search aggregations operators
+        aggSearchCombo.setValue(((GAConf) conf.getSearch()).getFamConf().getsAType());
 
         initFilters();
     }
@@ -689,16 +712,7 @@ public class MainScene implements Initializable {
     private void initFilters() {
         // set general filters
         nanFilterSubPobCheck.setSelected(false);
-        seFilterSubPobCheck.setSelected(false);
-        r2FilterSubPobCheck.setSelected(false);
-        corFilterSubPobCheck.setSelected(false);
-        kurSubPobCheck.setSelected(false);
-        seSubPobTextField.setDisable(true);
-        r2SubpobTextField.setDisable(true);
-        corSubPobTextField.setDisable(true);
-        kurSubPobTextField.setDisable(true);
 
-        nanFilterPobCheck.setSelected(false);
         seFilterPobCheck.setSelected(false);
         r2FilterPobCheck.setSelected(false);
         corFilterPobCheck.setSelected(false);
@@ -721,9 +735,6 @@ public class MainScene implements Initializable {
                     kurpobTextField.setDisable(false);
                     kurpobTextField.setText(fConf.getOptions()[1]);
                     break;
-                case NaN:
-                    nanFilterPobCheck.setSelected(true);
-                    break;
                 case R2:
                     r2FilterPobCheck.setSelected(true);
                     r2pobTextField.setDisable(false);
@@ -741,28 +752,14 @@ public class MainScene implements Initializable {
 
         for (FilterConfig fConf : filters) {
             switch (fConf.getType()) {
-                case Corr:
-                    corFilterSubPobCheck.setSelected(true);
-                    corSubPobTextField.setDisable(false);
-                    corSubPobTextField.setText(fConf.getOptions()[1]);
-                    break;
-                case Kur:
-                    kurSubPobCheck.setSelected(true);
-                    kurSubPobTextField.setDisable(false);
-                    kurSubPobTextField.setText(fConf.getOptions()[1]);
-                    break;
                 case NaN:
                     nanFilterSubPobCheck.setSelected(true);
-                    break;
-                case R2:
-                    r2FilterSubPobCheck.setSelected(true);
-                    r2SubpobTextField.setDisable(false);
-                    r2SubpobTextField.setText(fConf.getOptions()[1]);
-                    break;
-                case SE:
-                    seFilterSubPobCheck.setSelected(true);
-                    seSubPobTextField.setDisable(false);
-                    seSubPobTextField.setText(fConf.getOptions()[1]);
+
+                    impTypeSub.setDisable(false);
+                    impTypeSub.setValue(ImputationMissingValuesType.valueOf(fConf.getOptions()[1]));
+                    if (impTypeSub.getValue() == ImputationMissingValuesType.Imputation) {
+                        impValueSub.setValue(ImputationReplaceValue.valueOf(fConf.getOptions()[3]));
+                    }
                     break;
             }
         }
@@ -789,28 +786,17 @@ public class MainScene implements Initializable {
 
     private void setQualityAttBox(boolean flag) {
         AttributeQualityType type = attBox.getValue();
-        if (type == AttributeQualityType.Relief) {
-            reliefBox.setDisable(false);
-            // relieff attribute fnc options
-            // options to relief function  
+        AttFitOptValues = AttFitBoxFactory.getChield(type, stage);
+        reliefBox.getChildren().clear();
+
+        if (AttFitOptValues != null) {
             String[] opts = ((GAConf) conf.getSearch()).getFamConf().getAttConf().getOption();
-            if (((GAConf) conf.getSearch()).getSubsetEva().getOptions() != null && flag) {
-                if (((GAConf) conf.getSearch()).getSubsetEva().getOptions().length > 0) {
-                    insTextField.setText(opts[1]);
-                    neiTextField.setText(opts[3]);
-                    sigmaTextField.setText(opts[5]);
-                } else {
-                    insTextField.setText("10");
-                    neiTextField.setText("10");
-                    sigmaTextField.setText("2");
-                }
-            } else {
-                insTextField.setText("10");
-                neiTextField.setText("10");
-                sigmaTextField.setText("2");
+            if (opts != null && flag) {
+                AttFitOptValues.setOptions(opts);
             }
+            reliefBox.getChildren().addAll(AttFitOptValues.getChilds());
         } else {
-            reliefBox.setDisable(true);
+            reliefBox.setStyle("");
         }
     }
 
@@ -831,7 +817,8 @@ public class MainScene implements Initializable {
 
     private void setTourSize() {
         GASelectionType type = seleOpeBox.getValue();
-        if (type == GASelectionType.Tournament || type == GASelectionType.ProgressiveSelection) {
+        if (type == GASelectionType.Tournament || type == GASelectionType.ProgressiveSelection 
+                || type == GASelectionType.TournamentProgressive || type == GASelectionType.RandomTournament ) {
             tourSizeTextField.setDisable(false);
             String[] opts = ((GAConf) conf.getSearch()).getFamConf().getSelConf().getOptions();
             if (type == GASelectionType.Tournament) {
@@ -925,6 +912,13 @@ public class MainScene implements Initializable {
         return names;
     }
 
+    private String getPathFromtableExec(TreeItem<ExecutionInfo> info) {
+        if (info.isLeaf()) {
+            return info.getValue().getAbsolutePath();
+        }
+        return "";
+    }
+
     @FXML
     private void seGraphShowAction(ActionEvent event) throws IOException {
         ObservableList<TreeItem<ExecutionInfo>> infos = treeTableExecution.getSelectionModel().getSelectedItems();
@@ -950,6 +944,7 @@ public class MainScene implements Initializable {
                 createLineChart(conf.getTarget());
         myStage.setTitle("QSAR-ToMoCoMD");
         Image ima = new Image(this.getClass().getResource("/gui/icons/molecule.png").toString());
+        stage.getIcons().add(ima);
         myStage.show();
     }
 
@@ -989,31 +984,19 @@ public class MainScene implements Initializable {
     private List<FilterConfig> getFiltersSubConfig() {
         List<FilterConfig> filters = new LinkedList<>();
         if (nanFilterSubPobCheck.isSelected()) {
-            filters.add(new FilterConfig(FilterType.NaN, new String[]{}));
-        }
-        if (seFilterSubPobCheck.isSelected()) {
-            filters.add(new FilterConfig(FilterType.SE, new String[]{"-t", seSubPobTextField.getText()}));
-        }
-
-        if (r2FilterSubPobCheck.isSelected()) {
-            filters.add(new FilterConfig(FilterType.R2, new String[]{"-t", r2SubpobTextField.getText()}));
-        }
-
-        if (corFilterSubPobCheck.isSelected()) {
-            filters.add(new FilterConfig(FilterType.Corr, new String[]{"-t", corSubPobTextField.getText()}));
-        }
-
-        if (kurSubPobCheck.isSelected()) {
-            filters.add(new FilterConfig(FilterType.Kur, new String[]{"-t", kurSubPobTextField.getText()}));
+            if (impTypeSub.getValue() == ImputationMissingValuesType.Delete) {
+                filters.add(new FilterConfig(FilterType.NaN, new String[]{"-t", ImputationMissingValuesType.Delete.toString()}));
+            } else {
+                filters.add(new FilterConfig(FilterType.NaN, new String[]{"-t", ImputationMissingValuesType.Imputation.toString(),
+                    "-v", impValueSub.getValue().toString()}));
+            }
         }
         return filters;
     }
 
     private List<FilterConfig> getFiltersConfig() {
         List<FilterConfig> filters = new LinkedList<>();
-        if (nanFilterPobCheck.isSelected()) {
-            filters.add(new FilterConfig(FilterType.NaN, new String[]{}));
-        }
+
         if (seFilterPobCheck.isSelected()) {
             filters.add(new FilterConfig(FilterType.SE, new String[]{"-t", sePobTextField.getText()}));
         }
@@ -1036,8 +1019,15 @@ public class MainScene implements Initializable {
         AttributeQualityType attType = attBox.getValue();
         String[] optAtt = new String[]{};
         switch (attType) {
-            case Relief:
-                optAtt = new String[]{"-M", insTextField.getText(), "-K", neiTextField.getText(), "-A", sigmaTextField.getText()};
+            case ReliefF:
+                optAtt = AttFitOptValues.getOptions().split(" ");
+                break;
+            case SE_ReliefF:
+                optAtt = AttFitOptValues.getOptions().split(" ");
+                break;
+            case Choquet:
+                optAtt = AttFitOptValues.getOptions().split(" ");
+                break;
         }
         AttributeQualityConf attConf = new AttributeQualityConf(attBox.getValue(), optAtt);
         return attConf;
@@ -1062,7 +1052,18 @@ public class MainScene implements Initializable {
             opt = new String[]{"-s", tourSizeTextField.getText()};
         } else if (type == GASelectionType.ProgressiveSelection) {
             opt = new String[]{"-i", numIterBox.getText(), "-s", tourSizeTextField.getText()};
+        } else if (type == GASelectionType.TournamentProgressive) {
+            if(repBox.getValue() == GAReplacePoblationType.Steadystatereset)
+                opt = new String[]{"-i", repNumIterTextField.getText(), "-s", tourSizeTextField.getText()};
+            else
+                opt = new String[]{"-i", numIterBox.getText(), "-s", tourSizeTextField.getText()};
+        } else if (type == GASelectionType.RandomTournament) {
+            if(repBox.getValue() == GAReplacePoblationType.Steadystatereset)
+                opt = new String[]{"-i", repNumIterTextField.getText(), "-s", tourSizeTextField.getText()};
+            else
+                opt = new String[]{"-i", numIterBox.getText(), "-s", tourSizeTextField.getText()};
         }
+        
         return new GASelectionConfig(num, type, opt);
     }
 
@@ -1072,21 +1073,21 @@ public class MainScene implements Initializable {
         String opts;
         switch (typeFit) {
             case SE_SUM_Relief:
-                opts = String.format("%s %s %s %s", AttributeQualityType.SE.toString(), "", AttributeQualityType.Relief.toString(), "temp");
+                opts = String.format("%s %s %s %s", AttributeQualityType.SE.toString(), "", AttributeQualityType.ReliefF.toString(), "temp");
                 options = opts.split(" ");
                 options[options.length - 1] = fitOptValues.getOptions();
-                break;
-            case CfsSubsetReliefSE:
-                opts = fitOptValues.getOptions();
-                String reOpts = opts.substring(opts.indexOf("-M"));
-                options = opts.substring(0, opts.indexOf("-M") + 1).split(" ");
-                options[3] = reOpts;
-                break;
+//                break;
+//            case CfsSubsetReliefSE:
+//                opts = fitOptValues.getOptions();
+//                String reOpts = opts.substring(opts.indexOf("-M"));
+//                options = opts.substring(0, opts.indexOf("-M") + 1).split(" ");
+//                options[3] = reOpts;
+//                break;
             case ReliefRankMean:
                 opts = fitOptValues.getOptions();
                 options = opts.split(" ");
         }
-        return new EvaluationFunctionConf(typeFit, options, vRetBox.getValue());
+        return new EvaluationFunctionConf(typeFit, options, new SubSetQualityConf(vRetBox.getValue()));
 
     }
 
@@ -1228,7 +1229,7 @@ public class MainScene implements Initializable {
             ga.setOnFailed(evt -> {
                 Throwable exception = evt.getSource().getException();
                 if (exception != null) {
-                    LOGGER.error(exception.toString());
+                    LOGGER.error(exception.toString(), exception);
                     new ShowAlerts().showError(exception.toString());
                 }
                 if (!ga.isDone()) {
@@ -1244,7 +1245,7 @@ public class MainScene implements Initializable {
             }
             service.shutdown();
             new ShowAlerts().showError(ex.getMessage());
-            LOGGER.error(ex.toString());
+            LOGGER.error(ex.toString(), ex);
             ended();
         }
     }
@@ -2035,7 +2036,29 @@ public class MainScene implements Initializable {
     }
 
     @FXML
-    private void showShoAgreMidasAction(ActionEvent event) {
+    private void showShoAgreMidasAction(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/fxml/descriptors/tomocomd/aggregations/ChoAgre.fxml"));
+        Parent root = fxmlLoader.load();
+
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/gui/styles/descriptorsParams.css");
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setResizable(false);
+        ((ChoquetAggController) fxmlLoader.getController()).setStage(stage);
+        ((ChoquetAggController) fxmlLoader.getController()).setCho(conf.getMidConf().getAgg().getChoquet());
+        stage.setTitle("Choquet aggregation operators Midas descriptors");
+        stage.getIcons().add(new Image(this.getClass().getResource("/gui/icons/molecule.png").toString()));
+        stage.setOnCloseRequest(action -> {
+            ((ChoquetAggController) fxmlLoader.getController()).setCho(conf.getMidConf().getAgg().getChoquet());
+            stage.close();
+        });
+        stage.showAndWait();
+        try {
+            conf.getMidConf().getAgg().setChoquet(((ChoquetAggController) fxmlLoader.getController()).getCho());
+        } catch (AggregationsConfException ex) {
+            new ShowAlerts().showWarning(ex.getMessage());
+        }
     }
 
     @FXML
@@ -2065,7 +2088,29 @@ public class MainScene implements Initializable {
     }
 
     @FXML
-    private void showGowAgreMidasAction(ActionEvent event) {
+    private void showGowAgreMidasAction(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/fxml/descriptors/tomocomd/aggregations/GowAgre.fxml"));
+        Parent root = fxmlLoader.load();
+
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/gui/styles/descriptorsParams.css");
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setResizable(false);
+        ((GowawaAggController) fxmlLoader.getController()).setStage(stage);
+        ((GowawaAggController) fxmlLoader.getController()).setGow(conf.getMidConf().getAgg().getGowawa());
+        stage.setTitle("Gowawa aggregation operators midas descriptors");
+        stage.getIcons().add(new Image(this.getClass().getResource("/gui/icons/molecule.png").toString()));
+        stage.setOnCloseRequest(action -> {
+            ((GowawaAggController) fxmlLoader.getController()).setGow(conf.getMidConf().getAgg().getGowawa());
+            stage.close();
+        });
+        stage.showAndWait();
+        try {
+            conf.getMidConf().getAgg().setGowawa(((GowawaAggController) fxmlLoader.getController()).getGow());
+        } catch (AggregationsConfException ex) {
+            new ShowAlerts().showWarning(ex.getMessage());
+        }
     }
 
     @FXML
@@ -2147,7 +2192,29 @@ public class MainScene implements Initializable {
     }
 
     @FXML
-    private void showShoAgreMasAction(ActionEvent event) {
+    private void showShoAgreMasAction(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/fxml/descriptors/tomocomd/aggregations/ChoAgre.fxml"));
+        Parent root = fxmlLoader.load();
+
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/gui/styles/descriptorsParams.css");
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setResizable(false);
+        ((ChoquetAggController) fxmlLoader.getController()).setStage(stage);
+        ((ChoquetAggController) fxmlLoader.getController()).setCho(conf.getMasConf().getAgg().getChoquet());
+        stage.setTitle("Choquet aggregation operators mas descriptors");
+        stage.getIcons().add(new Image(this.getClass().getResource("/gui/icons/molecule.png").toString()));
+        stage.setOnCloseRequest(action -> {
+            ((ChoquetAggController) fxmlLoader.getController()).setCho(conf.getMasConf().getAgg().getChoquet());
+            stage.close();
+        });
+        stage.showAndWait();
+        try {
+            conf.getMasConf().getAgg().setChoquet(((ChoquetAggController) fxmlLoader.getController()).getCho());
+        } catch (AggregationsConfException ex) {
+            new ShowAlerts().showWarning(ex.getMessage());
+        }
     }
 
     @FXML
@@ -2177,7 +2244,29 @@ public class MainScene implements Initializable {
     }
 
     @FXML
-    private void showGowAgreMasAction(ActionEvent event) {
+    private void showGowAgreMasAction(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/fxml/descriptors/tomocomd/aggregations/GowAgre.fxml"));
+        Parent root = fxmlLoader.load();
+
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/gui/styles/descriptorsParams.css");
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setResizable(false);
+        ((GowawaAggController) fxmlLoader.getController()).setStage(stage);
+        ((GowawaAggController) fxmlLoader.getController()).setGow(conf.getMasConf().getAgg().getGowawa());
+        stage.setTitle("Gowawa aggregation operators mas descriptors");
+        stage.getIcons().add(new Image(this.getClass().getResource("/gui/icons/molecule.png").toString()));
+        stage.setOnCloseRequest(action -> {
+            ((GowawaAggController) fxmlLoader.getController()).setGow(conf.getMasConf().getAgg().getGowawa());
+            stage.close();
+        });
+        stage.showAndWait();
+        try {
+            conf.getMasConf().getAgg().setGowawa(((GowawaAggController) fxmlLoader.getController()).getGow());
+        } catch (AggregationsConfException ex) {
+            new ShowAlerts().showWarning(ex.getMessage());
+        }
     }
 
     private void validateMeasures() {
@@ -2214,42 +2303,6 @@ public class MainScene implements Initializable {
     }
 
     @FXML
-    private void r2SubPobAction(ActionEvent event) {
-        if (r2FilterSubPobCheck.isSelected()) {
-            r2SubpobTextField.setDisable(false);
-        } else {
-            r2SubpobTextField.setDisable(true);
-        }
-    }
-
-    @FXML
-    private void seSubPobAction(ActionEvent event) {
-        if (seFilterSubPobCheck.isSelected()) {
-            seSubPobTextField.setDisable(false);
-        } else {
-            seSubPobTextField.setDisable(true);
-        }
-    }
-
-    @FXML
-    private void corSubPobAct(ActionEvent event) {
-        if (corFilterSubPobCheck.isSelected()) {
-            corSubPobTextField.setDisable(false);
-        } else {
-            corSubPobTextField.setDisable(true);
-        }
-    }
-
-    @FXML
-    private void kurSubPobOnAct(ActionEvent event) {
-        if (kurSubPobCheck.isSelected()) {
-            kurSubPobTextField.setDisable(false);
-        } else {
-            kurSubPobTextField.setDisable(true);
-        }
-    }
-
-    @FXML
     private void r2PobAction(ActionEvent event) {
         if (r2FilterPobCheck.isSelected()) {
             r2pobTextField.setDisable(false);
@@ -2283,5 +2336,104 @@ public class MainScene implements Initializable {
         } else {
             kurpobTextField.setDisable(true);
         }
+    }
+
+    @FXML
+    private void impTypeSubAct(ActionEvent event) {
+        if (impTypeSub.getValue() == ImputationMissingValuesType.Imputation) {
+            impValueSub.setDisable(false);
+        } else {
+            impValueSub.setDisable(true);
+        }
+
+    }
+
+    @FXML
+    private void nanSubPobAction(ActionEvent event) {
+        if (nanFilterSubPobCheck.isSelected()) {
+            impTypeSub.setDisable(false);
+            impTypeSub.setValue(ImputationMissingValuesType.Delete);
+            impValueSub.setDisable(true);
+        } else {
+            impTypeSub.setDisable(true);
+            impValueSub.setDisable(true);
+        }
+    }
+
+    @FXML
+    private void comSubSetAction(ActionEvent event) {
+        ((GAConf) conf.getSearch()).getFamConf().setCompareSubset(comSubSetCheckBox.isSelected());
+    }
+
+    @FXML
+    private void coopAction(ActionEvent event) {
+        ((GAConf) conf.getSearch()).setCoop(coopCheck.isSelected());
+    }
+
+    @FXML
+    private void aggSearchAction(ActionEvent event) {
+        ((GAConf) conf.getSearch()).getFamConf().setsAType(aggSearchCombo.getValue());
+    }
+
+    @FXML
+    private void builModelAction(ActionEvent event) throws IOException {
+
+        TreeItem<ExecutionInfo> info = treeTableExecution.getSelectionModel().getSelectedItem();
+//     
+
+        String name = getPathFromtableExec(info);
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/fxml/buildmodels/BuildModel.fxml"));
+        Parent root = fxmlLoader.load();
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/gui/styles/Styles.css");
+        Stage myStage = new Stage();
+        myStage.setTitle("QSAR-ToMoCoMD models for "+new File(name).getName());
+        myStage.setScene(scene);
+        myStage.setMaximized(true);
+        myStage.setResizable(true);
+        ((BuildModelController) fxmlLoader.getController()).setStage(myStage);
+        ((BuildModelController) fxmlLoader.getController()).
+                setPath(name);
+        ((BuildModelController) fxmlLoader.getController()).setAct("Activity");
+        Image ima = new Image(this.getClass().getResource("/gui/icons/molecule.png").toString());
+//        stage.getIcons().add(ima);
+        myStage.show();
+    }
+
+    @FXML
+    private void showSEExtDBAction(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/fxml/charts/SEGraph.fxml"));
+        Parent root = fxmlLoader.load();
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/gui/styles/Styles.css");
+        Stage myStage = new Stage();
+        myStage.setScene(scene);
+        myStage.setMaximized(true);
+        myStage.setResizable(true);
+        ((SEGraphController) fxmlLoader.getController()).setStage(myStage);
+
+        myStage.setTitle("QSAR-ToMoCoMD");
+        Image ima = new Image(this.getClass().getResource("/gui/icons/molecule.png").toString());
+        myStage.show();
+    }
+
+    @FXML
+    private void buildModelDBExtAction(ActionEvent event) throws IOException {
+        
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/fxml/buildmodels/BuildModel.fxml"));
+        Parent root = fxmlLoader.load();
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/gui/styles/Styles.css");
+        Stage myStage = new Stage();
+        myStage.setTitle("QSAR-ToMoCoMD models");
+        myStage.setScene(scene);
+        myStage.setMaximized(true);
+        myStage.setResizable(true);
+        ((BuildModelController) fxmlLoader.getController()).setStage(myStage);        
+//        ((BuildModelController) fxmlLoader.getController()).setAct("Activity");
+        Image ima = new Image(this.getClass().getResource("/gui/icons/molecule.png").toString());
+//        stage.getIcons().add(ima);
+        myStage.show();
     }
 }
