@@ -5,7 +5,7 @@
  */
 package com.tomocomd.qsartomocomd.gui.buildmodels;
 
-import com.tomocomd.qsartomocomdlib.modelssearch.ModelInfo;
+import com.tomocomd.qsartomocomdlib.modelssearch.ModelRegressionInfo;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
@@ -14,7 +14,7 @@ import com.tomocomd.qsartomocomdlib.data.TomocomdInstances;
 import com.tomocomd.qsartomocomdlib.descriptors.descriptors.TomocomdDescriptor;
 import com.tomocomd.qsartomocomdlib.io.CSVFileManage;
 import com.tomocomd.qsartomocomdlib.io.SDFFiles;
-import com.tomocomd.qsartomocomdlib.modelssearch.OptimizationParam;
+import com.tomocomd.qsartomocomdlib.modelssearch.OptimizationRegressionParam;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -82,27 +82,27 @@ public class BuildModelController implements Initializable {
     @FXML
     private JFXTextField sdfExtFiled;
     @FXML
-    private TableColumn<ModelInfo, String> modelIdColumn;
+    private TableColumn<ModelRegressionInfo, String> modelIdColumn;
     @FXML
-    private TableColumn<ModelInfo, Double> R2LooColumn;
+    private TableColumn<ModelRegressionInfo, Double> R2LooColumn;
     @FXML
-    private TableColumn<ModelInfo, Double> MaeLooColumn;
+    private TableColumn<ModelRegressionInfo, Double> MaeLooColumn;
     @FXML
-    private TableColumn<ModelInfo, Double> R2ExtColumn;
+    private TableColumn<ModelRegressionInfo, Double> R2ExtColumn;
     @FXML
-    private TableColumn<ModelInfo, Double> MaeExtColumn;
+    private TableColumn<ModelRegressionInfo, Double> MaeExtColumn;
     @FXML
-    private TableView<ModelInfo> tableModelInfo;
+    private TableView<ModelRegressionInfo> tableModelInfo;
     @FXML
     private JFXComboBox<String> actCombo;
     @FXML
     private JFXComboBox<String> ClasCombo;
     @FXML
-    private TableColumn<ModelInfo, Integer> sizeColumn;
+    private TableColumn<ModelRegressionInfo, Integer> sizeColumn;
     @FXML
-    private TableColumn<ModelInfo, String> selColumn;
+    private TableColumn<ModelRegressionInfo, String> selColumn;
     @FXML
-    private TableColumn<ModelInfo, String> clasColumn;
+    private TableColumn<ModelRegressionInfo, String> clasColumn;
     @FXML
     private ContextMenu modelCM;
     @FXML
@@ -130,7 +130,7 @@ public class BuildModelController implements Initializable {
     @FXML
     private JFXButton sortButton;
     @FXML
-    private JFXComboBox<OptimizationParam> paramCamboBox;
+    private JFXComboBox<OptimizationRegressionParam> paramCamboBox;
 
     /**
      * Initializes the controller class.
@@ -196,7 +196,7 @@ public class BuildModelController implements Initializable {
         pathCSV = "";
         pathSDF = "";
         
-        paramCamboBox.getItems().setAll(OptimizationParam.values());
+        paramCamboBox.getItems().setAll(OptimizationRegressionParam.values());
         paramCamboBox.getSelectionModel().selectFirst();
     }
 
@@ -269,7 +269,7 @@ public class BuildModelController implements Initializable {
     }
 
     private void executeService() {
-        List<ModelInfo> oldModels = new LinkedList<>(tableModelInfo.getItems());
+        List<ModelRegressionInfo> oldModels = new LinkedList<>(tableModelInfo.getItems());
         Node oldPlaceHolder = tableModelInfo.getPlaceholder();
         tableModelInfo.getItems().clear();
         taskService.setOnSucceeded(eventFinish -> {
@@ -404,7 +404,7 @@ public class BuildModelController implements Initializable {
     @FXML
     private void modelSaveAction(ActionEvent event) throws Exception {
 
-        ObservableList<ModelInfo> infos = tableModelInfo.getSelectionModel().getSelectedItems();
+        ObservableList<ModelRegressionInfo> infos = tableModelInfo.getSelectionModel().getSelectedItems();
 
         if (infos != null) {
             DirectoryChooser fileChooser = new DirectoryChooser();
@@ -418,7 +418,7 @@ public class BuildModelController implements Initializable {
 
             folder = fileChooser.showDialog(stage);
 
-            for (ModelInfo info : infos) {
+            for (ModelRegressionInfo info : infos) {
                 try {
                     FileOutputStream fileOut = new FileOutputStream(new File(folder, String.format("model%d.qtmodel", info.getModelId())));
                     ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
@@ -436,7 +436,7 @@ public class BuildModelController implements Initializable {
 
     @FXML
     private void modelMDsSaveAction(ActionEvent event) throws Exception {
-        ObservableList<ModelInfo> infos = tableModelInfo.getSelectionModel().getSelectedItems();
+        ObservableList<ModelRegressionInfo> infos = tableModelInfo.getSelectionModel().getSelectedItems();
 
         if (infos != null) {
             DirectoryChooser fileChooser = new DirectoryChooser();
@@ -451,7 +451,7 @@ public class BuildModelController implements Initializable {
             file = fileChooser.showDialog(stage);
 
             Set<String> desc = new LinkedHashSet<>();
-            for (ModelInfo info : infos) {
+            for (ModelRegressionInfo info : infos) {
                 desc.addAll(Arrays.asList(info.getDesc()));
                 try {
                     PrintWriter pw = new PrintWriter(new File(file, String.format("model%d.descs", info.getModelId())));
@@ -512,7 +512,7 @@ public class BuildModelController implements Initializable {
                 BufferedWriter w = new BufferedWriter(fw);
                 w.write("id,model,feature select, classifier,size,R2,R2Ext,Mae,MaeExt,desc\n");
 
-                for (ModelInfo info : tableModelInfo.getItems()) {
+                for (ModelRegressionInfo info : tableModelInfo.getItems()) {
                     String res = String.format("%s,%s,%s,%s,%d,%.6f,%.6f,%.6f,%.6f,%s\n",
                             info.getModelId(), info.getClas().toString().replaceAll(" ", "").replaceAll("\n", " "),
                             info.getSelName(),
@@ -550,7 +550,7 @@ public class BuildModelController implements Initializable {
 
     @FXML
     private void selectionMDAction(ActionEvent event) throws Exception {
-        ModelInfo info = tableModelInfo.getSelectionModel().getSelectedItem();
+        ModelRegressionInfo info = tableModelInfo.getSelectionModel().getSelectedItem();
 
         if (info != null) {
             taskService = new SelectionService(actCombo.getSelectionModel().getSelectedItem(),
@@ -561,7 +561,7 @@ public class BuildModelController implements Initializable {
 
     @FXML
     private void clasificationAction(ActionEvent event) throws Exception {
-        ModelInfo info = tableModelInfo.getSelectionModel().getSelectedItem();
+        ModelRegressionInfo info = tableModelInfo.getSelectionModel().getSelectedItem();
 
         if (info != null) {
 
@@ -574,7 +574,7 @@ public class BuildModelController implements Initializable {
 
     @FXML
     private void selclasificationAction(ActionEvent event) throws Exception {
-        ModelInfo info = tableModelInfo.getSelectionModel().getSelectedItem();
+        ModelRegressionInfo info = tableModelInfo.getSelectionModel().getSelectedItem();
 
         if (info != null) {
             taskService = new SelClasService(actCombo.getSelectionModel().getSelectedItem(),
@@ -584,7 +584,7 @@ public class BuildModelController implements Initializable {
 
     }
 
-    private Instances getDescAndFilter(ModelInfo info) throws Exception {
+    private Instances getDescAndFilter(ModelRegressionInfo info) throws Exception {
         List<String> desc = Arrays.asList(info.getDesc());
 
         List<Integer> pos = new LinkedList<>();
@@ -615,7 +615,7 @@ public class BuildModelController implements Initializable {
 
     @FXML
     private void saveIDataAction(ActionEvent event) throws Exception {
-        ObservableList<ModelInfo> infos = tableModelInfo.getSelectionModel().getSelectedItems();
+        ObservableList<ModelRegressionInfo> infos = tableModelInfo.getSelectionModel().getSelectedItems();
 
         if (infos != null) {
             DirectoryChooser fileChooser = new DirectoryChooser();
@@ -630,7 +630,7 @@ public class BuildModelController implements Initializable {
             file = fileChooser.showDialog(stage);
 
             Set<Integer> descId = new LinkedHashSet<>();
-            for (ModelInfo info : infos) {
+            for (ModelRegressionInfo info : infos) {
                 Set<String> localDesc = new LinkedHashSet<>(Arrays.asList(info.getDesc()));
                 List<Integer> localDescId = new LinkedList<>();
                 
@@ -701,11 +701,11 @@ public class BuildModelController implements Initializable {
 
     @FXML
     private void sortAction(ActionEvent event) {
-        List<ModelInfo> oldModels = new LinkedList<>(tableModelInfo.getItems());
+        List<ModelRegressionInfo> oldModels = new LinkedList<>(tableModelInfo.getItems());
         
-        oldModels.sort(new Comparator<ModelInfo>() {
+        oldModels.sort(new Comparator<ModelRegressionInfo>() {
             @Override
-            public int compare(ModelInfo o1, ModelInfo o2) {
+            public int compare(ModelRegressionInfo o1, ModelRegressionInfo o2) {
                 double p1 = (o1.getR2Ext()+o1.getR2Loo())/2;
                 double p2 = (o2.getR2Ext()+o2.getR2Loo())/2;
                 if( p1 < p2 ){

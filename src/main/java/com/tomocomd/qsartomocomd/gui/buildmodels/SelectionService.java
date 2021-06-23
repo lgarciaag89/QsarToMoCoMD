@@ -5,13 +5,13 @@
  */
 package com.tomocomd.qsartomocomd.gui.buildmodels;
 
-import com.tomocomd.qsartomocomdlib.modelssearch.ModelInfo;
+import com.tomocomd.qsartomocomdlib.modelssearch.ModelRegressionInfo;
 import com.tomocomd.qsartomocomd.gui.alerts.ShowAlerts;
 import com.tomocomd.qsartomocomdlib.data.TomocomdInstances;
 import com.tomocomd.qsartomocomdlib.descriptors.descriptors.TomocomdDescriptor;
 import com.tomocomd.qsartomocomdlib.io.SDFFiles;
-import com.tomocomd.qsartomocomdlib.modelssearch.OptimizationParam;
-import com.tomocomd.qsartomocomdlib.modelssearch.SearchByExternalValidation;
+import com.tomocomd.qsartomocomdlib.modelssearch.OptimizationRegressionParam;
+import com.tomocomd.qsartomocomdlib.modelssearch.SearchRegresionModelByExternalValidation;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -33,11 +33,11 @@ public class SelectionService extends AbstractServiceValue {
     private Instances train;
     private List<AbstractClassifier> classifiers;
     private int mId;
-    private OptimizationParam opt;
-    List<ModelInfo> infos ;
+    private OptimizationRegressionParam opt;
+    List<ModelRegressionInfo> infos ;
 
     public SelectionService(String act, String pathSDF, String pathCSV, Instances train, List<AbstractClassifier> classifiers, 
-            int mId, OptimizationParam oP) {
+            int mId, OptimizationRegressionParam oP) {
         this.act = act;
         this.pathSDF = pathSDF;
         this.pathCSV = pathCSV;
@@ -48,31 +48,31 @@ public class SelectionService extends AbstractServiceValue {
         opt = oP;
     }
 
-    public OptimizationParam getOpt() {
+    public OptimizationRegressionParam getOpt() {
         return opt;
     }
 
-    public void setOpt(OptimizationParam opt) {
+    public void setOpt(OptimizationRegressionParam opt) {
         this.opt = opt;
     }
     
     
     @Override
-    public List<ModelInfo> getValues() {
+    public List<ModelRegressionInfo> getValues() {
         return infos;
     }
     
     @Override
-    protected List<ModelInfo> call() throws Exception {
+    protected List<ModelRegressionInfo> call() throws Exception {
         selection();
         return infos;
     }
 
-    public List<ModelInfo> getInfos() {
+    public List<ModelRegressionInfo> getInfos() {
         return infos;
     }
 
-    public void setInfos(List<ModelInfo> infos) {
+    public void setInfos(List<ModelRegressionInfo> infos) {
         this.infos = infos;
     }
 
@@ -151,7 +151,7 @@ public class SelectionService extends AbstractServiceValue {
 
         inst.setClassIndex(cIdx);
         AttributeSelection asSubset = new AttributeSelection();
-        SearchByExternalValidation search = new SearchByExternalValidation(inst, pathCSV + "_sel.csv", 
+        SearchRegresionModelByExternalValidation search = new SearchRegresionModelByExternalValidation(inst, pathCSV + "_sel.csv", 
                 act, classifier,infos,mId+infos.size(),opt);
         asSubset.setSearch(new BestFirst());
         asSubset.setEvaluator(search);

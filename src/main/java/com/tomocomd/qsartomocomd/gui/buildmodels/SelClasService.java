@@ -8,8 +8,8 @@ package com.tomocomd.qsartomocomd.gui.buildmodels;
 import com.tomocomd.qsartomocomdlib.data.TomocomdInstances;
 import com.tomocomd.qsartomocomdlib.descriptors.descriptors.TomocomdDescriptor;
 import com.tomocomd.qsartomocomdlib.io.SDFFiles;
-import com.tomocomd.qsartomocomdlib.modelssearch.BuildSeveralModels;
-import com.tomocomd.qsartomocomdlib.modelssearch.ModelInfo;
+import com.tomocomd.qsartomocomdlib.modelssearch.BuildSeveralRegressionModels;
+import com.tomocomd.qsartomocomdlib.modelssearch.ModelRegressionInfo;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
@@ -44,10 +44,10 @@ public class SelClasService extends AbstractServiceValue {
     private Instances train;
     private int modelId;
     private String method;
-    List<ModelInfo> infos;
+    List<ModelRegressionInfo> infos;
 
     @Override
-    public List<ModelInfo> getValues() {
+    public List<ModelRegressionInfo> getValues() {
         return infos;
     }
 
@@ -120,7 +120,7 @@ public class SelClasService extends AbstractServiceValue {
     }
 
     @Override
-    protected List<ModelInfo> call() throws Exception {
+    protected List<ModelRegressionInfo> call() throws Exception {
         if (method.equals("cls")) {
             cls();
         } else {
@@ -138,7 +138,7 @@ public class SelClasService extends AbstractServiceValue {
         ArrayList<AbstractClassifier> classifiers = new ArrayList<AbstractClassifier>(Arrays.asList(
                 lr, new SMOreg(), new IBk(3), new IBk(4), new IBk(5), new IBk(6), new RandomForest(), new MultilayerPerceptron())); // new RandomForest(),
 
-        BuildSeveralModels models = new BuildSeveralModels(classifiers, modelId,infos);
+        BuildSeveralRegressionModels models = new BuildSeveralRegressionModels(classifiers, modelId,infos);
 
         TomocomdInstances actInst = null;
 
@@ -202,7 +202,7 @@ public class SelClasService extends AbstractServiceValue {
 
         ASSearch[] searchs = {new BestFirst(), new GreedyStepwise(), new GeneticSearch()};
 
-        BuildSeveralModels models = new BuildSeveralModels(classifiers, evas, Arrays.asList(searchs), modelId, infos);
+        BuildSeveralRegressionModels models = new BuildSeveralRegressionModels(classifiers, evas, Arrays.asList(searchs), modelId, infos);
 
         TomocomdInstances actInst = null;
 

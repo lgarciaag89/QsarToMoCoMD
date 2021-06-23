@@ -5,7 +5,7 @@
  */
 package com.tomocomd.qsartomocomd.gui.buildmodels;
 
-import com.tomocomd.qsartomocomdlib.modelssearch.ModelInfo;
+import com.tomocomd.qsartomocomdlib.modelssearch.ModelRegressionInfo;
 import java.util.List;
 import javafx.concurrent.Task;
 
@@ -13,6 +13,6 @@ import javafx.concurrent.Task;
  *
  * @author lgarc
  */
-public abstract class AbstractServiceValue extends Task<List<ModelInfo>> {
-    public abstract List<ModelInfo> getValues();
+public abstract class AbstractServiceValue extends Task<List<ModelRegressionInfo>> {
+    public abstract List<ModelRegressionInfo> getValues();
 }
